@@ -1,0 +1,10 @@
+class CreateClientDislikes < ActiveRecord::Migration[5.0]
+  def change
+    create_table :client_dislikes do |t|
+      t.integer :client_id
+      t.string :description
+
+      t.timestamps
+    end
+  end
+end

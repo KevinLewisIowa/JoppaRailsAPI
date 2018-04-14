@@ -1,0 +1,2 @@
+class CampingEquipment < ApplicationRecord
+end

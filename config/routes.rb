@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  resources :volunteers
+  resources :camping_equipment_given_dates
+  resources :camping_equipments
+  resources :goals_and_next_steps
+  resources :requested_items
+  resources :prayer_request_and_needs
+  resources :client_likes
+  resources :client_dislikes
+  resources :clients
   resources :locations
   resources :routes
   resources :users

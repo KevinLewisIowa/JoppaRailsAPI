@@ -8,7 +8,6 @@ class UsersController < ApplicationController
     render json: @users
   end
 ##curl -H "Content-Type:application/json; charset=utf-8" https://joppa-api-kevinlewis2.c9users.io/users
-
   # GET /users/1
   def show
     render json: @user

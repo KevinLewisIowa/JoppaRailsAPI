@@ -1,0 +1,2 @@
+class ClientLike < ApplicationRecord
+end

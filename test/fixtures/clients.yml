@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  preferredName: MyString
+  isVeteran: false
+  birthDate: 2018-04-14
+  isAfterCare: false
+  shoeSize: MyString
+  phone: MyString
+  joppaApartmentNumber: MyString
+
+two:
+  preferredName: MyString
+  isVeteran: false
+  birthDate: 2018-04-14
+  isAfterCare: false
+  shoeSize: MyString
+  phone: MyString
+  joppaApartmentNumber: MyString

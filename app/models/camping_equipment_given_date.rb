@@ -1,0 +1,2 @@
+class CampingEquipmentGivenDate < ApplicationRecord
+end

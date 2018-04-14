@@ -10,19 +10,117 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180328193227) do
+ActiveRecord::Schema.define(version: 20180414190119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "camping_equipment_given_dates", force: :cascade do |t|
+    t.integer  "client_id"
+    t.integer  "camping_equipment_id"
+    t.date     "date_given"
+    t.boolean  "has_returned"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "camping_equipments", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "is_available"
+    t.string   "joppa_number"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "client_dislikes", force: :cascade do |t|
+    t.integer  "client_id"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "client_likes", force: :cascade do |t|
+    t.integer  "client_id"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string   "preferredName"
+    t.boolean  "isVeteran"
+    t.date     "birthDate"
+    t.boolean  "isAfterCare"
+    t.string   "shoeSize"
+    t.string   "phone"
+    t.string   "joppaApartmentNumber"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "goals_and_next_steps", force: :cascade do |t|
+    t.integer  "client_id"
+    t.string   "description"
+    t.boolean  "is_completed"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.integer  "route_id"
+    t.string   "name"
+    t.integer  "position"
+    t.string   "notes"
+    t.decimal  "longitude"
+    t.decimal  "latitude"
+    t.boolean  "is_active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "prayer_request_and_needs", force: :cascade do |t|
+    t.integer  "client_id"
+    t.string   "detail"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "requested_items", force: :cascade do |t|
+    t.integer  "client_id"
+    t.string   "item_description"
+    t.date     "date_requested"
+    t.boolean  "has_received"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "routes", force: :cascade do |t|
+    t.string   "city"
+    t.string   "name"
+    t.boolean  "is_active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
     t.string   "password"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "session_token"
+    t.string   "password_digest"
+  end
+
+  create_table "volunteers", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone_number"
+    t.string   "email"
+    t.date     "birth_date"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
 end
