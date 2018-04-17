@@ -23,6 +23,41 @@ class ClientsController < ApplicationController
       render json: @client.errors, status: :unprocessable_entity
     end
   end
+  
+  # GET /clientLikes?clientId={id}
+  def getClientLikes
+    @likes = ClientLike.find_by(client_id: params[:clientId])
+    
+    render json: @likes
+  end
+  
+  # GET /getClientDislikes?clientId={id}
+  def getClientDislikes
+    @dislikes = ClientDislike.find_by(client_id: params[:clientId])
+    
+    render json: @dislikes
+  end
+  
+  # GET /getClientGoals?clientId={id}
+  def getClientGoals
+    @goals = GoalsAndNextStep.find_by(client_id: params[:clientId])
+    
+    render json: @dislikes
+  end
+  
+  # GET /getClientPrayerRequests?clientId={id}
+  def getClientPrayerRequests
+    @requests = PrayerRequestAndNeed.find_by(client_id: params[:clientId])
+    
+    render json: @dislikes
+  end
+  
+  # GET /getClientRequestedItem?clientId={id}
+  def getClientRequestedItem
+    @items = RequestedItem.find_by(client_id: params[:clientId])
+    
+    render json: @items
+  end
 
   # PATCH/PUT /clients/1
   def update

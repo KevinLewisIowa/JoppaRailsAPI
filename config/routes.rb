@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get       'locationsForRoute'   => 'locations#locationsForRoute'
+  get       'getClientLikes'      => 'clients#getClientLikes'
+  get       'getClientDislikes'   => 'clients#getClientDislikes'
+  get       'getClientGoals'      => 'clients#getClientGoals'
+  get       'getClientPrayerRequests' => 'clients#getClientPrayerRequests'
+  get       'getClientRequestedItem' => 'clients#getClientRequestedItem'
   resources :volunteers
   resources :camping_equipment_given_dates
   resources :camping_equipments
