@@ -44,6 +44,20 @@ class LocationsController < ApplicationController
     
     render json: @locations
   end
+  
+  def clientsForLocation
+    results = Array.new
+    @clientIds = ClientInteraction.find_by(location_id: params[:locationId])
+    
+    @clientIds.each do |clientId|
+        tempClient = Client.find_by_id(clientId.client_id)
+        if tempClient != nil
+          results.push(tempClient);
+        end
+    end
+    
+    render json: results
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

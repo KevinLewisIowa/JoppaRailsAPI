@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  resources :client_interactions
   get       'locationsForRoute'   => 'locations#locationsForRoute'
   get       'getClientLikes'      => 'clients#getClientLikes'
   get       'getClientDislikes'   => 'clients#getClientDislikes'
   get       'getClientGoals'      => 'clients#getClientGoals'
   get       'getClientPrayerRequests' => 'clients#getClientPrayerRequests'
   get       'getClientRequestedItem' => 'clients#getClientRequestedItem'
+  get       'clientsForLocation'  =>  'locations#clientsForLocation'
   resources :volunteers
   resources :camping_equipment_given_dates
   resources :camping_equipments

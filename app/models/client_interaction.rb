@@ -1,0 +1,2 @@
+class ClientInteraction < ApplicationRecord
+end
