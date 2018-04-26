@@ -45,9 +45,9 @@ class LocationsController < ApplicationController
     render json: @locations
   end
   
-  def clientsForLocation
+  def getClientsForLocation
     results = Array.new
-    @clientIds = ClientInteraction.find_by(location_id: params[:locationId])
+    @clientIds = ClientInteraction.where(:location_id => params[:locationId])
     
     @clientIds.each do |clientId|
         tempClient = Client.find_by_id(clientId.client_id)
