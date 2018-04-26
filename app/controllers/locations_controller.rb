@@ -40,7 +40,7 @@ class LocationsController < ApplicationController
   
   # GET /locationsForRoute?routeId={id}
   def locationsForRoute
-    @locations = Location.find_by(route_id: params[:routeId]) #maybe Location.where('route_id = ?', params[:routeId])
+    @locations = Location.where(:route_id => params[:routeId]) #maybe Location.where('route_id = ?', params[:routeId])
     
     render json: @locations
   end
