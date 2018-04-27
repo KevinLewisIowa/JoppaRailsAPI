@@ -72,6 +72,19 @@ class ClientsController < ApplicationController
   def destroy
     @client.destroy
   end
+  
+  def getClientsByName
+    @clientName = params[:name];
+    
+    @clientList = [];
+    if @clientName == 'ALLCLIENTS'
+      @clientList = Client.all
+    else
+      @clientList = Client.where(:preferredName => @clientName)
+    end
+    
+    render json: @clientList
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

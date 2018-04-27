@@ -29,6 +29,7 @@ Things you may want to cover:
 * git commit -m "the message"
 * git push heroku master
 * heroku run rails db:migrate
+* heroku pg:reset   to reset pg database
 * 
 * to restart the database fresh, do heroku run rails db:migrate:reset
 
