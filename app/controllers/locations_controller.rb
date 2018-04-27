@@ -50,13 +50,13 @@ class LocationsController < ApplicationController
     @clientIds = ClientInteraction.where(:location_id => params[:locationId])
     
     @clientIds.each do |clientId|
-        tempClient = Client.find_by_id(clientId.client_id)
+        tempClient = Client.find(clientId.client_id)
         if tempClient != nil
           results.push(tempClient);
         end
     end
     
-    render json: results
+    render json: @clientIds
   end
 
   private
