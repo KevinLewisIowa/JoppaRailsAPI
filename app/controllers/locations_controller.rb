@@ -61,7 +61,7 @@ class LocationsController < ApplicationController
     @resultSet = Client.joins("INNER JOIN (SELECT * FROM client_interactions) ON 
                               client_interactions.client_id = clients.id 
                               WHERE client_interactions.still_lives_here = true 
-                              AND client_interactions.created_date = (SELECT MAX(created_date) 
+                              AND client_interactions.created_at = (SELECT MAX(created_at) 
                                   from client_interactions WHERE client_id = clients.id)")
                             .where(:location_camp_id => params[:locationCampId])
     
