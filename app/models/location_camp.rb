@@ -1,0 +1,2 @@
+class LocationCamp < ApplicationRecord
+end
