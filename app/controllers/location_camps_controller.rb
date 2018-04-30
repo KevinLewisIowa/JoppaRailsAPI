@@ -37,6 +37,12 @@ class LocationCampsController < ApplicationController
   def destroy
     @location_camp.destroy
   end
+  
+  def getCampsForLocation
+    @camps = LocationCamp.where(:location_id => params[:locationId]);
+    
+    render json: @camps
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

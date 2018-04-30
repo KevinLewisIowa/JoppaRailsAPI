@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get       'getClientRequestedItem' => 'clients#getClientRequestedItem'
   get       'getClientsForLocationCamp'  =>  'locations#getClientsForLocationCamp'
   get       'getClientsByName'    => 'clients#getClientsByName'
+  get       'getCampsForLocation' => 'location_camps#getCampsForLocation'
   resources :volunteers
   resources :camping_equipment_given_dates
   resources :camping_equipments

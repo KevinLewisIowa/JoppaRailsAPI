@@ -46,17 +46,32 @@ class LocationsController < ApplicationController
   end
   
   def getClientsForLocationCamp
-    results = Array.new
-    @clientIds = ClientInteraction.where(:location_camp_id => params[:locationCampId])
+   # results = Array.new
+   # @clientIds = ClientInteraction.where(:location_camp_id => params[:locationCampId])
     
-    @clientIds.each do |clientId|
-        tempClient = Client.find(clientId.client_id)
-        if tempClient != nil
-          results.push(tempClient);
-        end
-    end
+   # @clientIds.each do |clientId|
+   #     tempClient = Client.find(clientId.client_id)
+   #     if tempClient != nil
+   #       results.push(tempClient);
+   #     end
+    #end
     
-    render json: @clientIds
+    #render json: @clientIds
+    
+    @resultSet = Client.joins("INNER JOIN (SELECT * FROM client_interactions) ON 
+                              client_interactions.client_id = clients.id 
+                              WHERE client_interactions.still_lives_here = true 
+                              AND client_interactions.created_date = (SELECT MAX(created_date) 
+                                  from client_interactions WHERE client_id = clients.id)")
+                            .where(:location_camp_id => params[:locationCampId])
+    
+    render json: @resultSet
+    
+    #SELECT * FROM clients JOIN client_interactions ON 
+    #clients.id = client_interactions.client_id 
+    #WHERE client_interactions.still_lives_here 
+      #AND client_interactions.created_date = (SELECT MAX(created_date) from client_interactions WHERE client_id = clients.id) 
+        #AND client_interactions.location_camp_id = locationCampId
   end
 
   private
