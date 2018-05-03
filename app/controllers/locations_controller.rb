@@ -57,15 +57,23 @@ class LocationsController < ApplicationController
     #end
     
     #render json: @clientIds
+    results = Array.new
+    @locationCamp = LocationCamp.find(params[:locationCampId]);
     
-    @resultSet = Client.joins("INNER JOIN (SELECT * FROM client_interactions) ON 
-                              client_interactions.client_id = clients.id 
-                              WHERE client_interactions.still_lives_here = true 
-                              AND client_interactions.created_at = (SELECT MAX(created_at) 
-                                  from client_interactions WHERE client_id = clients.id)")
-                            .where(:location_camp_id => params[:locationCampId])
+    @locationCamp.client_interactions.each do |interaction|
+      results.push(interaction.client)
+    end
     
-    render json: @resultSet
+    render json: results
+    
+   # @resultSet = Client.joins("INNER JOIN (SELECT * FROM client_interactions) ON 
+   #                           client_interactions.client_id = clients.id 
+    #                          WHERE client_interactions.still_lives_here = true 
+    #                          AND client_interactions.created_at = (SELECT MAX(created_at) 
+    #                              from client_interactions WHERE client_id = clients.id)")
+    #                        .where(:location_camp_id => params[:locationCampId])
+    
+    #render json: @resultSet
     
     #SELECT * FROM clients JOIN client_interactions ON 
     #clients.id = client_interactions.client_id 
