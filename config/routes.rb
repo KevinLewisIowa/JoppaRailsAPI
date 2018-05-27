@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get       'getClientsForLocationCampA'  =>  'locations#getClientsForLocationCampA'
   get       'getClientsForLocationCampB'  =>  'locations#getClientsForLocationCampB'
   get       'getClientsForLocationCampC'  =>  'locations#getClientsForLocationCampC'
+  get       'getClientsForLocationCampC'  =>  'locations#getClientsForLocationCampC'
   get       'getClientsByName'    => 'clients#getClientsByName'
   get       'getCampsForLocation' => 'location_camps#getCampsForLocation'
   resources :volunteers
