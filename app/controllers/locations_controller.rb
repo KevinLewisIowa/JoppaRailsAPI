@@ -66,9 +66,11 @@ class LocationsController < ApplicationController
   def getClientsForLocationCampD
     results = Array.new
     @maybeDates = ClientInteraction.where(:location_camp_id => params[:locationCampId]).group("client_id").maximum(:created_at)
-    @interactions = ClientInteraction.where(:created_at => @maybeDates)
-    @interactions.each do |interaction|
-      results.push(interaction.client)
+    @maybeDates.each do |theDate|
+      @theInteraction = ClientInteraction.where(:created_at => theDate)
+      if @theInteraction.still_lives_here
+        results.push(@theInteraction.client)
+      end
     end
     
     render json: results;
