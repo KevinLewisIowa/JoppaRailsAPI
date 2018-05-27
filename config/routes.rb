@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get       'getClientGoals'      => 'clients#getClientGoals'
   get       'getClientPrayerRequests' => 'clients#getClientPrayerRequests'
   get       'getClientRequestedItem' => 'clients#getClientRequestedItem'
-  get       'getClientsForLocationCamp'  =>  'locations#getClientsForLocationCamp'
+  get       'getClientsForLocationCampA'  =>  'locations#getClientsForLocationCampA'
+  get       'getClientsForLocationCampB'  =>  'locations#getClientsForLocationCampB'
+  get       'getClientsForLocationCampC'  =>  'locations#getClientsForLocationCampC'
   get       'getClientsByName'    => 'clients#getClientsByName'
   get       'getCampsForLocation' => 'location_camps#getCampsForLocation'
   resources :volunteers

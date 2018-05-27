@@ -45,18 +45,7 @@ class LocationsController < ApplicationController
     render json: @locations
   end
   
-  def getClientsForLocationCamp
-   # results = Array.new
-   # @clientIds = ClientInteraction.where(:location_camp_id => params[:locationCampId])
-    
-   # @clientIds.each do |clientId|
-   #     tempClient = Client.find(clientId.client_id)
-   #     if tempClient != nil
-   #       results.push(tempClient);
-   #     end
-    #end
-    
-    #render json: @clientIds
+  def getClientsForLocationCampB
     results = Array.new
     @locationCamp = LocationCamp.find(params[:locationCampId]);
     
@@ -65,21 +54,18 @@ class LocationsController < ApplicationController
     end
     
     render json: results
+  end
+  
+  def getClientsForLocationCampC
+    @maybeDates = ClientInteraction.where(:location_camp_id => params[:locationCampId]).group("client_id").maximum(:created_at)
+    render json: @maybeDates;
+  end
+  
+  def getClientsForLocationCampA
+    ids = ClientInteraction.where(:location_camp_id => params[:loacionCampId]).select("MAX(id) AS id").group(:client_id).collect(&:id)
+    @results = ClientInteraction.order("created_at DESC").where(:id => ids);
     
-   # @resultSet = Client.joins("INNER JOIN (SELECT * FROM client_interactions) ON 
-   #                           client_interactions.client_id = clients.id 
-    #                          WHERE client_interactions.still_lives_here = true 
-    #                          AND client_interactions.created_at = (SELECT MAX(created_at) 
-    #                              from client_interactions WHERE client_id = clients.id)")
-    #                        .where(:location_camp_id => params[:locationCampId])
-    
-    #render json: @resultSet
-    
-    #SELECT * FROM clients JOIN client_interactions ON 
-    #clients.id = client_interactions.client_id 
-    #WHERE client_interactions.still_lives_here 
-      #AND client_interactions.created_date = (SELECT MAX(created_date) from client_interactions WHERE client_id = clients.id) 
-        #AND client_interactions.location_camp_id = locationCampId
+    render json: @results
   end
 
   private
