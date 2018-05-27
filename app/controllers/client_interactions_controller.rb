@@ -46,6 +46,6 @@ class ClientInteractionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def client_interaction_params
-      params.require(:client_interaction).permit(:client_id, :location_camp_id, :serviced)
+      params.require(:client_interaction).permit(:client_id, :location_camp_id, :serviced, :was_seen, :still_lives_here)
     end
 end
