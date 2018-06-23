@@ -68,5 +68,3 @@ Things you may want to cover:
 *new terminal rails server -b $IP -p $PORT
 * new terminal do curl -H "Content-Type:application/json; charset=utf-8" -d '{ "user" : { "username" : "testusername", "email" : "email@gmail.com", "password" : "password", "session_token" : "aslerkjaslelrkser" } }' https://hunting-log-api-kevinlewis2.c9users.io/users
 * curl -H "Content-Type:application/json; charset=utf-8" https://hunting-log-api-kevinlewis2.c9users.io/users
-* 
-* Testing branch functionality
