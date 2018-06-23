@@ -38,6 +38,14 @@ class ClientDislikesController < ApplicationController
     @client_dislike.destroy
   end
 
+
+# GET /dislikesForClient?clientId={id}
+  def dislikesForClient
+    @dislikes = ClientDislike.where(:client_id => params[:clientId]) #maybe Location.where('route_id = ?', params[:routeId])
+    
+    render json: @dislikes
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client_dislike

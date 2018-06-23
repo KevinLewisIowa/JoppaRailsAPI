@@ -37,6 +37,13 @@ class PrayerRequestAndNeedsController < ApplicationController
   def destroy
     @prayer_request_and_need.destroy
   end
+  
+  # GET /locationsForRoute?routeId={id}
+  def prayerRequestsForClient
+    @prayers = PrayerRequestAndNeed.where(:client_id => params[:clientId]) #maybe Location.where('route_id = ?', params[:routeId])
+    
+    render json: @prayers
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

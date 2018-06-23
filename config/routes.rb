@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   get       'getClientsForLocationCampD'  =>  'locations#getClientsForLocationCampD'
   get       'getClientsByName'    => 'clients#getClientsByName'
   get       'getCampsForLocation' => 'location_camps#getCampsForLocation'
+  get       'prayerRequestsForClient' => 'prayer_request_and_needs#prayerRequestsForClient'
+  get       'likesForClient'        =>  'client_likes#likesForClient'
+  get       'dislikesForClient'     =>  'client_dislikes#dislikesForClient'
+  get       'goalsForClient'      => 'goals_and_next_steps#goalsForClient'
   resources :volunteers
   resources :camping_equipment_given_dates
   resources :camping_equipments

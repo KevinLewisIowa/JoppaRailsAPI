@@ -37,6 +37,13 @@ class ClientLikesController < ApplicationController
   def destroy
     @client_like.destroy
   end
+  
+  # GET /locationsForRoute?routeId={id}
+  def likesForClient
+    @likes = ClientLike.where(:client_id => params[:clientId]) #maybe Location.where('route_id = ?', params[:routeId])
+    
+    render json: @likes
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

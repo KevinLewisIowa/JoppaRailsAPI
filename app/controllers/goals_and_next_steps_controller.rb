@@ -37,6 +37,13 @@ class GoalsAndNextStepsController < ApplicationController
   def destroy
     @goals_and_next_step.destroy
   end
+  
+  # GET /locationsForRoute?routeId={id}
+  def goalsForClient
+    @goals = GoalsAndNextStep.where(:client_id => params[:clientId]) #maybe Location.where('route_id = ?', params[:routeId])
+    
+    render json: @goals
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
