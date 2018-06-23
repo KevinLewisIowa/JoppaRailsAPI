@@ -55,7 +55,7 @@ Things you may want to cover:
 *git push heroku master             // pushes this current code to heroku master (deploys it)
 
 * THIS NEXT COMMAND IS FOR GENERATING A DB TABLE, NEW ROUTES FOR THIS CONTROLLER, AND CRUD ENDPOINTS
-* rails generate scaffold User username:string email:string age:integer weight:decimal is_active:boolean
+* rails generate scaffold [TableName] [ListOfProperties:type] (ie username:string email:string age:integer weight:decimal is_active:boolean)
 
 *LOCALLY NEED TO DO THIS TO START UP THE DB TO RUN MIGRATIONS
 *sudo service postgresql start
@@ -68,3 +68,5 @@ Things you may want to cover:
 *new terminal rails server -b $IP -p $PORT
 * new terminal do curl -H "Content-Type:application/json; charset=utf-8" -d '{ "user" : { "username" : "testusername", "email" : "email@gmail.com", "password" : "password", "session_token" : "aslerkjaslelrkser" } }' https://hunting-log-api-kevinlewis2.c9users.io/users
 * curl -H "Content-Type:application/json; charset=utf-8" https://hunting-log-api-kevinlewis2.c9users.io/users
+* 
+* Testing branch functionality
