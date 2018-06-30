@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :health_concerns
   resources :location_camps
   resources :client_interactions
   get       'locationsForRoute'   => 'locations#locationsForRoute'
@@ -6,6 +7,7 @@ Rails.application.routes.draw do
   get       'getClientDislikes'   => 'clients#getClientDislikes'
   get       'getClientGoals'      => 'clients#getClientGoals'
   get       'getClientPrayerRequests' => 'clients#getClientPrayerRequests'
+  get       'getClientHealthConcerns' => 'health_concerns#getClientHealthConcerns'
   get       'getClientRequestedItem' => 'clients#getClientRequestedItem'
   get       'getClientsForLocationCampA'  =>  'locations#getClientsForLocationCampA'
   get       'getClientsForLocationCampB'  =>  'locations#getClientsForLocationCampB'
