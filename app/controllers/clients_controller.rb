@@ -54,7 +54,7 @@ class ClientsController < ApplicationController
   
   # GET /getClientRequestedItem?clientId={id}
   def getClientRequestedItem
-    @items = RequestedItem.find_by(client_id: params[:clientId])
+    @items = RequestedItem.where(:client_id => params[:clientId])
     
     render json: @items
   end
