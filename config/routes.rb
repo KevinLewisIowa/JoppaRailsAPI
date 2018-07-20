@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get       'likesForClient'        =>  'client_likes#likesForClient'
   get       'dislikesForClient'     =>  'client_dislikes#dislikesForClient'
   get       'goalsForClient'      => 'goals_and_next_steps#goalsForClient'
+  get       'receivedRequestedItem' => 'requested_items#receivedRequestedItem'
   resources :volunteers
   resources :camping_equipment_given_dates
   resources :camping_equipments

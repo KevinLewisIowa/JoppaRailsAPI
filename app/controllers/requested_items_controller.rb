@@ -32,6 +32,13 @@ class RequestedItemsController < ApplicationController
       render json: @requested_item.errors, status: :unprocessable_entity
     end
   end
+  
+  #receivedRequestedItem/?requestId=[number]
+  def receivedRequestedItem
+    @item = RequestedItem.find(params[:requestId])
+    @item.has_received = true
+    @item.save
+  end
 
   # DELETE /requested_items/1
   def destroy
