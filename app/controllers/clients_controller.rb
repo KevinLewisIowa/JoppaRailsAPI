@@ -54,7 +54,7 @@ class ClientsController < ApplicationController
   
   # GET /getClientRequestedItem?clientId={id}
   def getClientRequestedItem
-    @items = RequestedItem.where('client_id = ? AND has_received NOT IN (true)', params[:clientId])
+    @items = RequestedItem.where('client_id = ? AND (has_received IS NULL OR has_received = false', params[:clientId])
     
     render json: @items
   end
