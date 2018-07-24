@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180430185840) do
+ActiveRecord::Schema.define(version: 20180724221105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,15 +57,16 @@ ActiveRecord::Schema.define(version: 20180430185840) do
   end
 
   create_table "clients", force: :cascade do |t|
-    t.string   "preferredName"
-    t.boolean  "isVeteran"
-    t.date     "birthDate"
-    t.boolean  "isAfterCare"
-    t.string   "shoeSize"
+    t.string   "preferred_name"
+    t.boolean  "is_veteran"
+    t.date     "birth_date"
+    t.boolean  "is_aftercare"
+    t.string   "shoe_size"
     t.string   "phone"
-    t.string   "joppaApartmentNumber"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.string   "joppa_apartment_number"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "number_meals"
   end
 
   create_table "goals_and_next_steps", force: :cascade do |t|
@@ -99,8 +100,9 @@ ActiveRecord::Schema.define(version: 20180430185840) do
   create_table "prayer_request_and_needs", force: :cascade do |t|
     t.integer  "client_id"
     t.string   "detail"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "is_completed"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "requested_items", force: :cascade do |t|
