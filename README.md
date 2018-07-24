@@ -39,28 +39,29 @@ Things you may want to cover:
 
 
 * GIT COMMANDS
-* git fetch                         // gets list of existing branches
-* git checkout myBranch             // if branch already made
 * 
+* git branch                        // gets list of existing branches
+* git checkout myBranch             // if branch already made
+* git checkout -b newBranchName     // creates a new branch with this name based on the current code you see
+* git diff                          // shows uncommitted changes from current branch
+* git add .                         // adds all of your changes
+* git commit -m "the message"       // gets your changes ready to push
+* git push origin newBranchName     // pushes your changes to this new branch on git
+* git checkout master               // checkout master
+* git pull origin master            // pull latest from master
+* git merge test                    // merge test into this locally
+* git push origin master            // push this merge to the git master
 
-*git checkout -b newBranchName       // creates a new branch with this name based on the current code you see
-*git add .                           // adds all of your changes
-*git commit -m "the message"         // gets your changes ready to push
-*git push origin newBranchName       // pushes your changes to this new branch on git
-*git checkout master                // checkout master
-*git pull origin master             // pull latest from master
-*git merge test                     // merge test into this locally
-*git push origin master             // push this merge to the git master
-
-*git push heroku master             // pushes this current code to heroku master (deploys it)
+* git push heroku master            // pushes this current code to heroku master (deploys it)
 
 * THIS NEXT COMMAND IS FOR GENERATING A DB TABLE, NEW ROUTES FOR THIS CONTROLLER, AND CRUD ENDPOINTS
 * rails generate scaffold [TableName] [ListOfProperties:type] (ie username:string email:string age:integer weight:decimal is_active:boolean)
 
 *LOCALLY NEED TO DO THIS TO START UP THE DB TO RUN MIGRATIONS
-*sudo service postgresql start
+* sudo service postgresql start
 * rails db:create // only needs run once, maybe already done?
-* 
+* rails generate migration MigrationName
+* rake db:migrate
 
 * NEXT COMMAND STARTS UP THE LOCAL SERVER TO TEST THE ENDPOINTS, AND THEN A COMMAND TO POST.
 * TO TEST A GET, DO SAME TYPE OF COMMAND EXCEPT REMOVE -d '{OBJECT}' PART

@@ -17,6 +17,11 @@ Rails.application.routes.draw do
   get       'likesForClient'        =>  'client_likes#likesForClient'
   get       'dislikesForClient'     =>  'client_dislikes#dislikesForClient'
   get       'goalsForClient'      => 'goals_and_next_steps#goalsForClient'
+  get       'getAdminSumNumberMeals'      => 'admin#getAdminSumNumberMeals'
+  get       'getAdminRouteUndeliveredItems'      => 'admin#getAdminRouteUndeliveredItems'
+  get       'getAdminRouteUnfulfilledPrayerRequestsNeeds'      => 'admin#getAdminRouteUnfulfilledPrayerRequestsNeeds'
+  get       'getAdminRouteUnfulfilledGoalsNextSteps'      => 'admin#getAdminRouteUnfulfilledGoalsNextSteps'
+  resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates
   resources :camping_equipments
