@@ -79,7 +79,7 @@ clients = [{preferred_name: 'Kevin Lewis', is_veteran: false, is_aftercare: fals
 interactions = [{location_camp_id: 1, client_id: 1, was_seen: true, serviced: true, still_lives_here: true},
 {location_camp_id: 6, client_id: 2, was_seen: true, serviced: true, still_lives_here: true},
 {location_camp_id: 1, client_id: 3, was_seen: false, serviced: true, still_lives_here: true},
-{location_camp_id: 1, client_id: 4, was_seen: true, serviced: false, still_lives_here: true}]
+{location_camp_id: 1, client_id: 4, was_seen: true, serviced: false, still_lives_here: false}]
 
 routes.each do |route|
         Route.create!(route)
