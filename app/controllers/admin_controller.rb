@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
   
-  # GET /getAdminSumNumberMeals 
-  def getAdminSumNumberMeals
+  # GET /getRouteSumNumberMeals 
+  def getAdminRouteNumberMeals
     @routeMeals = ClientInteraction.joins(:client, {location_camp: {location: :route}}).select("routes.name, sum(clients.number_meals) as totalNumberMeals").where("client_interactions.still_lives_here = ?", true).group("routes.name")
     
     render json: @routeMeals
