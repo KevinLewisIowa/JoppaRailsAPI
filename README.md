@@ -83,7 +83,7 @@ Things you may want to cover:
 * git push origin newBranchName     // pushes your changes to this new branch on git
 * git checkout master               // checkout master
 * git pull origin master            // pull latest from master
-* git merge test                    // merge test into this locally
+* git merge [branchName]            // merge test into this locally
 * git push origin master            // push this merge to the git master
 
 * git push heroku master            // pushes this current code to heroku master (deploys it)
