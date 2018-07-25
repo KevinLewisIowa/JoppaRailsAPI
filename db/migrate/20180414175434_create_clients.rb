@@ -8,6 +8,7 @@ class CreateClients < ActiveRecord::Migration[5.0]
       t.string :shoeSize
       t.string :phone
       t.string :joppaApartmentNumber
+      t.integer :numberMeals
 
       t.timestamps
     end
