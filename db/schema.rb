@@ -77,6 +77,13 @@ ActiveRecord::Schema.define(version: 20180724221105) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "health_concerns", force: :cascade do |t|
+    t.integer  "client_id"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "location_camps", force: :cascade do |t|
     t.string   "name"
     t.integer  "location_id"
