@@ -6,6 +6,5 @@ class ChangeCamelCaseAttributes < ActiveRecord::Migration[5.0]
     rename_column :clients, :isAfterCare, :is_aftercare
     rename_column :clients, :shoeSize, :shoe_size
     rename_column :clients, :joppaApartmentNumber, :joppa_apartment_number
-    remove_column :clients, :numberMeals
   end
 end
