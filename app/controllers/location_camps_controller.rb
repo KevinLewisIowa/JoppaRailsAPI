@@ -39,7 +39,7 @@ class LocationCampsController < ApplicationController
   end
   
   def getCampsForLocation
-    @camps = LocationCamp.where(:location_id => params[:locationId]);
+    @camps = LocationCamp.where('location_id = ? AND is_active = ?', params[:locationId], true);
     
     render json: @camps
   end
