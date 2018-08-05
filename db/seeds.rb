@@ -6,13 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-routes = [{city: 'Des Moines', name: 'Red', is_active: true},
-           {city: 'Des Moines', name: 'Orange', is_active: true},
-           {city: 'Des Moines', name: 'Yellow', is_active: true},
-           {city: 'Des Moines', name: 'Green', is_active: true},
-           {city: 'Des Moines', name: 'Blue', is_active: true},
-           {city: 'Des Moines', name: 'Indigo', is_active: true},
-           {city: 'Des Moines', name: 'Violet', is_active: true}]
+routes = [{region: 'Central Iowa', name: 'Red', is_active: true},
+           {region: 'Central Iowa', name: 'Orange', is_active: true},
+           {region: 'Central Iowa', name: 'Yellow', is_active: true},
+           {region: 'Central Iowa', name: 'Green', is_active: true},
+           {region: 'Central Iowa', name: 'Blue', is_active: true},
+           {region: 'Central Iowa', name: 'Indigo', is_active: true},
+           {region: 'Central Iowa', name: 'Violet', is_active: true}]
            
 locations = [{route_id: 1, name: 'First Stop', position: 1, notes: '', latitude: 8743.32, longitude: 9283.38, is_active: true},
 {route_id: 1, name: 'First Stop', position: 1, notes: 'This is the note', latitude: 8743.32, longitude: 9283.38, is_active: true},
