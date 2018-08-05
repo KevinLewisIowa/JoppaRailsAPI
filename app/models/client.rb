@@ -26,4 +26,12 @@ class Client < ApplicationRecord
     has_many :camping_equipment_given_dates, class_name: "CampingEquipmentGivenDate",
                                             foreign_key: "client_id",
                                             dependent: :destroy
+                                            
+    has_one  :client_heater_interaction, class_name: "ClientHeaterInteraction",
+                                         foreign_key: "client_id",
+                                         dependent: :destroy
+                                         
+    has_many :client_tank_interaction, class_name: "ClientTankInteraction",
+                                         foreign_key: "client_id",
+                                         dependent: :destroy
 end

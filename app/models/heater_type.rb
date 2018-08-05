@@ -1,0 +1,2 @@
+class HeaterType < ApplicationRecord
+end

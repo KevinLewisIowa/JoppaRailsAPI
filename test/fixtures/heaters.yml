@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  heater_type_id: 1
+  serial_number: MyString
+
+two:
+  heater_type_id: 1
+  serial_number: MyString

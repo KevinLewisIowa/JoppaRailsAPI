@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :client_tank_interactions
+  resources :client_header_interactions
+  resources :tanks
+  resources :heater_types
+  resources :heaters
   resources :health_concerns
   resources :location_camps
   resources :client_interactions
