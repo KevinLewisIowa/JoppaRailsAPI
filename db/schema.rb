@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180728150747) do
+ActiveRecord::Schema.define(version: 20180805183615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 20180728150747) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "client_heater_interactions", force: :cascade do |t|
+    t.integer  "client_id"
+    t.integer  "heater_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "client_interactions", force: :cascade do |t|
     t.integer  "client_id"
     t.integer  "location_camp_id"
@@ -54,6 +61,13 @@ ActiveRecord::Schema.define(version: 20180728150747) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "client_tank_interactions", force: :cascade do |t|
+    t.integer  "client_id"
+    t.integer  "tank_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "clients", force: :cascade do |t|
@@ -83,6 +97,19 @@ ActiveRecord::Schema.define(version: 20180728150747) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "heater_types", force: :cascade do |t|
+    t.string   "type_description"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "heaters", force: :cascade do |t|
+    t.integer  "heater_type_id"
+    t.string   "serial_number"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "location_camps", force: :cascade do |t|
@@ -128,6 +155,12 @@ ActiveRecord::Schema.define(version: 20180728150747) do
     t.boolean  "is_active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "tanks", force: :cascade do |t|
+    t.string   "serial_number"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "users", force: :cascade do |t|
