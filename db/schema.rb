@@ -135,9 +135,9 @@ ActiveRecord::Schema.define(version: 20180805191107) do
   create_table "prayer_request_and_needs", force: :cascade do |t|
     t.integer  "client_id"
     t.string   "detail"
+    t.boolean  "is_completed"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.boolean  "is_completed"
   end
 
   create_table "requested_items", force: :cascade do |t|
