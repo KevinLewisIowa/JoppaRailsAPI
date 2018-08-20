@@ -2,12 +2,10 @@ class AdminController < ApplicationController
   
   # GET /getAdminSumNumberMeals 
   def getAdminRouteNumberMeals
-    @routeMeals = self.find_by_sql(["Select r.name, 5 as totalNumberMeals from routes as r"])
-    
-    #@routeMeals = ClientInteraction.from(SIMPLE_SQL)
-    #ClientInteraction.joins(:client, {location_camp: {location: :route}})
-     #               .select("routes.name, sum(clients.number_meals) as totalNumberMeals")
-      #              .where("client_interactions.still_lives_here = ?", true).group("routes.name")
+    ClientInteraction.joins(:client, {location_camp: {location: :route}})
+                    .select("routes.name, sum(clients.number_meals) as totalNumberMeals")
+                   .where("client_interactions.still_lives_here = ?
+                    AND client_interactions.created_at > ?", true, Date(2017, 1, 1)).group("routes.name")
     
     render json: @routeMeals
   end
