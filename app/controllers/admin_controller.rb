@@ -2,13 +2,12 @@ class AdminController < ApplicationController
   
   # GET /getAdminSumNumberMeals 
   def getAdminRouteNumberMeals
-    subquery = ClientInteraction.where('client_id = ? AND location_camp_id = ?', c.id, ci.id).select('MAX(created_at)').to_sql
     @routeMeals = ClientInteraction.joins('INNER JOIN location_camps as lc on lc.id = location_camp_id')
                         .joins('INNER JOIN clients as c on c.id = client_id')
                         .joins('INNER JOIN locations as l on l.id = lc.location_id')
                         .joins('INNER JOIN routes as r on r.id = l.route_id')
                         .select('r.name, sum(c.number_meals) as totalNumberMeals')
-                        .where('still_lives_here = ? and created_at IN (#{subquery})', true)
+                        .where('still_lives_here = ?', true)
                         .group('r.name')
     #@routeMeals = ClientInteraction.joins(:client, {location_camp: {location: :route}})
      #               .select("routes.name, sum(clients.number_meals) as totalNumberMeals")
