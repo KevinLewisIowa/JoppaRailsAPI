@@ -6,8 +6,8 @@ class AdminController < ApplicationController
                     .select("routes.name, sum(clients.number_meals) as totalNumberMeals")
                     .where("client_interactions.still_lives_here = ? 
                       AND client_interactions.created_at = ?", true,
-                      ClientInteraction.where("clients.id = :client.id AND location_camps.id = :location_camp_id")
-                        .max(:craeted_at)).group("routes.name")
+                      ClientInteraction.where("client_id = :client.id AND location_camp_id = :location_camp_id")
+                        .max(:created_at)).group("routes.name")
     
     render json: @routeMeals
   end
