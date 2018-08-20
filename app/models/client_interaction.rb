@@ -15,4 +15,9 @@ class ClientInteraction < ApplicationRecord
         AND ci.created_at = (Select max(created_at) from client_interactions location_camp_id = lc.id)
       group by r.name)
     SQL
+    
+    SIMPLE_SQL = <<-SQL
+        select r.name, 5 as totalNumberMeals
+        from routes as r
+    SQL
 end
