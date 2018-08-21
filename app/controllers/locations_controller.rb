@@ -63,7 +63,7 @@ class LocationsController < ApplicationController
     
     @maybeDates = ClientInteraction.where(:location_camp_id => params[:locationCampId]).distinct.pluck(:client_id);
     @maybeDates.each do |theId|
-      mostRecent = ClientInteraction.where(:client_id => theId).last
+      mostRecent = ClientInteraction.where('client_id = ? AND location_camp_id = ?', theId, params[:locationCampId]).last
       if mostRecent.still_lives_here
         results.push(mostRecent.client)
       end
