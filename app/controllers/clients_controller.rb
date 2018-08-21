@@ -83,7 +83,7 @@ class ClientsController < ApplicationController
     if @clientName == 'ALLCLIENTS'
       @clientList = Client.all
     else
-      @clientList = Client.where('preferred_name LIKE ?', '%' + @clientName + '%')
+      @clientList = Client.where('preferred_name ILIKE ?', '%' + @clientName + '%')
     end
     
     render json: @clientList
