@@ -15,6 +15,9 @@ class ClientsController < ApplicationController
 
   # POST /clients
   def create
+    if (client_params.number_meals == null)
+      client_params.number_meals = 1
+    end
     @client = Client.new(client_params)
 
     if @client.save
