@@ -7,7 +7,7 @@ class AdminController < ApplicationController
                         .joins('INNER JOIN locations as l on l.id = lc.location_id')
                         .joins('INNER JOIN routes as r on r.id = l.route_id')
                         .select('r.name, sum(c.number_meals) as totalNumberMeals')
-                        .where('client_interactions.still_lives_here = ?', true)
+                        .where('client_interactions.still_lives_here = ? AND client_interactions.created_at = ?', true, Client.where(:id => 1).maximum(:created_at))
                         .group('r.name')
     
    # @routeMeals = ClientInteraction.joins('INNER JOIN location_camps as lc on lc.id = location_camp_id')
