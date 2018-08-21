@@ -16,7 +16,7 @@ class AdminController < ApplicationController
        #               ClientInteraction.where("client_id = :client.id AND location_camp_id = :location_camp_id")
        #                 .max(:created_at)).group("routes.name")
     
-    render json: @routeMeals
+    render json: @routeMeals 
   end
   
   # GET /getAdminRouteUndeliveredItems 
