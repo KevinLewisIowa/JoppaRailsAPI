@@ -33,6 +33,13 @@ class RequestedItemsController < ApplicationController
     end
   end
   
+  #recentReceivedItems?clientId=[number]
+  def recentReceivedItems
+    @items = RequestedItem.where('client_id = ? AND has_received = ?', params[:clientId], true).limit(10);
+    
+    render json: @items
+  end
+  
   #receivedRequestedItem/?requestId=[number]
   def receivedRequestedItem
     @item = RequestedItem.find(params[:requestId])

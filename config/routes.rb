@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get       'getClientsForLocationCampC'  =>  'locations#getClientsForLocationCampC'
   get       'getClientsForLocationCampD'  =>  'locations#getClientsForLocationCampD'
   get       'getClientsByName'    => 'clients#getClientsByName'
+  get       'recentReceivedItems'   =>  'requested_items#recentReceivedItems'
   get       'getCampsForLocation' => 'location_camps#getCampsForLocation'
   get       'prayerRequestsForClient' => 'prayer_request_and_needs#prayerRequestsForClient'
   get       'likesForClient'        =>  'client_likes#likesForClient'
