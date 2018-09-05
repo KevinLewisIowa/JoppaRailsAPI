@@ -69,10 +69,10 @@ camps = [{location_id: 1, name: 'A Camp 1', is_active: true},
 {location_id: 2, name: 'This is third camp', is_active: true},
 {location_id: 3, name: 'This is a third camp', is_active: true}];
 
-clients = [{preferred_name: 'Kevin Lewis', is_veteran: false, is_aftercare: false, birth_date: '07/10/1993', shoe_size: '9', phone: '6417999450', joppa_apartment_number: '', number_meals: 1},
-{preferred_name: 'Tim Wilson', is_veteran: false, is_aftercare: false, birth_date: '02/14/1973', shoe_size: '11', phone: '4759284829', joppa_apartment_number: '', number_meals: 1},
-{preferred_name: 'Ryan Rutherford', is_veteran: false, is_aftercare: false, birth_date: '09/18/1990', shoe_size: '10', phone: '2983981711', joppa_apartment_number: '', number_meals: 1},
-{preferred_name: 'Andrea Toppin', is_veteran: false, is_aftercare: false, birth_date: '10/07/1985', shoe_size: '9', phone: '8372649304', joppa_apartment_number: '', number_meals: 1}]
+clients = [{preferred_name: 'Kevin Lewis', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '07/10/1993', shoe_size: '9', phone: '6417999450', joppa_apartment_number: '', number_meals: 1},
+{preferred_name: 'Tim Wilson', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '02/14/1973', shoe_size: '11', phone: '4759284829', joppa_apartment_number: '', number_meals: 1},
+{preferred_name: 'Ryan Rutherford', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '09/18/1990', shoe_size: '10', phone: '2983981711', joppa_apartment_number: '', number_meals: 1},
+{preferred_name: 'Andrea Toppin', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '10/07/1985', shoe_size: '9', phone: '8372649304', joppa_apartment_number: '', number_meals: 1}]
 
 interactions = [{location_camp_id: 1, client_id: 1, was_seen: true, serviced: true, still_lives_here: true},
 {location_camp_id: 6, client_id: 2, was_seen: true, serviced: true, still_lives_here: true},
