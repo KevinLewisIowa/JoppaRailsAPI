@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get       'getAdminRouteUndeliveredItems'      => 'admin#getAdminRouteUndeliveredItems'
   get       'getAdminRouteUnfulfilledPrayerRequestsNeeds'      => 'admin#getAdminRouteUnfulfilledPrayerRequestsNeeds'
   get       'getAdminRouteUnfulfilledGoalsNextSteps'      => 'admin#getAdminRouteUnfulfilledGoalsNextSteps'
+  get       'getHeaterTypes' => 'heater_types#getHeaterTypes'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates
