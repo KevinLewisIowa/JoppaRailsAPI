@@ -79,6 +79,13 @@ interactions = [{location_camp_id: 1, client_id: 1, was_seen: true, serviced: tr
 {location_camp_id: 1, client_id: 3, was_seen: false, serviced: true, still_lives_here: true},
 {location_camp_id: 1, client_id: 4, was_seen: true, serviced: false, still_lives_here: false}]
 
+heater_types = [{type_description: "Normal"},
+{type_description: "Not Normal"}]
+
+heater_types.each do |heater_type|
+    HeaterType.create!(heater_type)
+end
+
 routes.each do |route|
         Route.create!(route)
     end

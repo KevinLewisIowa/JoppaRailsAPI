@@ -37,6 +37,12 @@ class HeaterTypesController < ApplicationController
   def destroy
     @heater_type.destroy
   end
+  
+  def getHeaterTypes
+    @heater_type_dropdown = HeaterType.select("id", "type_description")
+    
+    render json: @heater_type_dropdown
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
