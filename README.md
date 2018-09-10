@@ -28,7 +28,7 @@ Things you may want to cover:
 * rake db:migrate                           // apply migration changes to schema.rb
 * 
 * THIS NEXT COMMAND IS FOR GENERATING A DB TABLE, NEW ROUTES FOR THIS CONTROLLER, AND CRUD ENDPOINTS
-* rails generate scaffold [TableName] [ListOfProperties:type] (ie username:string email:string age:integer weight:decimal is_active:boolean)
+* rails generate scaffold [TableName] [ListOfProperties:type] (ie username:string email:string age:integer weight:decimal is_active:boolean) --not including id column
 * 
 * Database initialization
 * 

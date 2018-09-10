@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180826162942) do
+ActiveRecord::Schema.define(version: 20180910023003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20180826162942) do
     t.boolean  "deceased"
     t.boolean  "inactive"
     t.string   "inactive_description"
+    t.string   "dwelling"
   end
 
   create_table "goals_and_next_steps", force: :cascade do |t|
@@ -102,6 +103,12 @@ ActiveRecord::Schema.define(version: 20180826162942) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "heater_status", force: :cascade do |t|
+    t.string   "status_name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "heater_types", force: :cascade do |t|
     t.string   "type_description"
     t.datetime "created_at",       null: false
@@ -111,8 +118,11 @@ ActiveRecord::Schema.define(version: 20180826162942) do
   create_table "heaters", force: :cascade do |t|
     t.integer  "heater_type_id"
     t.string   "serial_number"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "heater_status_id"
+    t.string   "status_reason"
+    t.boolean  "is_active"
   end
 
   create_table "location_camps", force: :cascade do |t|

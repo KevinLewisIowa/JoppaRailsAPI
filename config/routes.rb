@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :heater_statuses
   resources :client_tank_interactions
   resources :client_header_interactions
   resources :tanks
