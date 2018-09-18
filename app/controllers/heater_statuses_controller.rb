@@ -12,6 +12,13 @@ class HeaterStatusesController < ApplicationController
   def show
     render json: @heater_status
   end
+  
+  # GET /getHeaterStatuses
+  def getHeaterStatuses
+    @heater_status_dropdown = HeaterStatus.select("id", "status_name")
+    
+    render json: @heater_status_dropdown
+  end
 
   # POST /heater_statuses
   def create

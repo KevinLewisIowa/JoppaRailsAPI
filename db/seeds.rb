@@ -82,8 +82,21 @@ interactions = [{location_camp_id: 1, client_id: 1, was_seen: true, serviced: tr
 heater_types = [{type_description: "Normal"},
 {type_description: "Not Normal"}]
 
+heater_status = [{status_name: "Unassigned"},
+{status_name: "Assigned"},
+{status_name: "Retrieved"},
+{status_name: "Stolen"},
+{status_name: "Lost"},
+{status_name: "Destroyed"},
+{status_name: "Broken"},
+{status_name: "Evicted"}]
+
 heater_types.each do |heater_type|
     HeaterType.create!(heater_type)
+end
+
+heater_status.each do |heater_stts|
+    HeaterStatus.create!(heater_stts)
 end
 
 routes.each do |route|

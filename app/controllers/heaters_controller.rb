@@ -46,6 +46,6 @@ class HeatersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def heater_params
-      params.require(:heater).permit(:heater_type_id, :serial_number)
+      params.require(:heater).permit(:heater_type_id, :serial_number, :heater_status_id, :is_active)
     end
 end
