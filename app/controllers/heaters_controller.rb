@@ -12,6 +12,12 @@ class HeatersController < ApplicationController
   def show
     render json: @heater
   end
+  
+  def getHeaterListing
+    @heaterListing = Heater.joins(:heater_type, :heater_status).select("heater_types.type_description, heaters.serial_number, heater_statuses.status_name, heaters.status_reason, heaters.is_active, heaters.updated_at")
+    
+    render json: @heaterListing
+  end
 
   # POST /heaters
   def create

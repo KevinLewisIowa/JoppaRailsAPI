@@ -1,3 +1,5 @@
 class HeaterStatus < ApplicationRecord
-    #belongs_to :heater, :class_name => "Heater"
+    has_one  :heater,                   class_name: "Heater",
+                                        foreign_key: "heater_id",
+                                        dependent: :destroy
 end

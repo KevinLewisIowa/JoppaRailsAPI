@@ -91,12 +91,19 @@ heater_status = [{status_name: "Unassigned"},
 {status_name: "Broken"},
 {status_name: "Evicted"}]
 
+heaters = [{heater_type_id: 1, serial_number: "ABC123", heater_status_id: 1, status_reason: "None", is_active: true},
+{heater_type_id: 1, serial_number: "123ABC", heater_status_id: 3, status_reason: "Stuff", is_active: true}]
+
 heater_types.each do |heater_type|
     HeaterType.create!(heater_type)
 end
 
 heater_status.each do |heater_stts|
     HeaterStatus.create!(heater_stts)
+end
+
+heaters.each do |heater|
+    Heater.create!(heaters)
 end
 
 routes.each do |route|
