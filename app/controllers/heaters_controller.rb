@@ -69,14 +69,14 @@ class HeatersController < ApplicationController
   # GET /getCurrentHeatersForClient?clientId={id}
   def getCurrentHeatersForClient
     
-    @heaters = Heaterjoins(:heater_type, :heater_status).select("heater_types.type_description, heaters.serial_number, heater_statuses.status_name, heaters.status_reason, heaters.is_active, heaters.updated_at").where("current_client_id = ? AND heater_status_id = ?", params[:clientId], 2)
+    @heaters = Heater.joins(:heater_type, :heater_status).select("heater_types.type_description, heaters.serial_number, heater_statuses.status_name, heaters.status_reason, heaters.is_active, heaters.updated_at").where("current_client_id = ? AND heater_status_id = ?", params[:clientId], 2)
     
     render json: @heaters
   end
   
   # GET /getAvailableHeaters
   def getAvailableHeaters
-    @heaters = Heater.where("heater_status_id = ?", 1)
+    @heaters = Heater.joins(:heater_type).select("heater_types.type_description, heaters.serial_number, heaters.id, heaters.heater_status_id").where("heater_status_id = ?", 1)
     
     render json: @heaters
   end
