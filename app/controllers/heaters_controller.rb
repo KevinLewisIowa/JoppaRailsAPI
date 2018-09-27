@@ -50,9 +50,7 @@ class HeatersController < ApplicationController
     @status = params[:status];
     
     @heater = Heater.find(@heaterId);
-    if @status == 2
-      @heater.current_client_id = @clientId
-    end
+    @heater.current_client_id = @clientId
     
     @interaction = ClientHeaterInteraction.new();
     @interaction.client_id = @clientId
