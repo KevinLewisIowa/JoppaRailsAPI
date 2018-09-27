@@ -81,7 +81,7 @@ interactions = [{location_camp_id: 1, client_id: 1, was_seen: true, serviced: tr
 
 heater_types = [{type_description: "Normal"},
 {type_description: "Not Normal"}]
-
+# do not change these seeds for heater_status
 heater_status = [{status_name: "Unassigned"},
 {status_name: "Assigned"},
 {status_name: "Retrieved"},

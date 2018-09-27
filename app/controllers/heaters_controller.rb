@@ -43,6 +43,42 @@ class HeatersController < ApplicationController
   def destroy
     @heater.destroy
   end
+  # GET /updateHeaterClient?clientId={id}&heaterId={id}&status={id}
+  def heaterClientUpdate
+    @clientId = params[:clientId];
+    @heaterId = params[:heaterId];
+    @status = params[:status];
+    
+    @heater = Heater.find(@heaterId);
+    if @status == 2
+      @heater.current_client_id = @clientId
+    end
+    
+    @interaction = ClientHeaterInteraction.new();
+    @interaction.client_id = @clientId
+    @interaction.heater_id = @heaterId
+    @interaction.status_id = @status
+    @interaction.save
+    
+    @heater.heater_status_id = @status;
+    @heater.save;
+    
+    render json: @heater;
+  end
+  
+  # GET /getCurrentHeatersForClient?clientId={id}
+  def getCurrentHeatersForClient
+    @heaters = Heater.where("current_client_id = ? AND heater_status_id = ?", params[:clientId], 2)
+    
+    render json: @heaters
+  end
+  
+  # GET /getAvailableHeaters
+  def getAvailableHeaters
+    @heaters = Heater.where("heater_status_id = ?", 1)
+    
+    render json: @heaters
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
