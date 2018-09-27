@@ -44,7 +44,7 @@ class HeatersController < ApplicationController
     @heater.destroy
   end
   # GET /updateHeaterClient?clientId={id}&heaterId={id}&status={id}
-  def heaterClientUpdate
+  def updateHeaterClient
     @clientId = params[:clientId];
     @heaterId = params[:heaterId];
     @status = params[:status];
