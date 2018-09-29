@@ -34,6 +34,9 @@ Rails.application.routes.draw do
   get       'getHeaterTypes' => 'heater_types#getHeaterTypes'
   get       'getHeaterStatuses' => 'heater_statuses#getHeaterStatuses'
   get       'getHeaterListing' => 'heaters#getHeaterListing'
+  get       'updateHeaterClient'    => 'heaters#updateHeaterClient'
+  get       'getCurrentHeatersForClient'  => 'heaters#getCurrentHeatersForClient'
+  get       'getAvailableHeaters'          => 'heaters#getAvailableHeaters'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates
