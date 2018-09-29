@@ -10,9 +10,7 @@ routes = [{region: 'Central Iowa', name: 'Red', is_active: true},
            {region: 'Central Iowa', name: 'Orange', is_active: true},
            {region: 'Central Iowa', name: 'Yellow', is_active: true},
            {region: 'Central Iowa', name: 'Green', is_active: true},
-           {region: 'Central Iowa', name: 'Blue', is_active: true},
-           {region: 'Central Iowa', name: 'Indigo', is_active: true},
-           {region: 'Central Iowa', name: 'Violet', is_active: true}]
+           {region: 'Central Iowa', name: 'Blue', is_active: true}]
            
 locations = [{route_id: 1, name: 'First Stop', position: 1, notes: '', latitude: 41.943513, longitude: -87.634554, is_active: true},
 {route_id: 1, name: 'Second Stop', position: 2, notes: 'This is another test', latitude: 41.943513, longitude: -87.634554, is_active: true},
