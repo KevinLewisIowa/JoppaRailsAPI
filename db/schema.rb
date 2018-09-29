@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180918043455) do
+ActiveRecord::Schema.define(version: 20180927190553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20180918043455) do
     t.integer  "heater_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "status_id"
   end
 
   create_table "client_interactions", force: :cascade do |t|
@@ -68,6 +69,7 @@ ActiveRecord::Schema.define(version: 20180918043455) do
     t.integer  "tank_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "status_id"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -118,11 +120,12 @@ ActiveRecord::Schema.define(version: 20180918043455) do
   create_table "heaters", force: :cascade do |t|
     t.integer  "heater_type_id"
     t.string   "serial_number"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "heater_status_id"
     t.string   "status_reason"
     t.boolean  "is_active"
+    t.integer  "current_client_id"
   end
 
   create_table "location_camps", force: :cascade do |t|
