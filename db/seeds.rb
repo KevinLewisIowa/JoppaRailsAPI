@@ -32,9 +32,7 @@ locations = [{route_id: 1, name: 'First Stop', position: 1, notes: '', latitude:
 {route_id: 4, name: '6th Stop', position: 6, notes: 'The music is really good', latitude: 41.943513, longitude: -87.634554, is_active: true},
 {route_id: 5, name: 'First Stop', position: 1, notes: 'Four left to write', latitude: 41.943513, longitude: -87.634554, is_active: true},
 {route_id: 5, name: 'Second Stop', position: 2, notes: 'I am very close now', latitude: 41.943513, longitude: -87.634554, is_active: true},
-{route_id: 5, name: 'Third Stop', position: 3, notes: 'Almost there', latitude: 41.943513, longitude: -87.634554, is_active: true},
-{route_id: 6, name: 'Eins Stop', position: 1, notes: 'This is some more notes on a location', latitude: 41.943513, longitude: -87.634554, is_active: true},
-{route_id: 7, name: 'Uno Stop', position: 1, notes: 'This is the last one', latitude: 41.943513, longitude: -87.634554, is_active: true}]
+{route_id: 5, name: 'Third Stop', position: 3, notes: 'Almost there', latitude: 41.943513, longitude: -87.634554, is_active: true}]
 
 camps = [{location_id: 1, name: 'A Camp 1', is_active: true},
 {location_id: 2, name: 'A Camp location 2', is_active: true},
@@ -57,7 +55,6 @@ camps = [{location_id: 1, name: 'A Camp 1', is_active: true},
 {location_id: 19, name: 'This is first one for the location', is_active: true},
 {location_id: 20, name: 'First of location', is_active: true},
 {location_id: 21, name: 'The first', is_active: true},
-{location_id: 22, name: 'First camp', is_active: true},
 {location_id: 1, name: 'This is the second camp', is_active: true},
 {location_id: 2, name: 'Second camp', is_active: true},
 {location_id: 3, name: 'Second camp', is_active: true},
