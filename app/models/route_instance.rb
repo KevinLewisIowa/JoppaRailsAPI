@@ -1,0 +1,2 @@
+class RouteInstance < ApplicationRecord
+end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :route_instances
   resources :heater_statuses
   resources :client_tank_interactions
   resources :client_header_interactions
@@ -50,5 +51,6 @@ Rails.application.routes.draw do
   resources :locations
   resources :routes
   resources :users
+  resources :route_instances
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  route_id: 1
+  leader_name: MyString
+  leader_phone: MyString
+  heat_route: false
+  start_time: 2018-10-07 18:43:13
+  end_time: 2018-10-07 18:43:13
+
+two:
+  route_id: 1
+  leader_name: MyString
+  leader_phone: MyString
+  heat_route: false
+  start_time: 2018-10-07 18:43:13
+  end_time: 2018-10-07 18:43:13
