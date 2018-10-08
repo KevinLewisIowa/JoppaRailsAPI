@@ -41,7 +41,7 @@ class ClientTankInteractionsController < ApplicationController
   
   def updateTankInteraction
     @interaction = ClientTankInteraction.find(params[:interactionId])
-    @interaction.status_id = params[:statusId]
+    @interaction.status_id = params[:statusId].to_i
     @interaction.save
     
     renter json: @interaction
