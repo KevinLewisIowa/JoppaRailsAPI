@@ -37,12 +37,6 @@ class ClientHeaterInteractionsController < ApplicationController
   def destroy
     @client_heater_interaction.destroy
   end
-  
-  def getHosesLoanedToClient
-    @interactions = ClientHoseInteraction.where('heater_status_id = ? AND client_id = ?', 2, params[:clientId])
-    
-    render json: @interactions
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
