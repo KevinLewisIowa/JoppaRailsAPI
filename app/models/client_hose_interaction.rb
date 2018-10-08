@@ -1,0 +1,2 @@
+class ClientHoseInteraction < ApplicationRecord
+end

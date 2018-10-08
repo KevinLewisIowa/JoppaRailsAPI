@@ -23,6 +23,12 @@ class ClientTankInteractionsController < ApplicationController
       render json: @client_tank_interaction.errors, status: :unprocessable_entity
     end
   end
+  
+  def getTanksLoanedToClient
+    @interactions = ClientTankInteraction.where('heater_status_id = ? AND client_id = ?', 2, params[:clientId])
+    
+    render json: @interactions
+  end
 
   # PATCH/PUT /client_tank_interactions/1
   def update
@@ -46,6 +52,6 @@ class ClientTankInteractionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def client_tank_interaction_params
-      params.require(:client_tank_interaction).permit(:client_id, :tank_id)
+      params.require(:client_tank_interaction).permit(:client_id, :heater_status_id)
     end
 end

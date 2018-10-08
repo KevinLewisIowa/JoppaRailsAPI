@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  client_id: 
+  heater_status_id: 
+
+two:
+  client_id: 
+  heater_status_id: 
