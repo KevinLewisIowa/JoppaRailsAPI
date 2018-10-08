@@ -38,6 +38,14 @@ class ClientHoseInteractionsController < ApplicationController
     @client_hose_interaction.destroy
   end
   
+  def updateHoseInteraction
+    @interaction = ClientHoseInteraction.find(params[:interactionId])
+    @interaction.heater_status_id = params[:statusId]
+    @interaction.save
+    
+    renter json: @interaction
+  end
+  
   def getHosesLoanedToClient
     @interactions = ClientHoseInteraction.where('heater_status_id = ? AND client_id = ?', 2, params[:clientId])
     

@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   get       'getAvailableHeaters'          => 'heaters#getAvailableHeaters'
   get       'getTanksLoanedToClient'      => 'client_tank_interactions#getTanksLoanedToClient'
   get       'getHosesLoanedToClient'      => 'client_hose_interactions#getHosesLoanedToClient'
+  get       'updateHoseInteraction'       => 'client_hose_interactions#updateHoseInteraction'
+  get       'updateTankInteraction'       => 'client_tank_interactions#updateTankInteraction'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates

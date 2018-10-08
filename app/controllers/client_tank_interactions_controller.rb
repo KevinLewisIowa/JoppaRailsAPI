@@ -38,6 +38,14 @@ class ClientTankInteractionsController < ApplicationController
       render json: @client_tank_interaction.errors, status: :unprocessable_entity
     end
   end
+  
+  def updateTankInteraction
+    @interaction = ClientTankInteraction.find(params[:interactionId])
+    @interaction.status_id = params[:statusId]
+    @interaction.save
+    
+    renter json: @interaction
+  end
 
   # DELETE /client_tank_interactions/1
   def destroy
