@@ -71,7 +71,9 @@ Things you may want to cover:
 * rails server -b $IP -p $PORT
 * 
 
-
+* ISSUE WITH MULTIPLE HEROKU REPOS
+* heroku pg:reset --app joppa-api-test
+* above line specifies which app to run this command on
 * GIT COMMANDS
 * 
 * git branch                        // gets list of existing branches
