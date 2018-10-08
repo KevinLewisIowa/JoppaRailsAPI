@@ -25,7 +25,7 @@ class ClientTankInteractionsController < ApplicationController
   end
   
   def getTanksLoanedToClient
-    @interactions = ClientTankInteraction.where('heater_status_id = ? AND client_id = ?', 2, params[:clientId])
+    @interactions = ClientTankInteraction.where('status_id = ? AND client_id = ?', 2, params[:clientId])
     
     render json: @interactions
   end
@@ -52,6 +52,6 @@ class ClientTankInteractionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def client_tank_interaction_params
-      params.require(:client_tank_interaction).permit(:client_id, :heater_status_id)
+      params.require(:client_tank_interaction).permit(:client_id, :status_id)
     end
 end
