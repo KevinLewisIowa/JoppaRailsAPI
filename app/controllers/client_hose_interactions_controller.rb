@@ -43,7 +43,7 @@ class ClientHoseInteractionsController < ApplicationController
     @interaction.heater_status_id = params[:statusId].to_i
     @interaction.save
     
-    renter json: @interaction
+    render json: @interaction
   end
   
   def getHosesLoanedToClient

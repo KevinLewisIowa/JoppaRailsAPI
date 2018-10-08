@@ -44,7 +44,7 @@ class ClientTankInteractionsController < ApplicationController
     @interaction.status_id = params[:statusId].to_i
     @interaction.save
     
-    renter json: @interaction
+    render json: @interaction
   end
 
   # DELETE /client_tank_interactions/1
