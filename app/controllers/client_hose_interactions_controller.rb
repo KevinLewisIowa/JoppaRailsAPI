@@ -40,7 +40,7 @@ class ClientHoseInteractionsController < ApplicationController
   
   def updateHoseInteraction
     @interaction = ClientHoseInteraction.find(params[:interactionId])
-    @interaction.heater_status_id = params[:statusId]
+    @interaction.heater_status_id = params[:statusId].to_i
     @interaction.save
     
     renter json: @interaction
