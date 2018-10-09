@@ -66,7 +66,7 @@ class LocationsController < ApplicationController
     @maybeDates.each do |theId|
       mostRecent = ClientInteraction.where('client_id = ? AND location_camp_id = ?', theId, params[:locationCampId]).last
       if mostRecent.still_lives_here
-        results.push(mostRecent.client)
+        results.push(mostRecent.client.dup)
         results.last.scene_at = mostRecent.created_at
       end
     end
