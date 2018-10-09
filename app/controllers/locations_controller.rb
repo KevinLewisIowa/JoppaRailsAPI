@@ -56,6 +56,7 @@ class LocationsController < ApplicationController
     render json: results
   end
   
+  #this is the one that is used
   def getClientsForLocationCampC
     results = Array.new
     #@maybeDates = ClientInteraction.where(:location_camp_id => params[:locationCampId]).group("client_id").order(:created_at).last # .maximum(:created_at)
@@ -66,6 +67,7 @@ class LocationsController < ApplicationController
       mostRecent = ClientInteraction.where('client_id = ? AND location_camp_id = ?', theId, params[:locationCampId]).last
       if mostRecent.still_lives_here
         results.push(mostRecent.client)
+        results.last.scene_at = mostRecent.created_at
       end
     end
     
