@@ -64,6 +64,10 @@ Things you may want to cover:
 * git push heroku master
 * heroku run rails db:migrate
 * heroku pg:reset                   // reset pg database
+* git remote rm heroku
+* git remote add heroku [Swap out prod or test endpoint here] 
+* git remote -v
+* 
 * 
 * to restart the database fresh, do heroku run rails db:migrate:reset
 
