@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   get       'getHosesLoanedToClient'      => 'client_hose_interactions#getHosesLoanedToClient'
   get       'updateHoseInteraction'       => 'client_hose_interactions#updateHoseInteraction'
   get       'updateTankInteraction'       => 'client_tank_interactions#updateTankInteraction'
+  get       'getCheckedOutHeaters'        => 'route_instance_heater_interactions#getCheckedOutHeaters'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates
