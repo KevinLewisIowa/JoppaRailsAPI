@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181008191605) do
+ActiveRecord::Schema.define(version: 20181013181241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,6 +172,13 @@ ActiveRecord::Schema.define(version: 20181008191605) do
     t.datetime "updated_at",       null: false
   end
 
+  create_table "route_instance_heater_interactions", force: :cascade do |t|
+    t.integer  "route_instance_id"
+    t.boolean  "is_checked_out"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
   create_table "route_instances", force: :cascade do |t|
     t.integer  "route_id"
     t.string   "leader_name"
@@ -179,8 +186,9 @@ ActiveRecord::Schema.define(version: 20181008191605) do
     t.boolean  "heat_route"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "number_route_members"
   end
 
   create_table "routes", force: :cascade do |t|
