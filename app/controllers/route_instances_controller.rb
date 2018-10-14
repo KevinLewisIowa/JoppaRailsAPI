@@ -46,6 +46,6 @@ class RouteInstancesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def route_instance_params
-      params.require(:route_instance).permit(:route_id, :leader_name, :leader_phone, :heat_route, :start_time, :end_time)
+      params.require(:route_instance).permit(:route_id, :leader_name, :leader_phone, :number_route_members, :heat_route, :start_time, :end_time)
     end
 end
