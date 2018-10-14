@@ -53,6 +53,6 @@ class RouteInstanceHeaterInteractionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def route_instance_heater_interaction_params
-      params.require(:route_instance_heater_interaction).permit(:route_instance_id, :is_checked_out)
+      params.require(:route_instance_heater_interaction).permit(:route_instance_id, :heater_id, :is_checked_out)
     end
 end
