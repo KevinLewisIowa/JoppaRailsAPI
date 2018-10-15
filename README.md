@@ -68,6 +68,7 @@ Things you may want to cover:
 * git remote add heroku [Swap out prod or test endpoint here] 
 * git remote add heroku git@heroku.com:joppa-api-test.git
 * git remote add heroku git@heroku.com:joppa-api-prod.git
+* or https://git.heroku.com/joppa-ui-test.git
 * git remote -v
 * 
 * 

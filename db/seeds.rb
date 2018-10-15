@@ -6,12 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+
 routes = [{region: 'Central Iowa', name: 'Red', is_active: true},
            {region: 'Central Iowa', name: 'Orange', is_active: true},
            {region: 'Central Iowa', name: 'Yellow', is_active: true},
            {region: 'Central Iowa', name: 'Green', is_active: true},
            {region: 'Central Iowa', name: 'Blue', is_active: true}]
-           
+=begin         
 locations = [{route_id: 1, name: 'First Stop', position: 1, notes: '', latitude: 41.943513, longitude: -87.634554, is_active: true},
 {route_id: 1, name: 'Second Stop', position: 2, notes: 'This is another test', latitude: 41.943513, longitude: -87.634554, is_active: true},
 {route_id: 1, name: 'Third Stop', position: 3, notes: 'This is text', latitude: 41.943513, longitude: -87.634554, is_active: true},
@@ -73,9 +74,10 @@ interactions = [{location_camp_id: 1, client_id: 1, was_seen: true, serviced: tr
 {location_camp_id: 6, client_id: 2, was_seen: true, serviced: true, still_lives_here: true},
 {location_camp_id: 1, client_id: 3, was_seen: false, serviced: true, still_lives_here: true},
 {location_camp_id: 1, client_id: 4, was_seen: true, serviced: false, still_lives_here: false}]
-
+=end
 heater_types = [{type_description: "Normal"},
-{type_description: "Not Normal"}]
+{type_description: "Not Normal"}] 
+
 # do not change these seeds for heater_status
 heater_status = [{status_name: "Unassigned"},
 {status_name: "Assigned"},
@@ -85,10 +87,10 @@ heater_status = [{status_name: "Unassigned"},
 {status_name: "Destroyed"},
 {status_name: "Broken"},
 {status_name: "Evicted"}]
-
+=begin
 heaters = [{heater_type_id: 1, serial_number: "ABC123", heater_status_id: 1, status_reason: "None", is_active: true},
 {heater_type_id: 1, serial_number: "123ABC", heater_status_id: 3, status_reason: "Stuff", is_active: true}]
-
+=end
 heater_types.each do |heater_type|
     HeaterType.create!(heater_type)
 end
@@ -96,15 +98,15 @@ end
 heater_status.each do |heater_stts|
     HeaterStatus.create!(heater_stts)
 end
-
+=begin
 heaters.each do |heater|
     Heater.create!(heaters)
 end
-
+=end
 routes.each do |route|
         Route.create!(route)
     end
-    
+=begin
 locations.each do |location|
         Location.create!(location)
     end
@@ -179,3 +181,4 @@ end
 prayerRequests.each do |prayer|
     PrayerRequestAndNeed.create!(prayer)
 end
+=end
