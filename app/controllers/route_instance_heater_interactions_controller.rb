@@ -15,7 +15,7 @@ class RouteInstanceHeaterInteractionsController < ApplicationController
   
   # GET /getCheckedOutHeaters?routeInstanceId={id}
   def getCheckedOutHeaters
-    @checked_out_heaters = RouteInstanceHeaterInteraction.joins(:heater, :route_instance).select("heaters.id, heaters.serial_number, route_instances.id").where("route_instance_heater_interactions.is_checked_out = ? AND route_instance_heater_interactions.route_instance_id = ?", true, params[:routeInstanceId])
+    @checked_out_heaters = RouteInstanceHeaterInteraction.joins(:heater).select("route_instance_heater_interactions.id, route_instance_heater_interactions.heater_id, heaters.serial_number, route_instance_heater_interactions.route_instance_id, route_instance_heater_interactions.is_checked_out").where("route_instance_heater_interactions.is_checked_out = ? AND route_instance_heater_interactions.route_instance_id = ?", true, params[:routeInstanceId])
     
     render json: @checked_out_heaters
   end
