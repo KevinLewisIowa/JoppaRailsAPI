@@ -51,6 +51,14 @@ class ClientHoseInteractionsController < ApplicationController
     
     render json: @interactions
   end
+  
+  def getHosesNotReturnedForClient
+    nowDate = DateTime.now
+    startingDate = nowDate << 6
+    hoses = ClientHoseInteraction.where('client_id = ? AND created_at > ? AND heater_status_id IN (?)', params[:clientId], startingDate, [4,5,6,7,8])
+    
+    render json: hoses
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

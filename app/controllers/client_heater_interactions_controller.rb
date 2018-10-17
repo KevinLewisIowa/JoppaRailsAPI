@@ -32,6 +32,14 @@ class ClientHeaterInteractionsController < ApplicationController
       render json: @client_heater_interaction.errors, status: :unprocessable_entity
     end
   end
+  
+  def getHeatersNotReturnedForClient
+    nowDate = DateTime.now
+    startingDate = nowDate << 6
+    heaters = ClientHeaterInteraction.where('client_id = ? AND created_at > ? AND status_id IN (?)', params[:clientId], startingDate, [4,5,6,7,8])
+    
+    render json: heaters
+  end
 
   # DELETE /client_heater_interactions/1
   def destroy

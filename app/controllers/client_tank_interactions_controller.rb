@@ -46,6 +46,14 @@ class ClientTankInteractionsController < ApplicationController
     
     render json: @interaction
   end
+  
+  def getTanksNotReturnedForClient
+    nowDate = DateTime.now
+    startingDate = nowDate << 6
+    tanks = ClientTankInteraction.where('client_id = ? AND created_at > ? AND status_id IN (?)', params[:clientId], startingDate, [4,5,6,7,8])
+    
+    render json: tanks
+  end
 
   # DELETE /client_tank_interactions/1
   def destroy
