@@ -31,6 +31,14 @@ class ClientsController < ApplicationController
     render json: @likes
   end
   
+  def getNewClients
+    twoWeeksAgo = Date.today - 14
+    
+    @clients = Client.where('created_at > ?', twoWeeksAgo)
+    
+    render json: @clients
+  end
+  
   # GET /getClientDislikes?clientId={id}
   def getClientDislikes
     @dislikes = ClientDislike.find_by(client_id: params[:clientId])
