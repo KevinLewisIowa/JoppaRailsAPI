@@ -14,7 +14,7 @@ class HeatersController < ApplicationController
   end
   
   def getHeaterListing
-    @heaterListing = Heater.joins(:heater_type, :heater_status, client_heater_interaction: :client).select("heater_types.type_description, heaters.serial_number, heater_statuses.status_name, heaters.status_reason, heaters.is_active, heaters.updated_at, clients.preferred_name")
+    @heaterListing = Heater.joins(:heater_type, :heater_status, :client_heater_interaction).joins("LEFT JOIN clients ON client_heater_interactions.client_id = clients.id").select("heater_types.type_description, heaters.serial_number, heater_statuses.status_name, heaters.status_reason, heaters.is_active, heaters.updated_at, clients.preferred_name")
     
     render json: @heaterListing
   end
