@@ -88,7 +88,7 @@ heater_status = [{status_name: "Unassigned"},
 {status_name: "Broken"},
 {status_name: "Evicted"}]
 
-heaters = [{heater_type_id: 1, serial_number: "012345", heater_status_id: 1, status_reason: "None", is_active: true},
+heaters = [{heater_type_id: 1, serial_number: "012345", heater_status_id: 1, status_reason: "None", is_active: true, current_client_id: 1},
 {heater_type_id: 1, serial_number: "987654", heater_status_id: 1, status_reason: "None", is_active: true}]
 
 heater_types.each do |heater_type|
