@@ -47,6 +47,13 @@ class AdminController < ApplicationController
     
     render json: @routeUnfulfilledPrayerRequestsNeeds
   end
+  
+  # GET /getRecentlyMovedClients
+  def getRecentlyMovedClients
+    @recentlyMovedClients = ClientInteraction.joins(:client, {location_camp: {location: :route}}).select("routes.name, clients.preferred_name").where("client_interactions.created_at >= ?", Date.today - 7.days).group("routes.name, clients.preferred_name")
+    
+    render json: @recentlyMovedClients
+  end
 
   private
     
