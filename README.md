@@ -101,3 +101,7 @@ Things you may want to cover:
 * git push origin master            // push this merge to the git master
 
 * git push heroku master            // pushes this current code to heroku master (deploys it)
+* 
+
+*database upgrade instructions:
+* https://stackoverflow.com/questions/51211921/upgrade-hobby-dev-to-hobby-basic-on-heroku

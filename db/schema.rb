@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181013191832) do
+ActiveRecord::Schema.define(version: 20181025140605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,8 @@ ActiveRecord::Schema.define(version: 20181013191832) do
     t.boolean  "inactive"
     t.string   "inactive_description"
     t.string   "dwelling"
+    t.integer  "current_camp_id"
+    t.integer  "previous_camp_id"
   end
 
   create_table "goals_and_next_steps", force: :cascade do |t|
