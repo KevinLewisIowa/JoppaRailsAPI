@@ -16,6 +16,8 @@ class ClientsController < ApplicationController
   # POST /clients
   def create
     @client = Client.new(client_params)
+    @client.current_camp_id = 0
+    @client.previous_camp_id = 0
 
     if @client.save
       render json: @client, status: :created, location: @client
@@ -108,6 +110,6 @@ class ClientsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def client_params
-      params.require(:client).permit(:preferred_name, :is_veteran, :previous_camp_id, :current_camp_id, :deceased, :inactive, :inactive_description, :dwelling, :birth_date, :is_aftercare, :shoe_size, :boot_size, :number_meals, :phone, :joppa_apartment_umber)
+      params.require(:client).permit(:preferred_name, :is_veteran, :deceased, :inactive, :inactive_description, :dwelling, :birth_date, :is_aftercare, :shoe_size, :boot_size, :number_meals, :phone, :joppa_apartment_umber)
     end
 end
