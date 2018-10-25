@@ -16,8 +16,14 @@ class ClientInteractionsController < ApplicationController
   # POST /client_interactions
   def create
     @client_interaction = ClientInteraction.new(client_interaction_params)
+    
 
     if @client_interaction.save
+      if @client_interaction.still_lives_here == true
+        @client = Client.find(@client_interaction.client_id)
+        @client.current_camp_id = @client_interaction.location_camp_id
+        @client.save
+      end
       render json: @client_interaction, status: :created, location: @client_interaction
     else
       render json: @client_interaction.errors, status: :unprocessable_entity
