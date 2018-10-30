@@ -19,6 +19,13 @@ class RouteInstanceHeaterInteractionsController < ApplicationController
     
     render json: @checked_out_heaters
   end
+  
+  # GET /isHeaterCheckedOutOnOtherRoute?heaterId={heaterId}
+  def isHeaterCheckedOutOnOtherRoute
+    @routeInstancesWhereCheckedOut = RouteInstanceHeaterInteraction.select("route_instance_heater_interactions.route_instance_id").where("route_instance_heater_interactions.heater_id = ? AND route_instance_heater_interactions.is_checked_out = ?", params[:heaterId], true)
+    
+    render json:@routeInstancesWhereCheckedOut
+  end
 
   # POST /route_instance_heater_interactions
   def create

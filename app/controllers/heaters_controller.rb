@@ -74,7 +74,7 @@ class HeatersController < ApplicationController
   
   # GET /getAvailableHeaters
   def getAvailableHeaters
-    @heaters = Heater.joins(:heater_type).select("heater_types.type_description, heaters.serial_number, heaters.id, heaters.heater_status_id").where("heater_status_id = ? OR heater_status_id = ?", 1, 3)
+    @heaters = Heater.joins(:heater_type, :route_instance_heater_interaction).select("heater_types.type_description, heaters.serial_number, heaters.id, heaters.heater_status_id").where("(heater_status_id = ? OR heater_status_id = ?) AND route_instance_heater_interactions.is_checked_out = ?", 1, 3, false)
     
     render json: @heaters
   end
