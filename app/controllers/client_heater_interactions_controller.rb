@@ -40,6 +40,19 @@ class ClientHeaterInteractionsController < ApplicationController
     
     render json: heaters
   end
+  
+  def updateHeaterInteraction
+    @interaction = ClientHeaterInteraction.find(params[:interactionId])
+    @interaction.status_id = params[:statusId]
+    
+    @interaction.save
+    
+    @heater = Heater.find(@interaction.heater_id)
+    @heater.heater_status_id = params[:statusId]
+    @heater.save
+    
+    render json: @interaction
+  end
 
   # DELETE /client_heater_interactions/1
   def destroy
