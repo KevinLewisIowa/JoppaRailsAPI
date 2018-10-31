@@ -42,7 +42,9 @@ class ClientHeaterInteractionsController < ApplicationController
   end
   
   def updateHeaterInteraction
-    @interaction = ClientHeaterInteraction.find(params[:interactionId])
+    #interactionId is actually the heaterId
+    maximumDate = ClientHeaterInteraction.where('heater_id = ?', params[:interactionId]).maximum('created_at')
+    @interaction = ClientHeaterInteraction.where('heater_id = ? AND created_at = ?', params[:interactionId], maximumDate)
     @interaction.status_id = params[:statusId]
     
     @interaction.save
