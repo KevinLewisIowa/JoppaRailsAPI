@@ -43,13 +43,13 @@ class ClientHeaterInteractionsController < ApplicationController
   
   def updateHeaterInteraction
     #interactionId is actually the heaterId
-    @interaction = ClientHeaterInteraction.where('heater_id = ? AND created_at = (SELECT MAX(created_at) from client_heater_interactions 
-                            where heater_id = ?)', params[:interactionId], params[:interactionId])
+    @interactions = ClientHeaterInteraction.where('heater_id = ?', params[:interactionId])
+    @interaction = @interactions.last
     @interaction.status_id = params[:statusId]
     
     @interaction.save
     
-    @heater = Heater.find(@interaction.heater_id)
+    @heater = Heater.find(params[:interactionId])
     @heater.heater_status_id = params[:statusId]
     @heater.save
     
