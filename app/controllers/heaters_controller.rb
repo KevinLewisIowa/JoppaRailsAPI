@@ -74,7 +74,13 @@ class HeatersController < ApplicationController
   
   # GET /getAvailableHeaters?routeInstanceId={id}
   def getAvailableHeaters
-    @checkedOutHeaters = RouteInstanceHeaterInteraction.select('route_instance_heater_interactions.heater_id').where('route_instance_heater_interactions.is_checked_out = ? AND route_instance_heater_interactions.route_instance_id <> ?', true, params[:routeInstanceId]);
+    if (params[:routeInstanceId]) then
+      @checkedOutHeaters = RouteInstanceHeaterInteraction.select('route_instance_heater_interactions.heater_id').where('route_instance_heater_interactions.is_checked_out = ? AND route_instance_heater_interactions.route_instance_id <> ?', true, params[:routeInstanceId]);  
+    else
+      @checkedOutHeaters = RouteInstanceHeaterInteraction.select('route_instance_heater_interactions.heater_id').where('route_instance_heater_interactions.is_checked_out = ? AND route_instance_heater_interactions.route_instance_id <> ?', true, 0);
+    end
+      
+    
     @heaters = Heater.joins(:heater_type).select("heater_types.type_description, heaters.serial_number, heaters.id, heaters.heater_status_id").where("(heater_status_id = ? OR heater_status_id = ?) AND heaters.id NOT IN (?)", 1, 3, @checkedOutHeaters).uniq
     
     render json: @heaters
