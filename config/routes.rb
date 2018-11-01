@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   get       'getTanksNotReturnedForClient'  => 'client_tank_interactions#getTanksNotReturnedForClient'
   get       'getNewClients'               => 'clients#getNewClients'
   get       'getClientsNewToCamps'        => 'clients#getClientsNewToCamps'
+  get       'updateHeaterInteraction'     => 'client_heater_interactions#updateHeaterInteraction'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates
