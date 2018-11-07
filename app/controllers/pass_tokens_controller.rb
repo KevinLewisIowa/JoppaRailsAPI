@@ -16,7 +16,7 @@ class PassTokensController < ApplicationController
   def attemptLogin
     @passwords = PassToken.find(1)
     
-    attemptedPassword = params[:passWrd].string()
+    attemptedPassword = params[:passWrd]
     if (@passwords.admin_password == attemptedPassword)
       if (@passwords.updated_at.to_date != Date.current)
         newToken = ('a'..'z').to_a.shuffle[0,8].join
@@ -25,7 +25,8 @@ class PassTokensController < ApplicationController
       end
       theToken = @passwords.api_token
       render json: { admin: true, token: theToken }
-    elseif (@passwords.regular_password == attemptedPassword)
+    end
+    if (@passwords.regular_password == attemptedPassword)
       if (@passwords.updated_at.to_date != Date.current)
         newToken = ('a'..'z').to_a.shuffle[0,8].join
         @passwords.api_token = newToken
@@ -33,9 +34,9 @@ class PassTokensController < ApplicationController
       end
       theToken = @passwords.api_token
       render json: {admin: false, token: theToken }
-    else
-      render json: { admin: false, token: 'failedLogin' }
     end
+    
+    render json: { admin: false, token: 'failedLogin' }
   end
 
   # POST /pass_tokens
