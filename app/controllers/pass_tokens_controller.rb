@@ -16,7 +16,7 @@ class PassTokensController < ApplicationController
   def attemptLogin
     @passwords = PassToken.find(1)
     
-    attemptedPassword = params[:passWrd]
+    attemptedPassword = params[:passWrd].string()
     if (@passwords.admin_password == attemptedPassword)
       if (@passwords.updated_at.to_date != Date.current)
         newToken = ('a'..'z').to_a.shuffle[0,8].join
