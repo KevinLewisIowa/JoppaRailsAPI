@@ -15,9 +15,11 @@ class PassTokensController < ApplicationController
   
   def attemptLogin
     @passwords = PassToken.find(1)
+    render json: @passwords
     
     attemptedPassword = params[:passWrd]
-    render json: {data: @passwords, attempt: attemptedPassword }
+    render json: {admin: @passwords.admin_password, regular: @passwords.regular_password, attempt: attemptedPassword }
+    
     if (@passwords.admin_password == attemptedPassword)
       if (@passwords.updated_at.to_date != Date.current)
         newToken = ('a'..'z').to_a.shuffle[0,8].join
