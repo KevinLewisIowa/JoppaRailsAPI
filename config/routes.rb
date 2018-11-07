@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   get       'getNewClients'               => 'clients#getNewClients'
   get       'getClientsNewToCamps'        => 'clients#getClientsNewToCamps'
   get       'updateHeaterInteraction'     => 'client_heater_interactions#updateHeaterInteraction'
+  get       'attemptLogin'                => 'pass_tokens#attemptLogin'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates
