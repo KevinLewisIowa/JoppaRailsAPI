@@ -17,7 +17,6 @@ class PassTokensController < ApplicationController
     @passwords = PassToken.find(1)
     
     attemptedPassword = params[:passWrd]
-    return render json: {admin: @passwords.admin_password, regular: @passwords.regular_password, attempt: attemptedPassword }
     
     if (@passwords.admin_password == attemptedPassword)
       if (@passwords.updated_at.to_date != Date.current)
