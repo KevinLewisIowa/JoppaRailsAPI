@@ -15,10 +15,9 @@ class PassTokensController < ApplicationController
   
   def attemptLogin
     @passwords = PassToken.find(1)
-    render json: @passwords
     
     attemptedPassword = params[:passWrd]
-    render json: {admin: @passwords.admin_password, regular: @passwords.regular_password, attempt: attemptedPassword }
+    return render json: {admin: @passwords.admin_password, regular: @passwords.regular_password, attempt: attemptedPassword }
     
     if (@passwords.admin_password == attemptedPassword)
       if (@passwords.updated_at.to_date != Date.current)
@@ -27,7 +26,7 @@ class PassTokensController < ApplicationController
         @passwords.save
       end
       theToken = @passwords.api_token
-      render json: { admin: true, token: theToken }
+      return render json: { admin: true, token: theToken }
     end
     if (@passwords.regular_password == attemptedPassword)
       if (@passwords.updated_at.to_date != Date.current)
@@ -36,10 +35,10 @@ class PassTokensController < ApplicationController
         @passwords.save
       end
       theToken = @passwords.api_token
-      render json: {admin: false, token: theToken }
+      return render json: {admin: false, token: theToken }
     end
     
-    render json: { admin: false, token: 'failedLogin' }
+    return render json: { admin: false, token: 'failedLogin' }
   end
 
   # POST /pass_tokens
