@@ -1,0 +1,2 @@
+class PassToken < ApplicationRecord
+end

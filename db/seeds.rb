@@ -181,3 +181,5 @@ end
 prayerRequests.each do |prayer|
     PrayerRequestAndNeed.create!(prayer)
 end
+
+PassToken.create!({admin_password: 'J0ppa321', regular_password: 'regularPassword', api_token: 'firstTokenSeeded'})

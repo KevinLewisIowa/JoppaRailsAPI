@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pass_tokens
   resources :route_instance_heater_interactions
   resources :client_hose_interactions
   resources :route_instances
