@@ -42,6 +42,7 @@ class LocationsController < ApplicationController
   def locationsForRoute
     apiToken = request.headers['apiToken']
     passwordAndToken = PassToken.find(1)
+    return render json: {theToken: apiToken, passwordToken: passwordAndToken.api_token, message: 'invalid-token' }
     if passwordAndToken.api_token != apiToken
       return render json: {message: 'invalid-token'}
     end
