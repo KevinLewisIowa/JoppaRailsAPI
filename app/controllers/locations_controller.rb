@@ -40,6 +40,11 @@ class LocationsController < ApplicationController
   
   # GET /locationsForRoute?routeId={id}
   def locationsForRoute
+    apiToken = request.headers['apiToken']
+    passwordAndToken = PassToken.find(1)
+    if passwordAndToken.api_token != apiToken
+      return render json: {message: 'invalid-token'}
+    end
     @locations = Location.where(:route_id => params[:routeId]) #maybe Location.where('route_id = ?', params[:routeId])
     
     render json: @locations
