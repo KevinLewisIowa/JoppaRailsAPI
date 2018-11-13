@@ -98,6 +98,18 @@ class LocationsController < ApplicationController
     
     render json: @results
   end
+  
+  # /getRouteLocationsLongLat?routeId={id}
+  def getRouteLocationsLongLat
+    apiToken = request.headers['Authorization']
+    passwordAndToken = PassToken.find(1)
+    if passwordAndToken.api_token != apiToken
+      return render json: {message: 'invalid-token'}
+    end
+    @routeLocationsLongLat = Location.where('route_id = ?', params[:routeId]).select("locations.name, locations.longitude, locations.latitude")
+    
+    render json: @routeLocationsLongLat
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -13,6 +13,7 @@ class PassTokensController < ApplicationController
     render json: { data: 'nice try' }#json: @pass_token
   end
   
+  # GET /pass_tokens
   def attemptLogin
     @passwords = PassToken.find(1)
     

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :location_camps
   resources :client_interactions
   get       'locationsForRoute'   => 'locations#locationsForRoute'
+  get       'getRouteLocationsLongLat' => 'locations#getRouteLocationsLongLat'
   get       'getClientLikes'      => 'clients#getClientLikes'
   get       'getClientDislikes'   => 'clients#getClientDislikes'
   get       'getClientGoals'      => 'clients#getClientGoals'
