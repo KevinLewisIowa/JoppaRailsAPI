@@ -106,7 +106,7 @@ class LocationsController < ApplicationController
     if passwordAndToken.api_token != apiToken
       return render json: {message: 'invalid-token'}
     end
-    @routeLocationsLongLat = Location.where('route_id = ?', params[:routeId]).select("locations.name, locations.longitude, locations.latitude")
+    @routeLocationsLongLat = Location.where('route_id = ? AND is_active = ?', params[:routeId], true).select("locations.name, locations.longitude, locations.latitude")
     
     render json: @routeLocationsLongLat
   end
