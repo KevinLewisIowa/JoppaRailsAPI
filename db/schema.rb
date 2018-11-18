@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181107153933) do
+ActiveRecord::Schema.define(version: 20181118204953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,6 +188,16 @@ ActiveRecord::Schema.define(version: 20181107153933) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "heater_id"
+  end
+
+  create_table "route_instance_tank_hose_interactions", force: :cascade do |t|
+    t.integer  "route_instance_id"
+    t.integer  "number_hoses_out"
+    t.integer  "number_hoses_in"
+    t.integer  "number_tanks_out"
+    t.integer  "number_tanks_in"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "route_instances", force: :cascade do |t|

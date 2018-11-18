@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  route_instance_id: 1
+  number_hoses_out: 1
+  number_hoses_in: 1
+  number_tanks_out: 1
+  number_tanks_in: 1
+
+two:
+  route_instance_id: 1
+  number_hoses_out: 1
+  number_hoses_in: 1
+  number_tanks_out: 1
+  number_tanks_in: 1
