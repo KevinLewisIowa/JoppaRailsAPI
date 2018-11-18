@@ -3,6 +3,12 @@ class RouteInstanceTankHoseInteractionsController < ApplicationController
 
   # GET /route_instance_tank_hose_interactions
   def index
+    apiToken = request.headers['Authorization']
+    passwordAndToken = PassToken.find(1)
+    if passwordAndToken.api_token != apiToken
+      return render json: {message: 'invalid-token'}
+    end
+    
     @route_instance_tank_hose_interactions = RouteInstanceTankHoseInteraction.all
 
     render json: @route_instance_tank_hose_interactions
@@ -15,6 +21,12 @@ class RouteInstanceTankHoseInteractionsController < ApplicationController
 
   # POST /route_instance_tank_hose_interactions
   def create
+    apiToken = request.headers['Authorization']
+    passwordAndToken = PassToken.find(1)
+    if passwordAndToken.api_token != apiToken
+      return render json: {message: 'invalid-token'}
+    end
+    
     @route_instance_tank_hose_interaction = RouteInstanceTankHoseInteraction.new(route_instance_tank_hose_interaction_params)
 
     if @route_instance_tank_hose_interaction.save
@@ -41,6 +53,12 @@ class RouteInstanceTankHoseInteractionsController < ApplicationController
 
   # DELETE /route_instance_tank_hose_interactions/1
   def destroy
+    apiToken = request.headers['Authorization']
+    passwordAndToken = PassToken.find(1)
+    if passwordAndToken.api_token != apiToken
+      return render json: {message: 'invalid-token'}
+    end
+    
     @route_instance_tank_hose_interaction.destroy
   end
 
