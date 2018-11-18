@@ -26,6 +26,12 @@ class RouteInstanceTankHoseInteractionsController < ApplicationController
 
   # PATCH/PUT /route_instance_tank_hose_interactions/1
   def update
+    apiToken = request.headers['Authorization']
+    passwordAndToken = PassToken.find(1)
+    if passwordAndToken.api_token != apiToken
+      return render json: {message: 'invalid-token'}
+    end
+    
     if @route_instance_tank_hose_interaction.update(route_instance_tank_hose_interaction_params)
       render json: @route_instance_tank_hose_interaction
     else
