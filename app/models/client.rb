@@ -34,4 +34,8 @@ class Client < ApplicationRecord
     has_many :client_tank_interaction, class_name: "ClientTankInteraction",
                                          foreign_key: "client_id",
                                          dependent: :destroy
+                                         
+    has_many :client_note, class_name: "ClientNote",
+                                         foreign_key: "client_id",
+                                         dependent: :destroy
 end

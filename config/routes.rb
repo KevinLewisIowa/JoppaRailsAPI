@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get       'getClientsForLocationCampC'  =>  'locations#getClientsForLocationCampC'
   get       'getClientsForLocationCampD'  =>  'locations#getClientsForLocationCampD'
   get       'getClientsByName'    => 'clients#getClientsByName'
+  get       'getClientNotesForRoute'  => 'client_notes#getClientNotesForRoute'
   get       'recentReceivedItems'   =>  'requested_items#recentReceivedItems'
   get       'getCampsForLocation' => 'location_camps#getCampsForLocation'
   get       'prayerRequestsForClient' => 'prayer_request_and_needs#prayerRequestsForClient'
@@ -70,5 +71,6 @@ Rails.application.routes.draw do
   resources :routes
   resources :users
   resources :route_instances
+  resources :client_notes
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
