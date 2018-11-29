@@ -12,6 +12,13 @@ class RouteInstancesController < ApplicationController
   def show
     render json: @route_instance
   end
+  
+  # GET /getLatestRouteInstanceInfoForRoute?routeId={route_id}
+  def getLatestRouteInstanceInfoForRoute
+    @latest_route_instance_info = RouteInstance.where('id = (?)', RouteInstance.where('route_id = ?', params[:routeId]).select('MAX(id)'))
+    
+    render json: @latest_route_instance_info
+  end  
 
   # POST /route_instances
   def create

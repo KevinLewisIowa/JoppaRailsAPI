@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   resources :health_concerns
   resources :location_camps
   resources :client_interactions
+  get       'getNotesForRouteInstance'  => 'client_notes#getNotesForRouteInstance'
   get       'locationsForRoute'   => 'locations#locationsForRoute'
+  get       'getLatestRouteInstanceInfoForRoute'  => 'route_instances#getLatestRouteInstanceInfoForRoute'
   get       'getRouteLocationsLongLat' => 'locations#getRouteLocationsLongLat'
   get       'getClientLikes'      => 'clients#getClientLikes'
   get       'getClientDislikes'   => 'clients#getClientDislikes'

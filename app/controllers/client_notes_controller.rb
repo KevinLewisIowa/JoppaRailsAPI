@@ -19,6 +19,13 @@ class ClientNotesController < ApplicationController
     
     render json: @client_notes_on_route
   end
+  
+  # GET /getNotesForRouteInstance?routeInstance={route_instance_id}
+  def getNotesForRouteInstance
+    @notes_for_route_instance = ClientNote.where('route_instance_id = ?', params[:routeInstanceId])
+    
+    render json: @notes_for_route_instance
+  end
 
   # POST /client_notes
   def create
