@@ -15,10 +15,12 @@ class RouteInstancesController < ApplicationController
   
   # GET /getLatestRouteInstanceInfoForRoute?routeId={route_id}
   def getLatestRouteInstanceInfoForRoute
-    @latest_route_instance_info = RouteInstance.where('id = (?)', RouteInstance.where('route_id = ?', params[:routeId]).select('MAX(id)'))
+    @latest_route_instance_info = RouteInstance.where('id = (?)', RouteInstance.where('route_id = ?', params[:routeId]).select('MAX(id)')).select('route_instances.*, 
+    (SELECT COUNT(*) FROM client_interactions WHERE created_at > CAST(route_instances.start_time as date) AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN locations ON routes.id = locations.route_id LEFT JOIN location_camps ON locations.id = location_camps.location_id) AND was_seen = true) AS Seen, 
+    (SELECT COUNT(*) FROM client_interactions WHERE created_at > CAST(route_instances.start_time as date) AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN locations ON routes.id = locations.route_id LEFT JOIN location_camps ON locations.id = location_camps.location_id) AND serviced = true) AS Serviced')
     
     render json: @latest_route_instance_info
-  end  
+  end 
 
   # POST /route_instances
   def create
