@@ -13,9 +13,7 @@ Rails.application.routes.draw do
   resources :health_concerns
   resources :location_camps
   resources :client_interactions
-  get       'getNotesForRouteInstance'  => 'client_notes#getNotesForRouteInstance'
   get       'locationsForRoute'   => 'locations#locationsForRoute'
-  get       'getLatestRouteInstanceInfoForRoute'  => 'route_instances#getLatestRouteInstanceInfoForRoute'
   get       'getRouteLocationsLongLat' => 'locations#getRouteLocationsLongLat'
   get       'getClientLikes'      => 'clients#getClientLikes'
   get       'getClientDislikes'   => 'clients#getClientDislikes'
@@ -28,7 +26,6 @@ Rails.application.routes.draw do
   get       'getClientsForLocationCampC'  =>  'locations#getClientsForLocationCampC'
   get       'getClientsForLocationCampD'  =>  'locations#getClientsForLocationCampD'
   get       'getClientsByName'    => 'clients#getClientsByName'
-  get       'getClientNotesForRoute'  => 'client_notes#getClientNotesForRoute'
   get       'recentReceivedItems'   =>  'requested_items#recentReceivedItems'
   get       'getCampsForLocation' => 'location_camps#getCampsForLocation'
   get       'prayerRequestsForClient' => 'prayer_request_and_needs#prayerRequestsForClient'
@@ -59,6 +56,7 @@ Rails.application.routes.draw do
   get       'getClientsNewToCamps'        => 'clients#getClientsNewToCamps'
   get       'updateHeaterInteraction'     => 'client_heater_interactions#updateHeaterInteraction'
   get       'attemptLogin'                => 'pass_tokens#attemptLogin'
+  get       'setNewPassword'              => 'pass_tokens#setNewPassword'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates
@@ -73,6 +71,5 @@ Rails.application.routes.draw do
   resources :routes
   resources :users
   resources :route_instances
-  resources :client_notes
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

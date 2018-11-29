@@ -60,6 +60,16 @@ class PassTokensController < ApplicationController
       render json: @pass_token.errors, status: :unprocessable_entity
     end
   end
+  
+  def setNewPassword
+    newCode = params[:pswrd]
+    
+    @passToken = PassToken.find(1)
+    @passToken.regular_password = newCode
+    @passToken.save
+    
+    render json: @passToken
+  end
 
   # DELETE /pass_tokens/1
   def destroy
