@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :health_concerns
   resources :location_camps
   resources :client_interactions
+  resources :client_notes
   get       'locationsForRoute'   => 'locations#locationsForRoute'
   get       'getRouteLocationsLongLat' => 'locations#getRouteLocationsLongLat'
   get       'getClientLikes'      => 'clients#getClientLikes'
@@ -26,6 +27,9 @@ Rails.application.routes.draw do
   get       'getClientsForLocationCampC'  =>  'locations#getClientsForLocationCampC'
   get       'getClientsForLocationCampD'  =>  'locations#getClientsForLocationCampD'
   get       'getClientsByName'    => 'clients#getClientsByName'
+  get       'getClientNotesForRoute'  => 'client_notes#getClientNotesForRoute'
+  get       'getNotesForRouteInstance'  => 'client_notes#getNotesForRouteInstance'
+  get       'getLatestRouteInstanceInfoForRoute'  => 'route_instances#getLatestRouteInstanceInfoForRoute'
   get       'recentReceivedItems'   =>  'requested_items#recentReceivedItems'
   get       'getCampsForLocation' => 'location_camps#getCampsForLocation'
   get       'prayerRequestsForClient' => 'prayer_request_and_needs#prayerRequestsForClient'
