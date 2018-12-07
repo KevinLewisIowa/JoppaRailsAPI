@@ -45,7 +45,7 @@ class LocationsController < ApplicationController
     if passwordAndToken.api_token != apiToken
       return render json: {message: 'invalid-token'}
     end
-    @locations = Location.where(:route_id => params[:routeId]) #maybe Location.where('route_id = ?', params[:routeId])
+    @locations = Location.where('route_id = ? AND is_active = ?', params[:routeId], true)
     
     render json: @locations
   end
