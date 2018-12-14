@@ -13,6 +13,13 @@ class RouteInstanceHeaterInteractionsController < ApplicationController
     render json: @route_instance_heater_interaction
   end
   
+  # PATCH/PUT /checkInAllHeaters
+  def checkInAllHeaters
+    @numCheckedInHeaters = RouteInstanceHeaterInteraction.where('is_checked_out = ?', true).update_all(is_checked_out: false)
+    
+    render json: @numCheckedInHeaters
+  end
+  
   # GET /getCheckedOutHeaters?routeInstanceId={id}
   def getCheckedOutHeaters
     @checked_out_heaters = RouteInstanceHeaterInteraction.joins(:heater).select("route_instance_heater_interactions.id, route_instance_heater_interactions.heater_id, heaters.serial_number, route_instance_heater_interactions.route_instance_id, route_instance_heater_interactions.is_checked_out").where("route_instance_heater_interactions.is_checked_out = ? AND route_instance_heater_interactions.route_instance_id = ?", true, params[:routeInstanceId])
@@ -24,7 +31,7 @@ class RouteInstanceHeaterInteractionsController < ApplicationController
   def isHeaterCheckedOutOnOtherRoute
     @routeInstancesWhereCheckedOut = RouteInstanceHeaterInteraction.select("route_instance_heater_interactions.route_instance_id").where("route_instance_heater_interactions.heater_id = ? AND route_instance_heater_interactions.is_checked_out = ?", params[:heaterId], true)
     
-    render json:@routeInstancesWhereCheckedOut
+    render json: @routeInstancesWhereCheckedOut
   end
 
   # POST /route_instance_heater_interactions
