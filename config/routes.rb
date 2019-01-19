@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   get       'getHeaterTypes' => 'heater_types#getHeaterTypes'
   get       'getHeaterStatuses' => 'heater_statuses#getHeaterStatuses'
   get       'getHeaterListing' => 'heaters#getHeaterListing'
+  get       'seen_and_serviced_report' => 'client_interactions#seen_and_serviced_report'
   get       'updateHeaterClient'    => 'heaters#updateHeaterClient'
   get       'getCurrentHeatersForClient'  => 'heaters#getCurrentHeatersForClient'
   get       'getAvailableHeaters'          => 'heaters#getAvailableHeaters'
