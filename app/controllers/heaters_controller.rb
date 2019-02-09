@@ -74,8 +74,8 @@ class HeatersController < ApplicationController
   
   # GET /getHeatEquipmentPerRoute
   def getHeatEquipmentPerRoute
-    @routes = Route.all
-    @routes.each do |route|
+    routes = Route.all
+    routes.each do |route|
       heaters = Heater.joins("INNER JOIN clients ON heaters.current_client_id = clients.id")
               .joins("INNER JOIN location_camps ON clients.current_camp_id = location_camps.id")
               .joins("INNER JOIN locations ON location_camps.location_id = locations.id")
@@ -83,22 +83,22 @@ class HeatersController < ApplicationController
               .where("heater_status_id = ? AND route.id = locations.route_id", 2)
       route.heaterCount = heaters.length
     end
-    render json: @routes
+    render json: routes
   end
   
   def getHeatEquipmentPerRoute2
-    interactions = ClientHeaterInteraction.joins("INNER JOIN clients ON client_heater_interactions.client_id = clients.id")
-                      .select("client_heater_interactions.id, clients.preferred_name")
-                      .where("client_heater_interactions.heater_status_id = ?", 2)
+    interactions = ClientHoseInteraction.joins("INNER JOIN clients ON client_hose_interactions.client_id = clients.id")
+                      .select("client_hose_interactions.id, clients.preferred_name")
+                      .where("client_hose_interactions.heater_status_id = ?", 2)
               
     render json: interactions
   end
   
   def getHeatEquipmentPerRoute3
-    interactions = ClientHeaterInteraction.joins("INNER JOIN clients ON client_heater_interactions.client_id = clients.id")
+    interactions = ClientHoseInteraction.joins("INNER JOIN clients ON client_hose_interactions.client_id = clients.id")
                       .joins("INNER JOIN location_camps ON clients.current_camp_id = location_camps.id")
-                      .select("client_heater_interactions.id, clients.preferred_name, location_camps.name")
-                      .where("client_heater_interactions.heater_status_id = ?", 2)
+                      .select("client_hose_interactions.id, clients.preferred_name, location_camps.name")
+                      .where("client_hose_interactions.heater_status_id = ?", 2)
               
     render json: interactions
   end
