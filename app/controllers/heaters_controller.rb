@@ -82,7 +82,20 @@ class HeatersController < ApplicationController
               .joins("INNER JOIN locations ON location_camps.location_id = locations.id")
               .select("heaters.id, clients.preferred_name, location_camps.name, locations.name")
               .where("heater_status_id = ? AND locations.route_id = ?", 2, theRoute.id)
-      details << { name: theRoute.name, heaterCount: heaters.length }
+              
+      tankInteractions = ClientTankInteraction.joins("INNER JOIN clients ON client_tank_interactions.client_id = clients.id")
+                      .joins("INNER JOIN location_camps ON clients.current_camp_id = location_camps.id")
+                      .joins("INNER JOIN locations ON location_camps.location_id = locations.id")
+                      .select("client_tank_interactions.id, clients.preferred_name, location_camps.name")
+                      .where("client_tank_interactions.status_id = ? AND locations.route_id = ?", 2, theRoute.id)
+                      
+      hoseInteractions = ClientHoseInteraction.joins("INNER JOIN clients ON client_hose_interactions.client_id = clients.id")
+                      .joins("INNER JOIN location_camps ON clients.current_camp_id = location_camps.id")
+                      .joins("INNER JOIN locations ON location_camps.location_id = locations.id")
+                      .select("client_hose_interactions.id, clients.preferred_name, location_camps.name")
+                      .where("client_hose_interactions.heater_status_id = ? AND locations.route_id = ?", 2, theRoute.id)
+                      
+      details << { name: theRoute.name, heaterCount: heaters.length, tankCount: tankInteractions.length, hoseCount: hoseInteractions.length }
     end
     render json: details
   end
