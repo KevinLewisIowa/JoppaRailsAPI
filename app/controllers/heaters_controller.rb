@@ -93,21 +93,30 @@ class HeatersController < ApplicationController
   
   def getHeatEquipmentPerRoute4
     @routes = Route.all
-    heaters = Heater.joins(:client).select("heaters.id, clients.preferred_name").where("heater_status_id = ?", 2)
+    heaters = Heater("INNER JOIN clients ON heaters.client_id = clients.id")
+                .select("heaters.id, clients.preferred_name")
+                .where("heater_status_id = ?", 2)
       
     render json: heaters
   end
   
   def getHeatEquipmentPerRoute5
     @routes = Route.all
-    heaters = Heater.joins(:client, :location_camp).select("heaters.id, clients.preferred_name, location_camps.name").where("heater_status_id = ?", 2)
+    heaters = Heater.joins("INNER JOIN clients ON heaters.client_id = clients.id")
+              .joins("INNER JOIN location_camps ON clients.location_camp_id = location_camps.id")
+              .select("heaters.id, clients.preferred_name, location_camps.name")
+              .where("heater_status_id = ?", 2)
       
     render json: heaters
   end
   
   def getHeatEquipmentPerRoute6
     @routes = Route.all
-    heaters = Heater.joins(:client, :location_camp, :location).select("heaters.id, clients.preferred_name, location_camps.name, locations.name").where("heater_status_id = ?", 2)
+    heaters = Heater.joins("INNER JOIN clients ON heaters.client_id = clients.id")
+              .joins("INNER JOIN location_camps ON clients.location_camp_id = location_camps.id")
+              .joins("INNER JOIN locations ON location_camps.location_id = locations.id")
+              .select("heaters.id, clients.preferred_name, location_camps.name, locations.name")
+              .where("heater_status_id = ?", 2)
       
     render json: heaters
   end
