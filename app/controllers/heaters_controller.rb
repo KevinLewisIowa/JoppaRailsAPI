@@ -105,22 +105,28 @@ class HeatersController < ApplicationController
   end
   
   def getHeatEquipmentPerRoute4
-    @routes = Route.all
-    heaters = Heater.joins("INNER JOIN clients ON heaters.current_client_id = clients.id")
-                .select("heaters.id, clients.preferred_name")
-                .where("heater_status_id = ?", 2)
-      
-    render json: heaters
+    routes = Route.all
+    routes.each do |route|
+      heaters = Heater.joins("INNER JOIN clients ON heaters.current_client_id = clients.id")
+              .joins("INNER JOIN location_camps ON clients.current_camp_id = location_camps.id")
+              .joins("INNER JOIN locations ON location_camps.location_id = locations.id")
+              .select("heaters.id, clients.preferred_name, location_camps.name, locations.name")
+              .where("heater_status_id = ?", 2)
+      route.heaterCount = heaters.length
+    end
+    render json: routes
   end
   
   def getHeatEquipmentPerRoute5
-    @routes = Route.all
-    heaters = Heater.joins("INNER JOIN clients ON heaters.current_client_id = clients.id")
+    routes = Route.all
+    routes.each do |route|
+      heaters = Heater.joins("INNER JOIN clients ON heaters.current_client_id = clients.id")
               .joins("INNER JOIN location_camps ON clients.current_camp_id = location_camps.id")
-              .select("heaters.id, clients.preferred_name, location_camps.name")
+              .joins("INNER JOIN locations ON location_camps.location_id = locations.id")
+              .select("heaters.id, clients.preferred_name, location_camps.name, locations.name")
               .where("heater_status_id = ?", 2)
-      
-    render json: heaters
+    end
+    render json: routes
   end
   
   def getHeatEquipmentPerRoute6
