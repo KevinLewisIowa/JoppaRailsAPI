@@ -31,6 +31,9 @@ class Client < ApplicationRecord
                                          foreign_key: "client_id",
                                          dependent: :destroy
                                          
+    has_one :location_camp, class_name: "LocationCamp",
+                                        foreign_key: "current_camp_id"
+                                         
     has_many :client_tank_interaction, class_name: "ClientTankInteraction",
                                          foreign_key: "client_id",
                                          dependent: :destroy

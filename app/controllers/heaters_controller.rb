@@ -72,6 +72,16 @@ class HeatersController < ApplicationController
     render json: @heaters
   end
   
+  # GET /getHeatEquipmentPerRoute
+  def getHeatEquipmentPerRoute
+    @routes = Route.all
+    @routes.each do |route|
+      heaters = Heater.joins(:client, :location_camp, :location).select("heaters.id").where("heater_status_id = ? AND location.route_id = ?", 2, route.id)
+      route.heaterCount = heaters.length
+    end
+    render json: @routes
+  end
+  
   # GET /getAvailableHeaters?routeInstanceId={id}
   def getAvailableHeaters
     if (params[:routeInstanceId]) then
