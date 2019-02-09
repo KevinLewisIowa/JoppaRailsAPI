@@ -75,15 +75,19 @@ class HeatersController < ApplicationController
   # GET /getHeatEquipmentPerRoute
   def getHeatEquipmentPerRoute
     routes = Route.all
+    details = Array.new(routes.length)
+    count = 0
     routes.each do |route|
+      details[count].name = route.name
       heaters = Heater.joins("INNER JOIN clients ON heaters.current_client_id = clients.id")
               .joins("INNER JOIN location_camps ON clients.current_camp_id = location_camps.id")
               .joins("INNER JOIN locations ON location_camps.location_id = locations.id")
               .select("heaters.id, clients.preferred_name, location_camps.name, locations.name")
               .where("heater_status_id = ? AND locations.route_id = ?", 2, route.id)
-      route.heaterCount = heaters.length
+      details[count].heaterCount = heaters.length
+      count = count + 1
     end
-    render json: routes
+    render json: details
   end
   
   def getHeatEquipmentPerRoute2
