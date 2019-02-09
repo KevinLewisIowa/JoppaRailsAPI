@@ -80,16 +80,17 @@ class HeatersController < ApplicationController
               .joins("INNER JOIN location_camps ON clients.current_camp_id = location_camps.id")
               .joins("INNER JOIN locations ON location_camps.location_id = locations.id")
               .select("heaters.id, clients.preferred_name, location_camps.name, locations.name")
-              .where("heater_status_id = ? AND route.id = locations.route_id", 2)
+              .where("heater_status_id = ? AND locations.route_id = ?", 2, route.id)
       route.heaterCount = heaters.length
     end
     render json: routes
   end
   
   def getHeatEquipmentPerRoute2
-    interactions = ClientHoseInteraction.joins("INNER JOIN clients ON client_hose_interactions.client_id = clients.id")
-                      .select("client_hose_interactions.id, clients.preferred_name")
-                      .where("client_hose_interactions.heater_status_id = ?", 2)
+    interactions = ClientTankInteraction.joins("INNER JOIN clients ON client_tank_interactions.client_id = clients.id")
+                      .joins("INNER JOIN location_camps ON clients.current_camp_id = location_camps.id")
+                      .select("client_tank_interactions.id, clients.preferred_name, location_camps.name")
+                      .where("client_tank_interactions.status_id = ?", 2)
               
     render json: interactions
   end
