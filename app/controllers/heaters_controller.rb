@@ -93,7 +93,7 @@ class HeatersController < ApplicationController
   
   def getHeatEquipmentPerRoute4
     @routes = Route.all
-    heaters = Heater("INNER JOIN clients ON heaters.client_id = clients.id")
+    heaters = Heater.joins("INNER JOIN clients ON heaters.current_client_id = clients.id")
                 .select("heaters.id, clients.preferred_name")
                 .where("heater_status_id = ?", 2)
       
@@ -102,7 +102,7 @@ class HeatersController < ApplicationController
   
   def getHeatEquipmentPerRoute5
     @routes = Route.all
-    heaters = Heater.joins("INNER JOIN clients ON heaters.client_id = clients.id")
+    heaters = Heater.joins("INNER JOIN clients ON heaters.current_client_id = clients.id")
               .joins("INNER JOIN location_camps ON clients.location_camp_id = location_camps.id")
               .select("heaters.id, clients.preferred_name, location_camps.name")
               .where("heater_status_id = ?", 2)
@@ -112,7 +112,7 @@ class HeatersController < ApplicationController
   
   def getHeatEquipmentPerRoute6
     @routes = Route.all
-    heaters = Heater.joins("INNER JOIN clients ON heaters.client_id = clients.id")
+    heaters = Heater.joins("INNER JOIN clients ON heaters.current_client_id = clients.id")
               .joins("INNER JOIN location_camps ON clients.location_camp_id = location_camps.id")
               .joins("INNER JOIN locations ON location_camps.location_id = locations.id")
               .select("heaters.id, clients.preferred_name, location_camps.name, locations.name")
