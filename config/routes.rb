@@ -14,24 +14,20 @@ Rails.application.routes.draw do
   resources :location_camps
   resources :client_interactions
   resources :client_notes
-  get       'locationsForRoute'   => 'locations#locationsForRoute'
-  get       'getRouteLocationsLongLat' => 'locations#getRouteLocationsLongLat'
+  get       'getRouteCampsLongLat' => 'location_camps#getRouteCampsLongLat'
   get       'getClientLikes'      => 'clients#getClientLikes'
   get       'getClientDislikes'   => 'clients#getClientDislikes'
   get       'getClientGoals'      => 'clients#getClientGoals'
   get       'getClientPrayerRequests' => 'clients#getClientPrayerRequests'
   get       'getClientHealthConcerns' => 'health_concerns#getClientHealthConcerns'
   get       'getClientRequestedItem' => 'clients#getClientRequestedItem'
-  get       'getClientsForLocationCampA'  =>  'locations#getClientsForLocationCampA'
-  get       'getClientsForLocationCampB'  =>  'locations#getClientsForLocationCampB'
-  get       'getClientsForLocationCampC'  =>  'locations#getClientsForLocationCampC'
-  get       'getClientsForLocationCampD'  =>  'locations#getClientsForLocationCampD'
+  get       'getClientsForCamp'  =>  'location_camps#getClientsForCamp'
   get       'getClientsByName'    => 'clients#getClientsByName'
   get       'getClientNotesForRoute'  => 'client_notes#getClientNotesForRoute'
   get       'getNotesForRouteInstance'  => 'client_notes#getNotesForRouteInstance'
   get       'getLatestRouteInstanceInfoForRoute'  => 'route_instances#getLatestRouteInstanceInfoForRoute'
   get       'recentReceivedItems'   =>  'requested_items#recentReceivedItems'
-  get       'getCampsForLocation' => 'location_camps#getCampsForLocation'
+  get       'getCampsForRoute' => 'location_camps#getCampsForRoute'
   get       'prayerRequestsForClient' => 'prayer_request_and_needs#prayerRequestsForClient'
   get       'likesForClient'        =>  'client_likes#likesForClient'
   get       'dislikesForClient'     =>  'client_dislikes#dislikesForClient'
@@ -79,7 +75,6 @@ Rails.application.routes.draw do
   resources :client_likes
   resources :client_dislikes
   resources :clients
-  resources :locations
   resources :routes
   resources :users
   resources :route_instances

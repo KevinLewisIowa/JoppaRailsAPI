@@ -13,7 +13,7 @@ routes = [{region: 'Central Iowa', name: 'Red', is_active: true},
            {region: 'Central Iowa', name: 'Green', is_active: true},
            {region: 'Central Iowa', name: 'Blue', is_active: true}]
   
-locations = [{route_id: 1, name: 'First Stop', position: 1, notes: '', latitude: 41.943513, longitude: -87.634554, is_active: true},
+camps = [{route_id: 1, name: 'First Stop', position: 1, notes: '', latitude: 41.943513, longitude: -87.634554, is_active: true},
 {route_id: 1, name: 'Second Stop', position: 2, notes: 'This is another test', latitude: 41.943513, longitude: -87.634554, is_active: true},
 {route_id: 1, name: 'Third Stop', position: 3, notes: 'This is text', latitude: 41.943513, longitude: -87.634554, is_active: true},
 {route_id: 1, name: 'Fourth Stop', position: 4, notes: 'Sample text', latitude: 41.943513, longitude: -87.634554, is_active: true},
@@ -35,40 +35,10 @@ locations = [{route_id: 1, name: 'First Stop', position: 1, notes: '', latitude:
 {route_id: 5, name: 'Second Stop', position: 2, notes: 'I am very close now', latitude: 41.943513, longitude: -87.634554, is_active: true},
 {route_id: 5, name: 'Third Stop', position: 3, notes: 'Almost there', latitude: 41.943513, longitude: -87.634554, is_active: true}]
 
-camps = [{location_id: 1, name: 'A Camp 1', is_active: true},
-{location_id: 2, name: 'A Camp location 2', is_active: true},
-{location_id: 3, name: 'Another camp', is_active: true},
-{location_id: 4, name: 'Here is a camp', is_active: true},
-{location_id: 5, name: 'Another camp', is_active: true},
-{location_id: 6, name: 'This is a camp', is_active: true},
-{location_id: 7, name: 'This is another camp', is_active: true},
-{location_id: 8, name: 'This is a camp', is_active: true},
-{location_id: 9, name: 'Inside a location', is_active: true},
-{location_id: 10, name: 'This is another camp', is_active: true},
-{location_id: 11, name: 'This is another camp', is_active: true},
-{location_id: 12, name: 'This is also a camp', is_active: true},
-{location_id: 13, name: 'First camp here', is_active: true},
-{location_id: 14, name: 'First camp here too', is_active: true},
-{location_id: 15, name: 'This is the first', is_active: true},
-{location_id: 16, name: 'First one now', is_active: true},
-{location_id: 17, name: 'Now the first', is_active: true},
-{location_id: 18, name: 'Now the first one', is_active: true},
-{location_id: 19, name: 'This is first one for the location', is_active: true},
-{location_id: 20, name: 'First of location', is_active: true},
-{location_id: 21, name: 'The first', is_active: true},
-{location_id: 1, name: 'This is the second camp', is_active: true},
-{location_id: 2, name: 'Second camp', is_active: true},
-{location_id: 3, name: 'Second camp', is_active: true},
-{location_id: 4, name: 'The Second camp', is_active: true},
-{location_id: 5, name: 'The second camp', is_active: true},
-{location_id: 1, name: 'This is the third', is_active: true},
-{location_id: 2, name: 'This is third camp', is_active: true},
-{location_id: 3, name: 'This is a third camp', is_active: true}];
-
-clients = [{preferred_name: 'Kevin Lewis', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '07/10/1993', shoe_size: '9', phone: '6417999450', joppa_apartment_number: '', number_meals: 1},
-{preferred_name: 'Tim Wilson', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '02/14/1973', shoe_size: '11', phone: '4759284829', joppa_apartment_number: '', number_meals: 1},
-{preferred_name: 'Ryan Rutherford', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '09/18/1990', shoe_size: '10', phone: '2983981711', joppa_apartment_number: '', number_meals: 1},
-{preferred_name: 'Andrea Toppin', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '10/07/1985', shoe_size: '9', phone: '8372649304', joppa_apartment_number: '', number_meals: 1}]
+clients = [{preferred_name: 'Kevin Lewis', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '07/10/1993', shoe_size: '9', phone: '6417999450', joppa_apartment_number: '', number_meals: 1, current_camp_id: 3},
+{preferred_name: 'Tim Wilson', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '02/14/1973', shoe_size: '11', phone: '4759284829', joppa_apartment_number: '', number_meals: 1, current_camp_id: 2},
+{preferred_name: 'Ryan Rutherford', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '09/18/1990', shoe_size: '10', phone: '2983981711', joppa_apartment_number: '', number_meals: 1, current_camp_id: 1},
+{preferred_name: 'Andrea Toppin', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '10/07/1985', shoe_size: '9', phone: '8372649304', joppa_apartment_number: '', number_meals: 1, current_camp_id: 1}]
 
 interactions = [{location_camp_id: 1, client_id: 1, was_seen: true, serviced: true, still_lives_here: true},
 {location_camp_id: 6, client_id: 2, was_seen: true, serviced: true, still_lives_here: true},
@@ -107,10 +77,6 @@ routes.each do |route|
         Route.create!(route)
     end
 
-locations.each do |location|
-        Location.create!(location)
-    end
-    
 camps.each do |camp|
         LocationCamp.create!(camp)
     end

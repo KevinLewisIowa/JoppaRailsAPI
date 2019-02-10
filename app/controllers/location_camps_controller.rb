@@ -38,10 +38,40 @@ class LocationCampsController < ApplicationController
     @location_camp.destroy
   end
   
-  def getCampsForLocation
-    @camps = LocationCamp.where('location_id = ? AND is_active = ?', params[:locationId], true);
+  # GET /campsForRoute?routeId={route_id}
+  def getCampsForRoute
+    apiToken = request.headers['Authorization']
+    passwordAndToken = PassToken.find(1)
+    if passwordAndToken.api_token != apiToken
+      return render json: {message: 'invalid-token'}
+    end
+    @camps = LocationCamp.where('route_id = ? AND is_active = ?', params[:routeId], true);
     
     render json: @camps
+  end
+  
+  # GET /clientsForCamp?locationCampId={location_camp_id}
+  def getClientsForCamp
+    apiToken = request.headers['Authorization']
+    passwordAndToken = PassToken.find(1)
+    if passwordAndToken.api_token != apiToken
+      return render json: {message: 'invalid-token'}
+    end
+    @clients = Client.where('current_camp_id = ?', params[:locationCampId]);
+    
+    render json: @clients
+  end
+  
+  # /getRouteCampsLongLat?routeId={id}
+  def getRouteCampsLongLat
+    apiToken = request.headers['Authorization']
+    passwordAndToken = PassToken.find(1)
+    if passwordAndToken.api_token != apiToken
+      return render json: {message: 'invalid-token'}
+    end
+    @routeCampsLongLat = Location.where('route_id = ? AND is_active = ?', params[:routeId], true).select("location_camps.name, location_camps.longitude, location_camps.latitude")
+    
+    render json: @routeCampsLongLat
   end
 
   private
@@ -52,6 +82,6 @@ class LocationCampsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def location_camp_params
-      params.require(:location_camp).permit(:name, :location_id, :is_active)
+      params.require(:location_camp).permit(:route_id, :name, :position, :notes, :longitude, :latitude, :is_active)
     end
 end
