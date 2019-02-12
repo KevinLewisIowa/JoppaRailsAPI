@@ -77,11 +77,11 @@ class LocationCampsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_location_camp
-      @location_camp = LocationCamp.find(params[:id]).select('id, route_id, position, notes, longitude, latitude, is_active, created_at, updated_at')
+      @location_camp = LocationCamp.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def location_camp_params
-      params.require(:location_camp).permit(:route_id, :name, :position, :notes, :longitude, :latitude, :is_active)
+      params.require(:location_camp).permit(:route_id, :location_id, :name, :position, :notes, :longitude, :latitude, :is_active)
     end
 end
