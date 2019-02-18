@@ -64,11 +64,11 @@ class LocationCampsController < ApplicationController
   
   # /getRouteCampsLongLat?routeId={id}
   def getRouteCampsLongLat
-    #apiToken = request.headers['Authorization']
-    #passwordAndToken = PassToken.find(1)
-    #if passwordAndToken.api_token != apiToken
-    #  return render json: {message: 'invalid-token'}
-    #end
+    apiToken = request.headers['Authorization']
+    passwordAndToken = PassToken.find(1)
+    if passwordAndToken.api_token != apiToken
+      return render json: {message: 'invalid-token'}
+    end
     @routeCampsLongLat = LocationCamp.where('route_id = ? AND is_active = ?', params[:routeId], true).select("location_camps.name, location_camps.longitude, location_camps.latitude")
     
     render json: @routeCampsLongLat
