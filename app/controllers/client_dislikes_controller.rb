@@ -41,7 +41,7 @@ class ClientDislikesController < ApplicationController
 
 # GET /dislikesForClient?clientId={id}
   def dislikesForClient
-    @dislikes = ClientDislike.where(:client_id => params[:clientId]) #maybe Location.where('route_id = ?', params[:routeId])
+    @dislikes = ClientDislike.where(:client_id => params[:clientId]) #maybe LocationCamp.where('route_id = ?', params[:routeId])
     
     render json: @dislikes
   end

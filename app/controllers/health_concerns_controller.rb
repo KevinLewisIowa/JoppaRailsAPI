@@ -40,7 +40,7 @@ class HealthConcernsController < ApplicationController
   
   # GET getClientHealthConcerns
   def getClientHealthConcerns
-    @healthConcerns = HealthConcern.where(:client_id => params[:clientId]) #maybe Location.where('route_id = ?', params[:routeId])
+    @healthConcerns = HealthConcern.where(:client_id => params[:clientId]) #maybe LocationCamp.where('route_id = ?', params[:routeId])
     
     render json: @healthConcerns
   end

@@ -17,8 +17,7 @@ class AdminController < ApplicationController
     
    # @routeMeals = ClientInteraction.joins('INNER JOIN location_camps as lc on lc.id = location_camp_id')
     #                    .joins('INNER JOIN clients as c on c.id = client_id')
-     #                   .joins('INNER JOIN locations as l on l.id = lc.location_id')
-      #                  .joins('INNER JOIN routes as r on r.id = l.route_id')
+     #                   .joins('INNER JOIN routes as r on r.id = lc.route_id')
        #                 .select('r.name, sum(c.number_meals) as totalNumberMeals')
         #                .where('still_lives_here = ?', true)
          #               .group('r.name')

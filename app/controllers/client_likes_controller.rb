@@ -40,7 +40,7 @@ class ClientLikesController < ApplicationController
   
   # GET /locationsForRoute?routeId={id}
   def likesForClient
-    @likes = ClientLike.where(:client_id => params[:clientId]) #maybe Location.where('route_id = ?', params[:routeId])
+    @likes = ClientLike.where(:client_id => params[:clientId]) #maybe LocationCamp.where('route_id = ?', params[:routeId])
     
     render json: @likes
   end
