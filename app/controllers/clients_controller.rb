@@ -71,6 +71,7 @@ class ClientsController < ApplicationController
 
   # PATCH/PUT /clients/1
   def update
+    @client.touch
     if @client.update(client_params)
       render json: @client
     else
@@ -111,6 +112,6 @@ class ClientsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def client_params
       params.require(:client).permit(:preferred_name, :is_veteran, :deceased, :inactive, :inactive_description, :dwelling, :current_camp_id,
-                              :previous_camp_id, :birth_date, :is_aftercare, :shoe_size, :boot_size, :number_meals, :phone, :joppa_apartment_umber)
+                              :previous_camp_id, :birth_date, :is_aftercare, :shoe_size, :boot_size, :number_meals, :phone, :joppa_apartment_number)
     end
 end
