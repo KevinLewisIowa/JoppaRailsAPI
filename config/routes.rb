@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get       'getClientsForCamp'  =>  'location_camps#getClientsForCamp'
   get       'getClientsByName'    => 'clients#getClientsByName'
   get       'getClientNotesForRoute'  => 'client_notes#getClientNotesForRoute'
+  get       'getClientNotesForClient'  => 'client_notes#getClientNotesForClient'
   get       'getNotesForRouteInstance'  => 'client_notes#getNotesForRouteInstance'
   get       'getLatestRouteInstanceInfoForRoute'  => 'route_instances#getLatestRouteInstanceInfoForRoute'
   get       'recentReceivedItems'   =>  'requested_items#recentReceivedItems'

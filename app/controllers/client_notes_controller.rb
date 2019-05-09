@@ -20,6 +20,13 @@ class ClientNotesController < ApplicationController
     render json: @client_notes_on_route
   end
   
+  # GET /getClientNotesForRoute?clientId={client_id}
+  def getClientNotesForClient
+    @client_notes_on_client = ClientNote.where('client_id = ?', params[:clientId])
+    
+    render json: @client_notes_on_client
+  end
+  
   # GET /getNotesForRouteInstance?routeInstance={route_instance_id}
   def getNotesForRouteInstance
     @notes_for_route_instance = ClientNote.joins(:client).where('route_instance_id = ?', params[:routeInstanceId]).select('clients.preferred_name, client_notes.note')
