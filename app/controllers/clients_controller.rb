@@ -89,7 +89,7 @@ class ClientsController < ApplicationController
     
     @clientList = [];
     if @clientName == 'ALLCLIENTS'
-      @clientList = Client.joins('INNER JOIN location_camps as lc on lc.id = current_camp_id INNER JOIN routes r ON lc.route_id = r.id').order('r.name', :status).select('clients.id, clients.preferred_name, clients.status, clients.updated_at, r.name as route_name, lc.name as camp_name')
+      @clientList = Client.joins('INNER JOIN location_camps as lc on lc.id = current_camp_id INNER JOIN routes r ON lc.route_id = r.id').order('r.name', :status).select('clients.id, clients.phone, clients.preferred_name, clients.status, clients.updated_at, r.name as route_name, lc.name as camp_name')
     else
       @clientList = Client.joins('INNER JOIN location_camps as lc on lc.id = current_camp_id INNER JOIN routes r ON lc.route_id = r.id').where('preferred_name ILIKE ?', '%' + @clientName + '%').order('r.name', :status).select('clients.id, clients.phone, clients.preferred_name, clients.status, clients.updated_at, r.name as route_name, lc.name as camp_name')
     end
