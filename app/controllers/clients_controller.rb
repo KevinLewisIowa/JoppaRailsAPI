@@ -89,9 +89,9 @@ class ClientsController < ApplicationController
     
     @clientList = [];
     if @clientName == 'ALLCLIENTS'
-      @clientList = Client.all
+      @clientList = Client.joins('INNER JOIN location_camps as lc on lc.id = current_camp_id INNER JOIN routes r ON lc.route_id = r.id').order('r.name', :status).select('clients.preferred_name, clients.status, clients.updated_at, r.name as route_name, lc.name as camp_name')
     else
-      @clientList = Client.where('preferred_name ILIKE ?', '%' + @clientName + '%')
+      @clientList = Client.joins('INNER JOIN location_camps as lc on lc.id = current_camp_id INNER JOIN routes r ON lc.route_id = r.id').where('preferred_name ILIKE ?', '%' + @clientName + '%').order('r.name', :status).select('clients.preferred_name, clients.status, clients.updated_at, r.name as route_name, lc.name as camp_name')
     end
     
     render json: @clientList
