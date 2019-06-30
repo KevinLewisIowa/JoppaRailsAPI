@@ -68,6 +68,13 @@ class ClientsController < ApplicationController
     
     render json: @items
   end
+  
+  # GET /getClientPets?clientId={id}
+  def getClientPets
+    @items = ClientPet.where("client_id = ?", params[:clientId])
+    
+    render json: @items
+  end
 
   # PATCH/PUT /clients/1
   def update

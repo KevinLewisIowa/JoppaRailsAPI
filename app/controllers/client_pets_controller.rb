@@ -46,6 +46,6 @@ class ClientPetsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def client_pet_params
-      params.require(:client_pet).permit(:pet_type, :quantity, :food_requested)
+      params.require(:client_pet).permit(:client_id, :pet_type, :quantity, :food_requested)
     end
 end

@@ -25,6 +25,10 @@ class Client < ApplicationRecord
                                 foreign_key: "client_id",
                                 dependent: :destroy
                                 
+    has_many :client_pet, class_name: "ClientPet",
+                                foreign_key: "client_id",
+                                dependent: :destroy
+                                
     has_many :camping_equipment_given_dates, class_name: "CampingEquipmentGivenDate",
                                             foreign_key: "client_id",
                                             dependent: :destroy
