@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pet_type: MyString
+  quantity: 1
+  food_requested: false
+
+two:
+  pet_type: MyString
+  quantity: 1
+  food_requested: false

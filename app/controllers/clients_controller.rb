@@ -89,9 +89,9 @@ class ClientsController < ApplicationController
     
     @clientList = [];
     if @clientName == 'ALLCLIENTS'
-      @clientList = Client.joins('INNER JOIN location_camps as lc on lc.id = current_camp_id INNER JOIN routes r ON lc.route_id = r.id').order('r.name', :status).select('clients.id, clients.phone, clients.preferred_name, clients.status, clients.updated_at, r.name as route_name, lc.name as camp_name')
+      @clientList = Client.joins('INNER JOIN location_camps as lc on lc.id = current_camp_id INNER JOIN routes r ON lc.route_id = r.id').order('r.name', :status).select('clients.id, clients.phone, clients.preferred_name, clients.status, clients.last_interaction_date, r.name as route_name, lc.name as camp_name')
     else
-      @clientList = Client.joins('INNER JOIN location_camps as lc on lc.id = current_camp_id INNER JOIN routes r ON lc.route_id = r.id').where('preferred_name ILIKE ?', '%' + @clientName + '%').order('r.name', :status).select('clients.id, clients.phone, clients.preferred_name, clients.status, clients.updated_at, r.name as route_name, lc.name as camp_name')
+      @clientList = Client.joins('INNER JOIN location_camps as lc on lc.id = current_camp_id INNER JOIN routes r ON lc.route_id = r.id').where('preferred_name ILIKE ?', '%' + @clientName + '%').order('r.name', :status).select('clients.id, clients.phone, clients.preferred_name, clients.status, clients.last_interaction_date, r.name as route_name, lc.name as camp_name')
     end
     
     render json: @clientList
@@ -112,6 +112,6 @@ class ClientsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def client_params
       params.require(:client).permit(:first_name, :last_name, :preferred_name, :is_veteran, :deceased, :inactive, :inactive_description, :dwelling, :current_camp_id,
-                              :previous_camp_id, :birth_date, :is_aftercare, :shoe_size, :boot_size, :number_meals, :phone, :joppa_apartment_number, :status)
+                              :previous_camp_id, :birth_date, :is_aftercare, :shoe_size, :boot_size, :number_meals, :phone, :joppa_apartment_number, :status, :gender, :last_interaction_date, :admin_notes)
     end
 end

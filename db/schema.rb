@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190530035428) do
+ActiveRecord::Schema.define(version: 20190630203609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,14 @@ ActiveRecord::Schema.define(version: 20190530035428) do
     t.datetime "updated_at",        null: false
   end
 
+  create_table "client_pets", force: :cascade do |t|
+    t.string   "pet_type"
+    t.integer  "quantity"
+    t.boolean  "food_requested"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "client_tank_interactions", force: :cascade do |t|
     t.integer  "client_id"
     t.integer  "tank_id"
@@ -108,6 +116,9 @@ ActiveRecord::Schema.define(version: 20190530035428) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "status"
+    t.string   "gender"
+    t.date     "last_interaction_date"
+    t.string   "admin_notes"
     t.index ["first_name", "last_name"], name: "index_clients_on_first_name_and_last_name", unique: true, using: :btree
   end
 

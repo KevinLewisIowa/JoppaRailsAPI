@@ -1,0 +1,2 @@
+class ClientPet < ApplicationRecord
+end
