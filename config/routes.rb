@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get       'getClientPrayerRequests' => 'clients#getClientPrayerRequests'
   get       'getClientHealthConcerns' => 'health_concerns#getClientHealthConcerns'
   get       'getClientRequestedItem' => 'clients#getClientRequestedItem'
+  get       'getClientPets' => 'clients#getClientPets'
   get       'getClientsForCamp'  =>  'location_camps#getClientsForCamp'
   get       'getClientsByName'    => 'clients#getClientsByName'
   get       'getClientNotesForRoute'  => 'client_notes#getClientNotesForRoute'
