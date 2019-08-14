@@ -35,10 +35,10 @@ camps = [{route_id: 1, name: 'First Stop', position: 1, notes: '', latitude: 41.
 {route_id: 5, name: 'Second Stop', position: 2, notes: 'I am very close now', latitude: 41.943513, longitude: -87.634554, is_active: true},
 {route_id: 5, name: 'Third Stop', position: 3, notes: 'Almost there', latitude: 41.943513, longitude: -87.634554, is_active: true}]
 
-clients = [{preferred_name: 'Kevin Lewis', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '07/10/1993', shoe_size: '9', phone: '6417999450', joppa_apartment_number: '', number_meals: 1, current_camp_id: 3},
-{preferred_name: 'Tim Wilson', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '02/14/1973', shoe_size: '11', phone: '4759284829', joppa_apartment_number: '', number_meals: 1, current_camp_id: 2},
-{preferred_name: 'Ryan Rutherford', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '09/18/1990', shoe_size: '10', phone: '2983981711', joppa_apartment_number: '', number_meals: 1, current_camp_id: 1},
-{preferred_name: 'Andrea Toppin', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '10/07/1985', shoe_size: '9', phone: '8372649304', joppa_apartment_number: '', number_meals: 1, current_camp_id: 1}]
+clients = [{preferred_name: 'Kevin Lewis', first_name: 'Kevin', last_name: 'Lewis', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '07/10/1993', shoe_size: '9', phone: '6417999450', joppa_apartment_number: '', number_meals: 1, current_camp_id: 3},
+{preferred_name: 'Tim Wilson', first_name: 'Tim', last_name: 'Wilson', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '02/14/1973', shoe_size: '11', phone: '4759284829', joppa_apartment_number: '', number_meals: 1, current_camp_id: 2},
+{preferred_name: 'Ryan Rutherford', first_name: 'Ryan', last_name: 'Rutherford', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '09/18/1990', shoe_size: '10', phone: '2983981711', joppa_apartment_number: '', number_meals: 1, current_camp_id: 1},
+{preferred_name: 'Andrea Toppin', first_name: 'Andrea', last_name: 'Toppin', dwelling: 'Tent', is_veteran: false, is_aftercare: false, birth_date: '10/07/1985', shoe_size: '9', phone: '8372649304', joppa_apartment_number: '', number_meals: 1, current_camp_id: 1}]
 
 interactions = [{location_camp_id: 1, client_id: 1, was_seen: true, serviced: true, still_lives_here: true},
 {location_camp_id: 6, client_id: 2, was_seen: true, serviced: true, still_lives_here: true},
