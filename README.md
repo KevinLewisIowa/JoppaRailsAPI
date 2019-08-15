@@ -22,6 +22,8 @@ Things you may want to cover:
 * Database creation
 * 
 * LOCALLY NEED TO DO THIS TO START UP THE DB TO RUN MIGRATIONS
+* sudo -u postgres createuser -s ec2-user
+* sudo -u postgres createdb ec2-user
 * sudo service postgresql start
 * rails db:create // only needs run once, maybe already done?
 * rails generate migration MigrationName    // create migration file to modify database schema
