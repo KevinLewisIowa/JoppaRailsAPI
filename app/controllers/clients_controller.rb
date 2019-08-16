@@ -55,6 +55,13 @@ class ClientsController < ApplicationController
     render json: @dislikes
   end
   
+  # GET /getClientsByBirthMonth?monthInt={id}
+  def getClientsByBirthMonth
+    @clients = Client.where("EXTRACT(MONTH FROM birth_date) = ?", params[:monthInt])
+    
+    render json: @clients
+  end
+  
   # GET /getClientPrayerRequests?clientId={id}
   def getClientPrayerRequests
     @requests = PrayerRequestAndNeed.find_by(client_id: params[:clientId])

@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   get       'getAvailableHeaters'          => 'heaters#getAvailableHeaters'
   get       'getTanksLoanedToClient'      => 'client_tank_interactions#getTanksLoanedToClient'
   get       'getHosesLoanedToClient'      => 'client_hose_interactions#getHosesLoanedToClient'
+  get       'getClientsByBirthMonth'      => 'clients#getClientsByBirthMonth'
   get       'updateHoseInteraction'       => 'client_hose_interactions#updateHoseInteraction'
   get       'updateTankInteraction'       => 'client_tank_interactions#updateTankInteraction'
   get       'getCheckedOutHeaters'        => 'route_instance_heater_interactions#getCheckedOutHeaters'

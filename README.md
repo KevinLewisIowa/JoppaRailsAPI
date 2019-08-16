@@ -49,6 +49,8 @@ Things you may want to cover:
 * curl -H "Content-Type:application/json; charset=utf-8" -d '{ "user" : { "username" : "testusername", "email" : "email@gmail.com", "password" : "password", "session_token" : "aslerkjaslelrkser" } }' [preview URL]/[API method]
 * Command to test API GET call (without data):
 * curl -H "Content-Type:application/json; charset=utf-8" [Preview URL]/[API call]
+* EXAMPLE:
+* curl -H "Content-Type:application/json; charset=utf-8" GET http://127.0.0.1:8080/getClientsByBirthMonth?monthInt=7
 * 
 * Through Cloud9 screen:
 * Preview, which will bring up browser window that you can test API in
