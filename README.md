@@ -69,6 +69,7 @@ Things you may want to cover:
 * heroku run rails db:migrate
 * heroku pg:reset                   // reset pg database
 * git remote rm heroku
+* heroku login -i or maybe heroku login -interactive or heroku login --i 
 * git remote add heroku [Swap out prod or test endpoint here] 
 * git remote add heroku git@heroku.com:joppa-api-test.git
 * git remote add heroku git@heroku.com:joppa-api-prod.git
