@@ -119,6 +119,6 @@ class ClientsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def client_params
       params.require(:client).permit(:first_name, :last_name, :preferred_name, :is_veteran, :deceased, :inactive, :inactive_description, :dwelling, :current_camp_id,
-                              :previous_camp_id, :birth_date, :is_aftercare, :shoe_size, :boot_size, :number_meals, :phone, :joppa_apartment_number, :status, :gender, :last_interaction_date, :admin_notes)
+                              :previous_camp_id, :birth_date, :is_aftercare, :shoe_size, :boot_size, :number_meals, :phone, :joppa_apartment_number, :status, :gender, :last_interaction_date, :admin_notes, :number_tanks, :number_hoses)
     end
 end
