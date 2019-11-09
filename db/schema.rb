@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190630212929) do
+ActiveRecord::Schema.define(version: 20191109212810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,8 @@ ActiveRecord::Schema.define(version: 20190630212929) do
     t.string   "gender"
     t.date     "last_interaction_date"
     t.string   "admin_notes"
+    t.integer  "number_tanks"
+    t.integer  "number_hoses"
     t.index ["first_name", "last_name"], name: "index_clients_on_first_name_and_last_name", unique: true, using: :btree
   end
 
