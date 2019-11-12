@@ -40,7 +40,6 @@ Rails.application.routes.draw do
   get       'getAdminRouteUndeliveredItems'      => 'admin#getAdminRouteUndeliveredItems'
   get       'getAdminRouteUnfulfilledPrayerRequestsNeeds'      => 'admin#getAdminRouteUnfulfilledPrayerRequestsNeeds'
   get       'getAdminInventoryReport'       => 'admin#getAdminInventoryReport'
-  get       'getAdminInventoryReport2'    => 'admin#getAdminInventoryReport2'
   get       'getAdminRouteUnfulfilledGoalsNextSteps'      => 'admin#getAdminRouteUnfulfilledGoalsNextSteps'
   get       'getHeaterTypes' => 'heater_types#getHeaterTypes'
   get       'getHeaterStatuses' => 'heater_statuses#getHeaterStatuses'
