@@ -59,6 +59,11 @@ class AdminController < ApplicationController
       
       render json: { tanksOut: @tanksOut, hosesOut: @hosesOut, heatersOut: @heatersOut, brokenHeaters: @brokenHeaters, lostHeaters: @lostHeaters, destroyedHeaters: @destroyedHeaters, stolenHeaters: @stolenHeaters, heaterList: @heaterList}
   end
+  
+  # GET /getAdminInventoryReport2
+  def getAdminInventoryReport2
+     render json: {tanksOut: 3, hosesOut: 4, heatersOut: 5} 
+  end
 
   private
     
