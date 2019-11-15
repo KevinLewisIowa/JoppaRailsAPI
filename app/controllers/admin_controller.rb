@@ -45,6 +45,20 @@ class AdminController < ApplicationController
     
     render json: @routeUnfulfilledPrayerRequestsNeeds
   end
+  
+  # GET /getAdminInventoryReport
+  def getAdminInventoryReport
+      @tanksOut = Client.sum(:number_tanks)
+      @hosesOut = Client.sum(:number_hoses)
+      @heatersOut = Heater.where(heater_status_id: 2).count
+      @brokenHeaters = Heater.where(heater_status_id: 7).count
+      @lostHeaters = Heater.where(heater_status_id: 5).count
+      @destroyedHeaters = Heater.where(heater_status_id: 6).count
+      @stolenHeaters = Heater.where(heater_status_id: 4).count
+      @heaterList = Heater.joins('INNER JOIN clients as cl on cl.id = current_client_id').where(heater_status_id:2)
+      
+      render json: { tanksOut: @tanksOut, hosesOut: @hosesOut, heatersOut: @heatersOut, brokenHeaters: @brokenHeaters, lostHeaters: @lostHeaters, destroyedHeaters: @destroyedHeaters, stolenHeaters: @stolenHeaters, heaterList: @heaterList}
+  end
 
   private
     
