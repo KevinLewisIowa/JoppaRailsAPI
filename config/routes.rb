@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get       'dislikesForClient'     =>  'client_dislikes#dislikesForClient'
   get       'goalsForClient'      => 'goals_and_next_steps#goalsForClient'
   get       'receivedRequestedItem' => 'requested_items#receivedRequestedItem'
+  get       'getOverallAttendanceReport'      => 'admin#getOverallAttendanceReport'
   get       'getAdminRouteNumberMeals'      => 'admin#getAdminRouteNumberMeals'
   get       'getAdminRouteUndeliveredItems'      => 'admin#getAdminRouteUndeliveredItems'
   get       'getAdminRouteUnfulfilledPrayerRequestsNeeds'      => 'admin#getAdminRouteUnfulfilledPrayerRequestsNeeds'

@@ -59,6 +59,18 @@ class AdminController < ApplicationController
       
       render json: { tanksOut: @tanksOut, hosesOut: @hosesOut, heatersOut: @heatersOut, brokenHeaters: @brokenHeaters, lostHeaters: @lostHeaters, destroyedHeaters: @destroyedHeaters, stolenHeaters: @stolenHeaters, heaterList: @heaterList}
   end
+  
+  # GET /getOverallAttendanceReport?startDate&endDate
+  def getOverallAttendanceReport
+      @startDate = Date.strptime(params[:startDate], '%m/%d/%y');
+      @endDate = Date.strptime(params[:endDate], '%m/%d/%y') + 1;
+      
+      @seenAndServiced = ClientInteraction.where('was_seen = ?', true).where('serviced = ?', true).where('still_lives_here = ?', true).where('created_at > ?', @startDate).where('created_at <= ?',@endDate).count
+      @notSeenAndServiced = ClientInteraction.where('was_seen = ?', false).where('serviced = ?', true).where('still_lives_here = ?', true).where('created_at > ?', @startDate).where('created_at <= ?',@endDate).count
+      @notSeen = ClientInteraction.where('was_seen = ?', false).where('serviced = ?', false).where('still_lives_here = ?', true).where('created_at > ?', @startDate).where('created_at <= ?',@endDate).count
+      
+      render json: { seenAndServiced: @seenAndServiced, notSeenAndServiced: @notSeenAndServiced, notSeen: @notSeen}
+  end
 
   private
     
