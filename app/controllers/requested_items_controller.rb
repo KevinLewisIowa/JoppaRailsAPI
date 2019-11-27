@@ -45,6 +45,8 @@ class RequestedItemsController < ApplicationController
     @item = RequestedItem.find(params[:requestId])
     @item.has_received = true
     @item.save
+    
+    render json: @item
   end
 
   # DELETE /requested_items/1
