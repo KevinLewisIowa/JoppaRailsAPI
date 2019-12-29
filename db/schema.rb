@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191109212810) do
+ActiveRecord::Schema.define(version: 20191229203506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(version: 20191109212810) do
     t.string   "status_reason"
     t.boolean  "is_active"
     t.integer  "current_client_id"
+    t.index ["serial_number"], name: "index_heaters_on_serial_number", unique: true, using: :btree
   end
 
   create_table "location_camps", force: :cascade do |t|
