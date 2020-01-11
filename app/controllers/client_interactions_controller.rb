@@ -19,6 +19,13 @@ class ClientInteractionsController < ApplicationController
     
     render json: @seen_and_serviced_report
   end
+  
+  # GET /clientAttendanceHistory?clientId={clientId}&fromDate={fromDate}&toDate={toDate}
+  def clientAttendanceHistory
+    @seen_and_serviced_report = ClientInteraction.where('client_interactions.client_id AND client_interactions.created_at BETWEEN ? AND ?', params[:clientId], params[:fromDate], Date.parse(params[:toDate]).next_day(1)).select('client_interactions.id, client_interactions.created_at, client_interactions.was_seen, client_interactions.serviced').order('client_interactions.created_at')
+    
+    render json: @seen_and_serviced_report
+  end
 
   # POST /client_interactions
   def create
