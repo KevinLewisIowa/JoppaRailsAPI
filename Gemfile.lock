@@ -66,7 +66,7 @@ GEM
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     pg (0.21.0)
-    puma (3.11.3)
+    puma (3.12.4)
     rack (2.0.4)
     rack-cors (1.0.2)
     rack-test (0.6.3)
@@ -126,7 +126,7 @@ DEPENDENCIES
   byebug
   listen (~> 3.0.5)
   pg (~> 0.21)
-  puma (~> 3.0)
+  puma (~> 3.12)
   rack-cors
   rails (~> 5.0.0)
   spring
