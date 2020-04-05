@@ -87,7 +87,7 @@ class ClientsController < ApplicationController
   def getHousehold
     @householdClients = Client.where("household_id = ?", params[:householdId])
     
-    render json: @household
+    render json: @householdClients
   end
 
   # PATCH/PUT /clients/1
