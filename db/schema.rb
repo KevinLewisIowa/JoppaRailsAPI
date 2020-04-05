@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191229203506) do
+ActiveRecord::Schema.define(version: 20200405195121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20191229203506) do
     t.string   "admin_notes"
     t.integer  "number_tanks"
     t.integer  "number_hoses"
+    t.integer  "household_id"
     t.index ["first_name", "last_name"], name: "index_clients_on_first_name_and_last_name", unique: true, using: :btree
   end
 
