@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get       'getClientHealthConcerns' => 'health_concerns#getClientHealthConcerns'
   get       'getClientRequestedItem' => 'clients#getClientRequestedItem'
   get       'getClientPets' => 'clients#getClientPets'
+  get       'getHousehold' => 'clients#getHousehold'
   get       'getClientsForCamp'  =>  'location_camps#getClientsForCamp'
   get       'getClientsByName'    => 'clients#getClientsByName'
   get       'getClientNotesForRoute'  => 'client_notes#getClientNotesForRoute'
