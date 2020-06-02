@@ -65,8 +65,8 @@ class AdminController < ApplicationController
       @startDate = Date.strptime(params[:startDate], '%m/%d/%y');
       @endDate = Date.strptime(params[:endDate], '%m/%d/%y') + 1;
       
-      @servicedIndividual = ClientInteraction.where('serviced = ?', true).where('created_at > ?', @startDate).where('created_at <= ?',@endDate).count
-      @householdsServiced = ClientInteraction.joins('LEFT JOIN clients as c on c.id = client_id').where('serviced = ?', true).where('created_at > ?', @startDate).where('created_at <= ?',@endDate).select('DISTINCT c.household_id').count
+      @servicedIndividual = ClientInteraction.where('serviced = ?', true).where('client_interactions.created_at > ?', @startDate).where('client_interactions.created_at <= ?',@endDate).count
+      @householdsServiced = ClientInteraction.joins('LEFT JOIN clients as c on c.id = client_id').where('serviced = ?', true).where('client_interactions.created_at > ?', @startDate).where('client_interactions.created_at <= ?',@endDate).select('DISTINCT c.household_id').count
       
       render json: { individualsServiced: @servicedIndividual, householdsServiced: @householdsServiced}
   end
