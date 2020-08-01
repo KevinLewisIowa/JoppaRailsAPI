@@ -57,7 +57,7 @@ class LocationCampsController < ApplicationController
     if passwordAndToken.api_token != apiToken
       return render json: {message: 'invalid-token'}
     end
-    @clients = Client.where('current_camp_id = ? AND inactive = ?', params[:locationCampId], false);
+    @clients = Client.where('current_camp_id = ? AND status = ?', params[:locationCampId], 'Active');
     
     render json: @clients
   end
