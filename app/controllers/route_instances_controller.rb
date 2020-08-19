@@ -20,11 +20,11 @@ class RouteInstancesController < ApplicationController
     render json: @route_instances
   end
   
-  # GET /getLatestRouteInstanceInfoForRoute?routeId={route_id}
-  def getLatestRouteInstanceInfoForRoute
-    @routeId = params[:routeId]
+  # GET /getRouteSummaryInfoForRoute?routeInstanceId={route_instance_id}
+  def getRouteSummaryInfoForRoute
+    @routeId = params[:routeInstanceId]
     
-    @latest_route_instance_info = RouteInstance.where('id = (?)', RouteInstance.where('route_id = ?', @routeId).select('MAX(id)')).select('route_instances.*, 
+    @latest_route_instance_info = RouteInstance.where('id = (?)', @routeId).select('route_instances.*, 
     (SELECT COUNT(*) FROM client_interactions WHERE created_at >= route_instances.start_time AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN location_camps ON routes.id = location_camps.route_id WHERE routes.id = ' + @routeId + ') AND was_seen = true AND serviced = true) AS SeenAndServiced, 
     (SELECT COUNT(*) FROM client_interactions WHERE created_at >= route_instances.start_time AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN location_camps ON routes.id = location_camps.route_id WHERE routes.id = ' + @routeId + ') AND was_seen = false AND serviced = true) AS ServicedNotSeen')
     
