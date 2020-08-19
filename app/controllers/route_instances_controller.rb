@@ -13,13 +13,20 @@ class RouteInstancesController < ApplicationController
     render json: @route_instance
   end
   
+  # GET /getRouteInstancesForDate?date={date}
+  def getRouteInstancesForDate
+    @date = params[:date]
+    @route_instances = RouteInstance.where('end_time = ?', @date)
+    render json: @route_instances
+  end
+  
   # GET /getLatestRouteInstanceInfoForRoute?routeId={route_id}
   def getLatestRouteInstanceInfoForRoute
     @routeId = params[:routeId]
     
     @latest_route_instance_info = RouteInstance.where('id = (?)', RouteInstance.where('route_id = ?', @routeId).select('MAX(id)')).select('route_instances.*, 
-    (SELECT COUNT(*) FROM client_interactions WHERE created_at >= route_instances.start_time AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN location_camps ON routes.id = location_camps.route_id WHERE routes.id = ' + @routeId + ') AND was_seen = true) AS Seen, 
-    (SELECT COUNT(*) FROM client_interactions WHERE created_at >= route_instances.start_time AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN location_camps ON routes.id = location_camps.route_id WHERE routes.id = ' + @routeId + ') AND serviced = true) AS Serviced')
+    (SELECT COUNT(*) FROM client_interactions WHERE created_at >= route_instances.start_time AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN location_camps ON routes.id = location_camps.route_id WHERE routes.id = ' + @routeId + ') AND was_seen = true AND serviced = true) AS SeenAndServiced, 
+    (SELECT COUNT(*) FROM client_interactions WHERE created_at >= route_instances.start_time AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN location_camps ON routes.id = location_camps.route_id WHERE routes.id = ' + @routeId + ') AND was_seen = false AND serviced = true) AS ServicedNotSeen')
     
     render json: @latest_route_instance_info
   end 
