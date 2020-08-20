@@ -13,10 +13,11 @@ class RouteInstancesController < ApplicationController
     render json: @route_instance
   end
   
-  # GET /getRouteInstancesForDate?date={date}
+  # GET /getRouteInstancesForDate?date={date}&routeId={routeId}
   def getRouteInstancesForDate
     @date = params[:date]
-    @route_instances = RouteInstance.where('end_time >= ? AND end_time < ?', @date, Date.parse(@date) + 1)
+    @routeId = params[:routeId]
+    @route_instances = RouteInstance.where('end_time >= ? AND end_time < ? AND route_id = ?', @date, Date.parse(@date) + 1, @routeId.to_i)
     render json: @route_instances
   end
   
