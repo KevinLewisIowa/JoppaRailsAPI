@@ -16,20 +16,21 @@ class RouteInstancesController < ApplicationController
   # GET /getRouteInstancesForDate?date={date}&routeId={routeId}
   def getRouteInstancesForDate
     @date = params[:date]
-    @routeId = params[:routeId]
+    @routeId = params[:routeId].to_i
     @route_instances = RouteInstance.where('end_time >= ? AND end_time < ? AND route_id = ?', @date, Date.parse(@date) + 1, @routeId.to_i)
     render json: @route_instances
   end
   
   # GET /getRouteSummaryInfoForRoute?routeInstanceId={route_instance_id}
   def getRouteSummaryInfoForRoute
-    @routeId = params[:routeInstanceId]
+    @routeInstanceId = params[:routeInstanceId].to_i
     
-    @latest_route_instance_info = RouteInstance.where('id = (?)', @routeId).select('route_instances.*, 
-    (SELECT COUNT(*) FROM client_interactions WHERE created_at >= route_instances.start_time AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN location_camps ON routes.id = location_camps.route_id WHERE routes.id = ' + @routeId + ') AND was_seen = true AND serviced = true) AS SeenAndServiced, 
-    (SELECT COUNT(*) FROM client_interactions WHERE created_at >= route_instances.start_time AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN location_camps ON routes.id = location_camps.route_id WHERE routes.id = ' + @routeId + ') AND was_seen = false AND serviced = true) AS ServicedNotSeen,
-    (SELECT COUNT(*) FROM (SELECT DISTINCT c.household_id FROM client_interactions ci LEFT JOIN clients c ON ci.client_id = c.id WHERE ci.created_at >= route_instances.start_time AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN location_camps ON routes.id = location_camps.route_id WHERE routes.id = ' + @routeId + ') AND was_seen = true AND serviced = true) AS t) AS HouseholdsSeenAndServiced,
-    (SELECT COUNT(*) FROM (SELECT DISTINCT c.household_id FROM client_interactions ci LEFT JOIN clients c ON ci.client_id = c.id WHERE ci.created_at >= route_instances.start_time AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN location_camps ON routes.id = location_camps.route_id WHERE routes.id = ' + @routeId + ') AND was_seen = false AND serviced = true) AS t) AS HouseholdsServicedNotSeen')
+    
+    @latest_route_instance_info = RouteInstance.where('id = (?)', @routeInstanceId).select('route_instances.*, 
+    (SELECT COUNT(*) FROM client_interactions WHERE created_at >= route_instances.start_time AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN location_camps ON routes.id = location_camps.route_id WHERE routes.id = (SELECT route_id FROM route_instances WHERE id = ' + @routeInstanceId.to_s + ')) AND was_seen = true AND serviced = true) AS SeenAndServiced, 
+    (SELECT COUNT(*) FROM client_interactions WHERE created_at >= route_instances.start_time AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN location_camps ON routes.id = location_camps.route_id WHERE routes.id = (SELECT route_id FROM route_instances WHERE id = ' + @routeInstanceId.to_s + ')) AND was_seen = false AND serviced = true) AS ServicedNotSeen,
+    (SELECT COUNT(*) FROM (SELECT DISTINCT c.household_id FROM client_interactions ci LEFT JOIN clients c ON ci.client_id = c.id WHERE ci.created_at >= route_instances.start_time AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN location_camps ON routes.id = location_camps.route_id WHERE routes.id = (SELECT route_id FROM route_instances WHERE id = ' + @routeInstanceId.to_s + ')) AND was_seen = true AND serviced = true) AS t) AS HouseholdsSeenAndServiced,
+    (SELECT COUNT(*) FROM (SELECT DISTINCT c.household_id FROM client_interactions ci LEFT JOIN clients c ON ci.client_id = c.id WHERE ci.created_at >= route_instances.start_time AND location_camp_id IN (SELECT location_camps.id FROM routes LEFT JOIN location_camps ON routes.id = location_camps.route_id WHERE routes.id = (SELECT route_id FROM route_instances WHERE id = ' + @routeInstanceId.to_s + ')) AND was_seen = false AND serviced = true) AS t) AS HouseholdsServicedNotSeen')
     
     render json: @latest_route_instance_info
   end 
