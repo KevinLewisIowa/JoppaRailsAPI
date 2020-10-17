@@ -74,6 +74,7 @@ Rails.application.routes.draw do
   get       'updateHeaterInteraction'     => 'client_heater_interactions#updateHeaterInteraction'
   get       'attemptLogin'                => 'pass_tokens#attemptLogin'
   get       'setNewPassword'              => 'pass_tokens#setNewPassword'
+  get       'getFirstTimeHomelessnessReport'  => 'admin#getFirstTimeHomelessnessReport'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates

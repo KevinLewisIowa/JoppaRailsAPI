@@ -70,6 +70,13 @@ class AdminController < ApplicationController
       
       render json: { individualsServiced: @servicedIndividual, householdsServiced: @householdsServiced}
   end
+  
+  # GET /getFirstTimeHomelessnessReport
+  def getFirstTimeHomelessnessReport
+      @homelessnessInfo = Client.select('first_name, preferred_name, last_name, birth_date, phone, first_time_homeless, date_became_homeless, homeless_reason')
+      
+      render json: @homelessnessInfo
+  end
 
   private
     
