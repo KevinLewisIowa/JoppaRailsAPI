@@ -16,7 +16,6 @@ class ClientsController < ApplicationController
   # POST /clients
   def create
     @client = Client.new(client_params)
-    @client.current_camp_id = 0
     @client.previous_camp_id = 0
 
     if @client.save
