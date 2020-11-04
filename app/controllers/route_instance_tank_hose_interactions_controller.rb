@@ -46,6 +46,6 @@ class RouteInstanceTankHoseInteractionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def route_instance_tank_hose_interaction_params
-      params.require(:route_instance_tank_hose_interaction).permit(:route_instance_id, :number_hoses_out, :number_hoses_in, :number_tanks_out, :number_tanks_in)
+      params.require(:route_instance_tank_hose_interaction).permit(:route_instance_id, :number_heaters_out, :number_heaters_in, :number_hoses_out, :number_hoses_in, :number_tanks_out, :number_tanks_in)
     end
 end

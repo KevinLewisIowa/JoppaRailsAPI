@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201017150214) do
+ActiveRecord::Schema.define(version: 20201104032221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,8 +233,10 @@ ActiveRecord::Schema.define(version: 20201017150214) do
     t.integer  "number_hoses_in"
     t.integer  "number_tanks_out"
     t.integer  "number_tanks_in"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "number_heaters_out"
+    t.integer  "number_heaters_in"
   end
 
   create_table "route_instances", force: :cascade do |t|
