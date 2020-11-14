@@ -118,7 +118,7 @@ class ClientsController < ApplicationController
   end
   
   def getClientsNewToCamps
-    @clients = Client.where('current_camp_id <> previous_camp_id AND previous_camp_id <> 0')
+    @clients = Client.where('current_camp_id <> previous_camp_id AND previous_camp_id <> 0 AND current_camp_id <> 0')
     
     render json: @clients
   end
