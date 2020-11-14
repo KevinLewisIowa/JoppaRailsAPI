@@ -17,7 +17,7 @@ class RouteInstancesController < ApplicationController
   def getRouteInstancesForDate
     @date = params[:date]
     @routeId = params[:routeId].to_i
-    @route_instances = RouteInstance.where('end_time >= ? AND end_time < ? AND route_id = ?', @date, Date.parse(@date) + 1, @routeId.to_i)
+    @route_instances = RouteInstance.where('start_time >= ? AND start_time < ? AND route_id = ?', @date, Date.parse(@date) + 1, @routeId.to_i)
     render json: @route_instances
   end
   
