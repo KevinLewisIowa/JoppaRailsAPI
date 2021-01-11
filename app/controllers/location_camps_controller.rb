@@ -73,6 +73,18 @@ class LocationCampsController < ApplicationController
     
     render json: @routeCampsLongLat
   end
+  
+  # /getCampListing
+  def getCampListing
+    apiToken = request.headers['Authorization']
+    passwordAndToken = PassToken.find(1)
+    if passwordAndToken.api_token != apiToken
+      return render json: {message: 'invalid-token'}
+    end
+    @location_camps = LocationCamp.joins('LEFT JOIN routes r ON location_camps.route_id = r.id').select('location_camps.*, r.name')
+    
+    render json: @location_camps
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
