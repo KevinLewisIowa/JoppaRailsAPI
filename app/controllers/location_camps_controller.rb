@@ -94,6 +94,6 @@ class LocationCampsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def location_camp_params
-      params.require(:location_camp).permit(:route_id, :location_id, :name, :position, :notes, :longitude, :latitude, :is_active, :expected_arrival_time)
+      params.require(:location_camp).permit(:route_id, :location_id, :name, :position, :notes, :longitude, :latitude, :is_active, :expected_arrival_time, :admin_notes)
     end
 end
