@@ -76,12 +76,12 @@ class LocationCampsController < ApplicationController
   
   # /getCampListing
   def getCampListing
-    apiToken = request.headers['Authorization']
-    passwordAndToken = PassToken.find(1)
-    if passwordAndToken.api_token != apiToken
-      return render json: {message: 'invalid-token'}
-    end
-    @location_camps = LocationCamp.joins('LEFT JOIN routes r ON location_camps.route_id = r.id').select('location_camps.*, r.name')
+    #apiToken = request.headers['Authorization']
+    #passwordAndToken = PassToken.find(1)
+    #if passwordAndToken.api_token != apiToken
+    #  return render json: {message: 'invalid-token'}
+    #end
+    @location_camps = LocationCamp.joins('LEFT JOIN routes r ON location_camps.route_id = r.id').select('location_camps.id, location_camps.name as camp_name, location_camps.location_id, location_camps.is_active, location_camps.route_id, location_camps.position, location_camps.notes, location_camps.longitude, location_camps.latitude, location_camps.expected_arrival_time, location_camps.admin_notes, r.name as route_name')
     
     render json: @location_camps
   end
