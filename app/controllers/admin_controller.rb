@@ -27,7 +27,10 @@ class AdminController < ApplicationController
   
   # GET /getAdminRouteUndeliveredItems 
   def getAdminRouteUndeliveredItems
-    @routeUndeliveredItems = ClientInteraction.joins({client: :requested_item}, {location_camp: :route}).select("routes.name, clients.first_name, clients.preferred_name, clients.last_name, requested_items.item_description, requested_items.date_requested, requested_items.created_at").where("requested_items.has_received = ?", false).group("routes.name, clients.first_name, clients.preferred_name, clients.last_name, requested_items.item_description, requested_items.date_requested, requested_items.created_at")
+    @routeUndeliveredItems = Client.joins('INNER JOIN requested_items AS ri ON clients.id = ri.client_id')
+        .joins('INNER JOIN location_camps AS lc ON clients.current_camp_id = lc.id')
+        .joins('INNER JOIN routes AS r ON lc.route_id = r.id')
+        .select("r.name, clients.first_name, clients.preferred_name, clients.last_name, ri.item_description, ri.date_requested, ri.created_at").where("ri.has_received = ?", false).group("r.name, clients.first_name, clients.preferred_name, clients.last_name, ri.item_description, ri.date_requested, ri.created_at")
     
     render json: @routeUndeliveredItems
   end
