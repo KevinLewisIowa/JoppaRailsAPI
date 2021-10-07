@@ -69,12 +69,13 @@ Things you may want to cover:
 * heroku run rails db:migrate
 * heroku pg:reset                   // reset pg database
 * git remote rm heroku
-* heroku login -i or maybe heroku login -interactive or heroku login --i 
+* heroku login -i or maybe heroku login -interactive or heroku login --i (if using MFA, need to use authorization token)
 * git remote add heroku [Swap out prod or test endpoint here] 
 * git remote add heroku git@heroku.com:joppa-api-test.git
 * git remote add heroku git@heroku.com:joppa-api-prod.git
 * or https://git.heroku.com/joppa-ui-test.git
 * git remote -v
+* heroku psql --app {app_name}      way to log in to database to run SQL commands
 * 
 * IF IT COMPLAINS ABOUT VERSION NOT HIGH ENOUGH FOR CLIENT
 * nvm install 8.3

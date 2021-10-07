@@ -67,6 +67,6 @@ class ClientNotesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def client_note_params
-      params.require(:client_note).permit(:route_instance_id, :client_id, :note)
+      params.require(:client_id, :note).permit(:route_instance_id, :client_id, :note)
     end
 end
