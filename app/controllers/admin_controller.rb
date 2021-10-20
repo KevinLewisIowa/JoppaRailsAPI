@@ -80,6 +80,33 @@ class AdminController < ApplicationController
       
       render json: @homelessnessInfo
   end
+  
+  # GET /removeDuplicateClient?duplicateClientId&activeClientId
+  def removeDuplicateClient
+      # retrieve params
+      @duplicateClientId = params[:duplicateClientId].to_i;
+      @activeClientId = params[:activeClientId].to_i;
+      
+      # Update tables with client_id fields from duplicateClientId to activeClientId
+      CampingEquipmentGivenDate.find_by(client_id: @duplicateClientId).update(client_id: @activeClientId)
+      ClientDislike.find_by(client_id: @duplicateClientId).update(client_id: @activeClientId)
+      ClientHeaterInteraction.find_by(client_id: @duplicateClientId).update(client_id: @activeClientId)
+      ClientHoseInteraction.find_by(client_id: @duplicateClientId).update(client_id: @activeClientId)
+      ClientInteraction.find_by(client_id: @duplicateClientId).update(client_id: @activeClientId)
+      ClientLike.find_by(client_id: @duplicateClientId).update(client_id: @activeClientId)
+      ClientNote.find_by(client_id: @duplicateClientId).update(client_id: @activeClientId)
+      ClientPet.find_by(client_id: @duplicateClientId).update(client_id: @activeClientId)
+      ClientTankInteraction.find_by(client_id: @duplicateClientId).update(client_id: @activeClientId)
+      GoalsAndNextStep.find_by(client_id: @duplicateClientId).update(client_id: @activeClientId)
+      HealthConcern.find_by(client_id: @duplicateClientId).update(client_id: @activeClientId)
+      PrayerRequestAndNeed.find_by(client_id: @duplicateClientId).update(client_id: @activeClientId)
+      RequestedItem.find_by(client_id: @duplicateClientId).update(client_id: @activeClientId)
+      
+      # Delete duplicate client
+      Client.find_by(id: @duplicateClientId).destroy
+      
+      render json: true
+  end
 
   private
     

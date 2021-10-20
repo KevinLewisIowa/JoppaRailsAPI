@@ -76,6 +76,7 @@ Rails.application.routes.draw do
   get       'attemptLogin'                => 'pass_tokens#attemptLogin'
   get       'setNewPassword'              => 'pass_tokens#setNewPassword'
   get       'getFirstTimeHomelessnessReport'  => 'admin#getFirstTimeHomelessnessReport'
+  get       'removeDuplicateClient'  => 'admin#removeDuplicateClient'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates
