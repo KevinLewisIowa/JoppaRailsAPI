@@ -85,9 +85,20 @@ class AdminController < ApplicationController
   def removeDuplicateClient
       # retrieve params
       @duplicateClientId = params[:duplicateClientId].to_i
-      print(@duplicateClientId)
+      if @c = Client.find_by(id: @duplicateClientId)
+        
+      else
+          render json: "No client with duplicate client id"
+          return
+      end
+      
       @activeClientId = params[:activeClientId].to_i
-      print(@activeClientId)
+      if @c = Client.find_by(id: @activeClientId)
+        
+      else
+          render json: "No client with active client id"
+          return
+      end
       
       # Update tables with client_id fields from duplicateClientId to activeClientId
       if @cegd = CampingEquipmentGivenDate.find_by(client_id: @duplicateClientId)
