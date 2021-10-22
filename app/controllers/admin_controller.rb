@@ -88,7 +88,7 @@ class AdminController < ApplicationController
       if @c = Client.find_by(id: @duplicateClientId)
         # duplicate client found so continue
       else
-        render json: 'No client with duplicate client id', status: 422
+        render json: false, status: 422
         return
       end
       
@@ -96,7 +96,7 @@ class AdminController < ApplicationController
       if @c = Client.find_by(id: @activeClientId)
         # active client found so continue
       else
-        render json: 'No client with active client id', status: 422
+        render json: false, status: 422
         return
       end
       
@@ -118,7 +118,7 @@ class AdminController < ApplicationController
       # Delete duplicate client
       Client.find_by(id: @duplicateClientId).destroy
       
-      render json: 'Success'
+      render json: true
   end
     
 end
