@@ -117,9 +117,8 @@ class AdminController < ApplicationController
       #  @choi.update(client_id: @activeClientId)
       #end
       
-      if @ci = ClientInteraction.find_by(client_id: @duplicateClientId)
-        @ci.update(client_id: @activeClientId)
-        @ci.save()
+      if @cis = ClientInteraction.where(client_id: @duplicateClientId)
+        @cis.update_all("client_id = #{@activeClientId}", "client_id = #{@duplicateClientId}")
       end
       
       #if @cl = ClientLike.find_by(client_id: @duplicateClientId)
@@ -159,7 +158,7 @@ class AdminController < ApplicationController
       #  @c.destroy
       #end
       
-      render json: true
+      render json: @cis
   end
     
 end
