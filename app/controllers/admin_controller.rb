@@ -101,64 +101,24 @@ class AdminController < ApplicationController
       end
       
       # Update tables with client_id fields from duplicateClientId to activeClientId
-      #if @cegd = CampingEquipmentGivenDate.find_by(client_id: @duplicateClientId)
-      #  @cegd.update(client_id: @activeClientId)
-      #end
-      
-      #if @cd = ClientDislike.find_by(client_id: @duplicateClientId)
-      #  @cd.update(client_id: @activeClientId)
-      #end
-      
-      #if @chi = ClientHeaterInteraction.find_by(client_id: @duplicateClientId)
-      #  @chi.update(client_id: @activeClientId)
-      #end
-      
-      #if @choi = ClientHoseInteraction.find_by(client_id: @duplicateClientId)
-      #  @choi.update(client_id: @activeClientId)
-      #end
-      
-      if @cis = ClientInteraction.where(client_id: @duplicateClientId)
-        @cis.update_all("client_id = #{@activeClientId}", "client_id = #{@duplicateClientId}")
-      end
-      
-      #if @cl = ClientLike.find_by(client_id: @duplicateClientId)
-      #  @cl.update(client_id: @activeClientId)
-      #end
-      
-      #if @cn = ClientNote.find_by(client_id: @duplicateClientId)
-      #  @cn.update(client_id: @activeClientId)
-      #end
-      
-      #if @cp = ClientPet.find_by(client_id: @duplicateClientId)
-      #  @cp.update(client_id: @activeClientId)
-      #end
-      
-      #if @cti = ClientTankInteraction.find_by(client_id: @duplicateClientId)
-      #  @cti.update(client_id: @activeClientId)
-      #end
-      
-      #if @gans = GoalsAndNextStep.find_by(client_id: @duplicateClientId)
-      #  @gans.update(client_id: @activeClientId)
-      #end
-      
-      #if @hc = HealthConcern.find_by(client_id: @duplicateClientId)
-      #  @hc.update(client_id: @activeClientId)
-      #end
-      
-      #if @pran = PrayerRequestAndNeed.find_by(client_id: @duplicateClientId)
-      #  @pran.update(client_id: @activeClientId)
-      #end
-      
-      #if @ri = RequestedItem.find_by(client_id: @duplicateClientId)
-      #  @ri.update(client_id: @activeClientId)
-      #end
+      CampingEquipmentGivenDate.where(client_id: @duplicateClientId).update_all("client_id = #{@activeClientId}")
+      ClientDislike.where(client_id: @duplicateClientId).update_all("client_id = #{@activeClientId}")
+      ClientHeaterInteraction.where(client_id: @duplicateClientId).update_all("client_id = #{@activeClientId}")
+      ClientHoseInteraction.where(client_id: @duplicateClientId).update_all("client_id = #{@activeClientId}")
+      ClientInteraction.where(client_id: @duplicateClientId).update_all("client_id = #{@activeClientId}")
+      ClientLike.where(client_id: @duplicateClientId).update_all("client_id = #{@activeClientId}")
+      ClientNote.where(client_id: @duplicateClientId).update_all("client_id = #{@activeClientId}")
+      ClientPet.where(client_id: @duplicateClientId).update_all("client_id = #{@activeClientId}")
+      ClientTankInteraction.where(client_id: @duplicateClientId).update_all("client_id = #{@activeClientId}")
+      GoalsAndNextStep.where(client_id: @duplicateClientId).update_all("client_id = #{@activeClientId}")
+      HealthConcern.where(client_id: @duplicateClientId).update_all("client_id = #{@activeClientId}")
+      PrayerRequestAndNeed.where(client_id: @duplicateClientId).update_all("client_id = #{@activeClientId}")
+      RequestedItem.where(client_id: @duplicateClientId).update_all("client_id = #{@activeClientId}")
       
       # Delete duplicate client
-      #if @c = Client.find_by(id: @duplicateClientId)
-      #  @c.destroy
-      #end
+      Client.find_by(id: @duplicateClientId).destroy
       
-      render json: @cis
+      render json: "Success"
   end
     
 end
