@@ -119,6 +119,7 @@ class AdminController < ApplicationController
       
       if @ci = ClientInteraction.find_by(client_id: @duplicateClientId)
         @ci.update(client_id: @activeClientId)
+        @ci.save()
       end
       
       #if @cl = ClientLike.find_by(client_id: @duplicateClientId)
