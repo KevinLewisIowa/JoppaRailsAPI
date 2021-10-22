@@ -86,77 +86,77 @@ class AdminController < ApplicationController
       # retrieve params
       @duplicateClientId = params[:duplicateClientId].to_i
       if @c = Client.find_by(id: @duplicateClientId)
-        
+        # duplicate client found so continue
       else
-          render json: "No client with duplicate client id"
-          return
+        render json: "No client with duplicate client id"
+        return
       end
       
       @activeClientId = params[:activeClientId].to_i
       if @c = Client.find_by(id: @activeClientId)
-        
+        # active client found so continue
       else
-          render json: "No client with active client id"
-          return
+        render json: "No client with active client id"
+        return
       end
       
       # Update tables with client_id fields from duplicateClientId to activeClientId
-      if @cegd = CampingEquipmentGivenDate.find_by(client_id: @duplicateClientId)
-        @cegd.update(client_id: @activeClientId)
-      end
+      #if @cegd = CampingEquipmentGivenDate.find_by(client_id: @duplicateClientId)
+      #  @cegd.update(client_id: @activeClientId)
+      #end
       
-      if @cd = ClientDislike.find_by(client_id: @duplicateClientId)
-        @cd.update(client_id: @activeClientId)
-      end
+      #if @cd = ClientDislike.find_by(client_id: @duplicateClientId)
+      #  @cd.update(client_id: @activeClientId)
+      #end
       
-      if @chi = ClientHeaterInteraction.find_by(client_id: @duplicateClientId)
-        @chi.update(client_id: @activeClientId)
-      end
+      #if @chi = ClientHeaterInteraction.find_by(client_id: @duplicateClientId)
+      #  @chi.update(client_id: @activeClientId)
+      #end
       
-      if @choi = ClientHoseInteraction.find_by(client_id: @duplicateClientId)
-        @choi.update(client_id: @activeClientId)
-      end
+      #if @choi = ClientHoseInteraction.find_by(client_id: @duplicateClientId)
+      #  @choi.update(client_id: @activeClientId)
+      #end
       
       if @ci = ClientInteraction.find_by(client_id: @duplicateClientId)
         @ci.update(client_id: @activeClientId)
       end
       
-      if @cl = ClientLike.find_by(client_id: @duplicateClientId)
-        @cl.update(client_id: @activeClientId)
-      end
+      #if @cl = ClientLike.find_by(client_id: @duplicateClientId)
+      #  @cl.update(client_id: @activeClientId)
+      #end
       
-      if @cn = ClientNote.find_by(client_id: @duplicateClientId)
-        @cn.update(client_id: @activeClientId)
-      end
+      #if @cn = ClientNote.find_by(client_id: @duplicateClientId)
+      #  @cn.update(client_id: @activeClientId)
+      #end
       
-      if @cp = ClientPet.find_by(client_id: @duplicateClientId)
-        @cp.update(client_id: @activeClientId)
-      end
+      #if @cp = ClientPet.find_by(client_id: @duplicateClientId)
+      #  @cp.update(client_id: @activeClientId)
+      #end
       
-      if @cti = ClientTankInteraction.find_by(client_id: @duplicateClientId)
-        @cti.update(client_id: @activeClientId)
-      end
+      #if @cti = ClientTankInteraction.find_by(client_id: @duplicateClientId)
+      #  @cti.update(client_id: @activeClientId)
+      #end
       
-      if @gans = GoalsAndNextStep.find_by(client_id: @duplicateClientId)
-        @gans.update(client_id: @activeClientId)
-      end
+      #if @gans = GoalsAndNextStep.find_by(client_id: @duplicateClientId)
+      #  @gans.update(client_id: @activeClientId)
+      #end
       
-      if @hc = HealthConcern.find_by(client_id: @duplicateClientId)
-        @hc.update(client_id: @activeClientId)
-      end
+      #if @hc = HealthConcern.find_by(client_id: @duplicateClientId)
+      #  @hc.update(client_id: @activeClientId)
+      #end
       
-      if @pran = PrayerRequestAndNeed.find_by(client_id: @duplicateClientId)
-        @pran.update(client_id: @activeClientId)
-      end
+      #if @pran = PrayerRequestAndNeed.find_by(client_id: @duplicateClientId)
+      #  @pran.update(client_id: @activeClientId)
+      #end
       
-      if @ri = RequestedItem.find_by(client_id: @duplicateClientId)
-        @ri.update(client_id: @activeClientId)
-      end
+      #if @ri = RequestedItem.find_by(client_id: @duplicateClientId)
+      #  @ri.update(client_id: @activeClientId)
+      #end
       
       # Delete duplicate client
-      if @c = Client.find_by(id: @duplicateClientId)
-        @c.destroy
-      end
+      #if @c = Client.find_by(id: @duplicateClientId)
+      #  @c.destroy
+      #end
       
       render json: true
   end
