@@ -36,7 +36,7 @@ Things you may want to cover:
 * 
 * rails db:setup                            // create tables and seed data
 * rails db:seed                             // add seed data from seeds.rb
-
+*
 * How to run the test suite
 *  
 * Using new terminal:
