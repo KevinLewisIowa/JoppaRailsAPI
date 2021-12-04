@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-     origins 'https://joppa-ui-test.herokuapp.com, https://joppa-ui-prod.herokuapp.com'
+     origins 'herokuapp.com'
      resource '*',
         headers: :any,
         methods: [:get, :post, :put, :patch, :delete, :options, :head]
