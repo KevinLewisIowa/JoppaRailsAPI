@@ -1,0 +1,19 @@
+
+-----------------------------------------------------------------
+  pg_upgrade run on Sat Dec  4 16:24:00 2021
+-----------------------------------------------------------------
+
+You must identify the directory where the old cluster binaries reside.
+Please use the -b command-line option or the PGBINOLD environment variable.
+
+-----------------------------------------------------------------
+  pg_upgrade run on Sat Dec  4 16:36:20 2021
+-----------------------------------------------------------------
+
+could not open version file "/var/lib/pgsql/data/PG_VERSION": Permission denied
+
+-----------------------------------------------------------------
+  pg_upgrade run on Sat Dec  4 16:44:56 2021
+-----------------------------------------------------------------
+
+could not open version file "/var/lib/pgsql/data/PG_VERSION": Permission denied
