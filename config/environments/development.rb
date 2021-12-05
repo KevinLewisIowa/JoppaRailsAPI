@@ -47,7 +47,8 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
-  config.hosts << "cf6caf6fc2bf4e1ba7448f69eb9d4dc1.vfs.cloud9.us-east-2.amazonaws.com"
+  #config.hosts << "cf6caf6fc2bf4e1ba7448f69eb9d4dc1.vfs.cloud9.us-east-2.amazonaws.com"
+  config.hosts.clear
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
