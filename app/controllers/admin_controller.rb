@@ -30,7 +30,7 @@ class AdminController < ApplicationController
     @routeUndeliveredItems = Client.joins('INNER JOIN requested_items AS ri ON clients.id = ri.client_id')
         .joins('INNER JOIN location_camps AS lc ON clients.current_camp_id = lc.id')
         .joins('INNER JOIN routes AS r ON lc.route_id = r.id')
-        .select("r.name, clients.first_name, clients.preferred_name, clients.last_name, clients.id, ri.item_description, ri.date_requested, ri.created_at").where("ri.has_received = ?", false).group("r.name, clients.first_name, clients.preferred_name, clients.last_name, ri.item_description, ri.date_requested, ri.created_at")
+        .select("r.name, clients.first_name, clients.preferred_name, clients.last_name, clients.id, ri.item_description, ri.date_requested, ri.created_at").where("ri.has_received = ?", false).group("r.name, clients.first_name, clients.preferred_name, clients.last_name, clients.id, ri.item_description, ri.date_requested, ri.created_at")
     
     render json: @routeUndeliveredItems
   end
