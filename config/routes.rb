@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :client_tents
     resources :client_pets
     resources :route_instance_tank_hose_interactions
     resources :pass_tokens
@@ -38,6 +39,7 @@ Rails.application.routes.draw do
     get       'likesForClient'        =>  'client_likes#likesForClient'
     get       'dislikesForClient'     =>  'client_dislikes#dislikesForClient'
     get       'goalsForClient'      => 'goals_and_next_steps#goalsForClient'
+    get       'getTentsForClient'   => 'client_tents#getTentsForClient'
     get       'receivedRequestedItem' => 'requested_items#receivedRequestedItem'
     get       'getOverallAttendanceReport'      => 'admin#getOverallAttendanceReport'
     get       'getAdminRouteNumberMeals'      => 'admin#getAdminRouteNumberMeals'
