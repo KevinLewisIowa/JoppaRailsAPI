@@ -53,6 +53,6 @@ class ClientTentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_tent_params
-      params.require(:client_tent).permit(:client_id, :type, :condition, :date_given, :given_by, :setup_by, :notes, :rejected)
+      params.require(:client_tent).permit(:client_id, :tent_type, :condition, :date_given, :given_by, :setup_by, :notes, :rejected)
     end
 end
