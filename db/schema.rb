@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_22_033833) do
+ActiveRecord::Schema.define(version: 2022_01_02_210536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,6 +196,8 @@ ActiveRecord::Schema.define(version: 2021_12_22_033833) do
     t.decimal "latitude"
     t.string "expected_arrival_time"
     t.string "admin_notes"
+    t.decimal "parking_latitude"
+    t.decimal "parking_longitude"
   end
 
   create_table "locations", id: :serial, force: :cascade do |t|
@@ -273,6 +275,7 @@ ActiveRecord::Schema.define(version: 2021_12_22_033833) do
     t.boolean "is_active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_aftercare"
   end
 
   create_table "tanks", id: :serial, force: :cascade do |t|
