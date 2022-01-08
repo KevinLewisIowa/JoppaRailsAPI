@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :client_referrals
   resources :client_tents
     resources :client_pets
     resources :route_instance_tank_hose_interactions
