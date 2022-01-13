@@ -52,9 +52,6 @@ class RequestedItemsController < ApplicationController
   # DELETE /requested_items/1
   def destroy
     @requested_item.destroy
-    
-    @admin[success] = true
-    render json: @admin
   end
 
   private
