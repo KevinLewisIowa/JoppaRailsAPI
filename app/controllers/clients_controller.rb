@@ -86,7 +86,7 @@ class ClientsController < ApplicationController
   def getClientReferrals
     @client_referrals = ClientReferral.where('client_id = ?', params[:clientId])
     
-    render json: @items
+    render json: @client_referrals
   end
   
   # GET /getHousehold?householdId={id}
