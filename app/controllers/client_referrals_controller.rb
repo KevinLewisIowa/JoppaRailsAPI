@@ -46,6 +46,6 @@ class ClientReferralsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_referral_params
-      params.require(:client_referral).permit(:referral_type, :quantity, :notes)
+      params.require(:client_referral).permit(:referral_type, :quantity, :notes, :client_id)
     end
 end
