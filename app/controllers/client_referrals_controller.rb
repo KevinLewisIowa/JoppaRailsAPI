@@ -23,6 +23,13 @@ class ClientReferralsController < ApplicationController
       render json: @client_referral.errors, status: :unprocessable_entity
     end
   end
+  
+  # GET /client_referrals_report?fromDate={fromDate}&toDate={toDate}
+  def client_referrals_report
+    @client_referrals_report = ClientReferral.joins('LEFT JOIN clients c ON client_referrals.client_id').where('client_referrals.created_at BETWEEN ? AND ?', params[:fromDate], Date.parse(params[:toDate]).next_day(1)).select('client_referrals.client_id, c.first_name, c.preferred_name, c.last_name, client_referrals.created_at, client_referrals.referral_type, client_referrals.quantity, client_referrals.notes,').order('client_referrals.created_at')
+    
+    render json: @seen_and_serviced_report
+  end
 
   # PATCH/PUT /client_referrals/1
   def update

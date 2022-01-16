@@ -54,6 +54,7 @@ Rails.application.routes.draw do
     get       'getHeaterListing' => 'heaters#getHeaterListing'
     get       'seen_and_serviced_report' => 'client_interactions#seen_and_serviced_report'
     get       'clientAttendanceHistory' => 'client_interactions#clientAttendanceHistory'
+    get       'client_referrals_report' => 'client_referrals#client_referrals_report'
     get       'updateHeaterClient'    => 'heaters#updateHeaterClient'
     get       'getHeatEquipmentPerRoute' => 'heaters#getHeatEquipmentPerRoute'
     get       'getHeatEquipmentPerRoute2' => 'heaters#getHeatEquipmentPerRoute2'
