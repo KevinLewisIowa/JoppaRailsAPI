@@ -89,7 +89,7 @@ GEM
       mini_portile2 (~> 2.7.0)
       racc (~> 1.4)
     pg (1.2.3)
-    puma (5.5.2)
+    puma (5.6.2)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
@@ -151,7 +151,7 @@ DEPENDENCIES
   byebug
   listen (~> 3.7.0)
   pg (~> 1.2.3)
-  puma (~> 5.5.2)
+  puma (~> 5.6.2)
   rack-cors
   rails (~> 6.1.4.1)
   spring (~> 3.1.0)
