@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     get       'getHousehold' => 'clients#getHousehold'
     get       'getClientReferrals' => 'clients#getClientReferrals'
     get       'getClientsForCamp'  =>  'location_camps#getClientsForCamp'
+    get       'getClientCountForRoute'  =>  'location_camps#getClientCountForRoute'
     get       'getClientsByName'    => 'clients#getClientsByName'
     get       'getClientNotesForRoute'  => 'client_notes#getClientNotesForRoute'
     get       'getClientNotesForClient'  => 'client_notes#getClientNotesForClient'

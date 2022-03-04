@@ -62,6 +62,6 @@ class RequestedItemsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def requested_item_params
-      params.require(:requested_item).permit(:client_id, :item_description, :date_requested, :has_received)
+      params.require(:requested_item).permit(:client_id, :item_description, :date_requested, :has_received, :fulfilled)
     end
 end

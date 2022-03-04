@@ -50,6 +50,18 @@ class LocationCampsController < ApplicationController
     render json: @camps
   end
   
+  # GET /clientCountForRoute?routeId={route_id}
+  def getClientCountForRoute
+    #apiToken = request.headers['Authorization']
+    #passwordAndToken = PassToken.find(1)
+    #if passwordAndToken.api_token != apiToken
+    #  return render json: {message: 'invalid-token'}
+    #end
+    @clientCount = Client.joins('JOIN location_camps lc ON clients.current_camp_id = lc.id').where('lc.route_id = ? AND status = ?', params[:routeId], 'Active').count;
+    
+    render json: @clientCount
+  end
+  
   # GET /clientsForCamp?locationCampId={location_camp_id}
   def getClientsForCamp
     apiToken = request.headers['Authorization']
