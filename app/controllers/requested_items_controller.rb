@@ -33,6 +33,13 @@ class RequestedItemsController < ApplicationController
     end
   end
   
+  #GET /getClientHasFulfilledItems?clientId={client_id}
+  def getClientHasFulfilledItems
+    @items = RequestedItem.where('client_id = ? AND fulfilled = true AND has_received = false', params[:clientId]).count;
+    
+    render json: @items
+  end
+  
   #recentReceivedItems?clientId=[number]
   def recentReceivedItems
     @items = RequestedItem.where('client_id = ? AND has_received = ?', params[:clientId], true).order('updated_at desc').limit(10);

@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     get       'getRouteSummaryInfoForRoute'  => 'route_instances#getRouteSummaryInfoForRoute'
     get       'getRouteInstancesForDate'  => 'route_instances#getRouteInstancesForDate'
     get       'recentReceivedItems'   =>  'requested_items#recentReceivedItems'
+    get       'getClientHasFulfilledItems' => 'requested_items#getClientHasFulfilledItems'
     get       'getCampsForRoute' => 'location_camps#getCampsForRoute'
     get       'getCampListing' => 'location_camps#getCampListing'
     get       'prayerRequestsForClient' => 'prayer_request_and_needs#prayerRequestsForClient'
