@@ -80,7 +80,7 @@ Things you may want to cover:
 * IF IT COMPLAINS ABOUT VERSION NOT HIGH ENOUGH FOR CLIENT
 * nvm install 8.3
 * nvm use 8.3
-* npm install -g heroku-cli
+* npm install -g heroku
 * 
 * 
 * to restart the database fresh, do heroku run rails db:migrate:reset
