@@ -47,6 +47,19 @@ class RequestedItemsController < ApplicationController
     render json: @items
   end
   
+  #GET /getItemsByClientAndDate?clientId={client_id}&fromDate={from_Date}&toDate={to_date}
+  def getItemsByClientAndDate
+    @client_id = params[:clientId]
+    @items = [];
+    if @client_id == 'ALLCLIENTS'
+      @items = RequestedItem.where('date_requested BETWEEN ? AND ?', params[:fromDate], Date.parse(params[:toDate]).next_day(1))
+    else
+      @items = RequestedItem.where('client_id = ? AND date_requested BETWEEN ? AND ?', params[:clientId], params[:fromDate], Date.parse(params[:toDate]).next_day(1))
+    end
+      
+    render json: @items
+  end
+  
   #receivedRequestedItem/?requestId=[number]
   def receivedRequestedItem
     @item = RequestedItem.find(params[:requestId])
