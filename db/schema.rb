@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_25_030117) do
+ActiveRecord::Schema.define(version: 2022_08_31_015627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -209,6 +209,7 @@ ActiveRecord::Schema.define(version: 2022_06_25_030117) do
     t.string "admin_notes"
     t.decimal "parking_latitude"
     t.decimal "parking_longitude"
+    t.boolean "remain_on_route"
   end
 
   create_table "locations", id: :serial, force: :cascade do |t|
