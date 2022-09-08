@@ -111,6 +111,7 @@ class ClientsController < ApplicationController
     @client.destroy
   end
   
+  # GET /getClientsByName?name={name}
   def getClientsByName
     @clientName = params[:name];
     
