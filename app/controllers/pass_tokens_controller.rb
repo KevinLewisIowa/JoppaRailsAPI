@@ -26,7 +26,7 @@ class PassTokensController < ApplicationController
         @passwords.save
       end
       theToken = @passwords.api_token
-      return render json: { admin: true, token: theToken }
+      return render json: { admin: true, volunteer: false, token: theToken }
     end
     if (@passwords.regular_password == attemptedPassword)
       if (@passwords.updated_at.to_date != Date.current)
@@ -35,10 +35,19 @@ class PassTokensController < ApplicationController
         @passwords.save
       end
       theToken = @passwords.api_token
-      return render json: {admin: false, token: theToken }
+      return render json: {admin: false, volunteer: false, token: theToken }
+    end
+    if (@passwords.volunteer == attemptedPassword)
+      if (@passwords.updated_at.to_date != Date.current)
+        newToken = ('a'..'z').to_a.shuffle[0,8].join
+        @passwords.api_token = newToken
+        @passwords.save
+      end
+      theToken = @passwords.api_token
+      return render json: {admin: false, volunteer: true, token: theToken }
     end
     
-    return render json: { admin: false, token: 'failedLogin' }
+    return render json: { admin: false, volunteer: false, token: 'failedLogin' }
   end
 
   # POST /pass_tokens
@@ -84,6 +93,6 @@ class PassTokensController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def pass_token_params
-      params.require(:pass_token).permit(:admin_password, :string, :regular_password, :string, :api_token, :string)
+      params.require(:pass_token).permit(:admin_password, :string, :regular_password, :string, :volunteer_password, :string, :api_token, :string)
     end
 end
