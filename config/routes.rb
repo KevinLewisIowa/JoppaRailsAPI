@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :location_camp_notes
   resources :client_referrals
   resources :client_tents
     resources :client_pets

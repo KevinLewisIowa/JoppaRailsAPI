@@ -1,0 +1,2 @@
+class LocationCampNote < ApplicationRecord
+end
