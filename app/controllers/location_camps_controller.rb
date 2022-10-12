@@ -32,6 +32,17 @@ class LocationCampsController < ApplicationController
       render json: @location_camp.errors, status: :unprocessable_entity
     end
   end
+  
+  # GET /updateCampRoutePosition?campId={camp_id}&routeId={routeId}&position={position}
+  def updateCampRoutePosition
+    #if LocationCamp.where('id = ?', params[:campId]).update(route_id: params[:routeId], position: params[:position])
+    @camp_to_update = LocationCamp.find(params[:campId])
+    if @camp_to_update.update(route_id: params[:routeId], position: params[:position])
+      render json: @camp_to_update
+    else
+      render json: @camp_to_update.errors, status: :unprocessable_entity
+    end
+  end
 
   # DELETE /location_camps/1
   def destroy
