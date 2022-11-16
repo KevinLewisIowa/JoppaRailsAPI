@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_30_012956) do
+ActiveRecord::Schema.define(version: 2022_11_16_055054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,17 @@ ActiveRecord::Schema.define(version: 2022_09_30_012956) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "client_dwellings", force: :cascade do |t|
+    t.integer "client_id"
+    t.date "date_became_homeless"
+    t.string "dwelling"
+    t.string "notes"
+    t.string "homeless_reason"
+    t.boolean "first_time_homeless"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "client_heater_interactions", id: :serial, force: :cascade do |t|
@@ -79,6 +90,7 @@ ActiveRecord::Schema.define(version: 2022_09_30_012956) do
     t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "source"
   end
 
   create_table "client_pets", id: :serial, force: :cascade do |t|

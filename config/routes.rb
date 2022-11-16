@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :client_dwellings
   resources :location_camp_notes
   resources :client_referrals
   resources :client_tents
@@ -88,6 +89,7 @@ Rails.application.routes.draw do
   get       'removeDuplicateClient'  => 'admin#removeDuplicateClient'
   get       'getCampNotes'                => 'location_camp_notes#getCampNotes'
   get      'updateCampRoutePosition'     => 'location_camps#updateCampRoutePosition'
+  get       'getDwellingsForClient'       => 'client_dwellings#getDwellingsForClient'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates

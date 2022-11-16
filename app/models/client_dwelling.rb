@@ -1,0 +1,2 @@
+class ClientDwelling < ApplicationRecord
+end

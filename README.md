@@ -6,6 +6,8 @@ application up and running.
 Things you may want to cover:
 
 * Ruby version
+* rvm get stable
+* bundle update #bundler
 
 * System dependencies
 * 
@@ -15,7 +17,12 @@ Things you may want to cover:
 * yarn devStart
 *
 * Installing postgresql and configuring for environment
+* https://dailyscrawl.com/how-to-install-postgresql-on-amazon-linux-2/
+* sudo amazon-linux-extras install postgresql13
+
 * https://medium.com/@floodfx/setting-up-postgres-on-cloud9-ide-720e5b879154
+* -edit postgresql.conf and pg_hba.conf files
+* -set up users
 
 * Configuration
 
@@ -26,6 +33,9 @@ Things you may want to cover:
 * sudo -u postgres createuser -s ec2-user
 * sudo -u postgres createdb ec2-user
 * rails db:create // only needs run once, maybe already done?
+* rails db:environment:set RAILS_ENV=development
+* rails db:setup                            // create tables and seed data
+
 * rails generate migration MigrationName    // create migration file to modify database schema
 * rails db:migrate                           // apply migration changes to schema.rb
 * 
@@ -33,8 +43,6 @@ Things you may want to cover:
 * rails generate scaffold [TableName] [ListOfProperties:type] (ie username:string email:string age:integer weight:decimal is_active:boolean) --not including id column
 * 
 * Database initialization
-* 
-* rails db:setup                            // create tables and seed data
 * rails db:seed                             // add seed data from seeds.rb
 *
 * How to run the test suite
