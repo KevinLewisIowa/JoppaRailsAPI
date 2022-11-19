@@ -40,6 +40,15 @@ class ClientsController < ApplicationController
     render json: @clients
   end
   
+  #GET /getClientBatches
+  def getClientBatches
+    @clients = Client.find_each do |client|
+      put client
+    end
+    
+    render json: @clients
+  end
+  
   # GET /getClientDislikes?clientId={id}
   def getClientDislikes
     @dislikes = ClientDislike.find_by(client_id: params[:clientId])

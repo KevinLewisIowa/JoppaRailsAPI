@@ -82,6 +82,7 @@ Rails.application.routes.draw do
   get       'getTanksNotReturnedForClient'  => 'client_tank_interactions#getTanksNotReturnedForClient'
   get       'getNewClients'               => 'clients#getNewClients'
   get       'getClientsNewToCamps'        => 'clients#getClientsNewToCamps'
+  get       'getClientBatches'            => 'clients#getClientBatches'
   get       'updateHeaterInteraction'     => 'client_heater_interactions#updateHeaterInteraction'
   get       'attemptLogin'                => 'pass_tokens#attemptLogin'
   get       'setNewPassword'              => 'pass_tokens#setNewPassword'
