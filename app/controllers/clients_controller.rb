@@ -43,7 +43,7 @@ class ClientsController < ApplicationController
   #GET /getClientBatches
   def getClientBatches
     @clients = Client.find_each do |client|
-      client
+      yield client
     end
     
     render json: @clients
