@@ -3,7 +3,11 @@ class RequestedItemsController < ApplicationController
 
   # GET /requested_items
   def index
-    @requested_items = RequestedItem.all
+    items = []
+    RequestedItem.find_each do |item|
+      items.push(item)
+    end
+    @requested_items = items
 
     render json: @requested_items
   end
