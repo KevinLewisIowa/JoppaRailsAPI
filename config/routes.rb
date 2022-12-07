@@ -91,6 +91,7 @@ Rails.application.routes.draw do
   get       'getCampNotes'                => 'location_camp_notes#getCampNotes'
   get      'updateCampRoutePosition'     => 'location_camps#updateCampRoutePosition'
   get       'getDwellingsForClient'       => 'client_dwellings#getDwellingsForClient'
+  post      'dwellingsForClients'         => 'client_dwellings#dwellingsForClients'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates

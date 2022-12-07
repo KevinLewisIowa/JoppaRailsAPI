@@ -44,6 +44,14 @@ class ClientDwellingsController < ApplicationController
     
     render json: @dwellings
   end
+  
+  # POST /dwellingsForClients
+  def dwellingsForClients
+    @clientIds = JSON.parse(client_list_params)
+    @dwellings = ClientDwelling.where('client_id IN ?', @clientIds)
+    
+    render json: @dwellings
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -54,5 +62,10 @@ class ClientDwellingsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def client_dwelling_params
       params.require(:client_dwelling).permit(:client_id, :date_became_homeless, :dwelling, :notes, :homeless_reason, :first_time_homeless)
+    end
+    
+    # Get client_list which has a string of client ids to get dwellings for
+    def client_list_params
+      params.require(:client_list).permit(:clients)
     end
 end
