@@ -46,6 +46,6 @@ class RoutesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def route_params
-      params.require(:route).permit(:city, :region, :name, :is_active, :is_aftercare)
+      params.require(:route).permit(:city, :region, :name, :is_active, :is_aftercare, :admin_notes)
     end
 end
