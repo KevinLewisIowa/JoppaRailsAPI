@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_29_200358) do
+ActiveRecord::Schema.define(version: 2022_12_30_194728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(version: 2022_12_29_200358) do
     t.date "date_became_homeless"
     t.string "homeless_reason"
     t.boolean "due_to_covid"
+    t.string "household_relationship_type"
     t.index ["first_name", "last_name"], name: "index_clients_on_first_name_and_last_name", unique: true
   end
 
