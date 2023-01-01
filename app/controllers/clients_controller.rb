@@ -103,7 +103,7 @@ class ClientsController < ApplicationController
   # GET /getHousehold?householdId={id}
   def getHousehold
     @householdClients = Client.where("household_id = ?", params[:householdId])
-    #here we go again with CORS
+    
     render json: @householdClients
   end
 
