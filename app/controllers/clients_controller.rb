@@ -104,7 +104,6 @@ class ClientsController < ApplicationController
   def getHousehold
     @householdClients = Client.where("household_id = ?", params[:householdId])
     
-    #add something to redeploy
     render json: @householdClients
   end
 
