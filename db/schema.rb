@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_11_010433) do
+ActiveRecord::Schema.define(version: 2023_06_17_175839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -177,6 +177,8 @@ ActiveRecord::Schema.define(version: 2023_06_11_010433) do
     t.boolean "due_to_covid"
     t.string "household_relationship_type"
     t.binary "client_picture"
+    t.string "race"
+    t.string "ethnicity"
     t.index ["first_name", "last_name"], name: "index_clients_on_first_name_and_last_name", unique: true
   end
 
