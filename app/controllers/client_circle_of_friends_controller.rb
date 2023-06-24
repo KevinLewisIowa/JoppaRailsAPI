@@ -46,6 +46,6 @@ class ClientCircleOfFriendsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_circle_of_friend_params
-      params.require(:client_circle_of_friend).permit(:volunteer_name, :phone_number, :email, :notes)
+      params.require(:client_circle_of_friend).permit(:client_id, :volunteer_name, :phone_number, :email, :notes)
     end
 end
