@@ -16,7 +16,6 @@ class ClientCircleOfFriendsController < ApplicationController
   # POST /client_circle_of_friends
   def create
     @client_circle_of_friend = ClientCircleOfFriend.new(client_circle_of_friend_params)
-    print(@client_circle_of_friend)
 
     if @client_circle_of_friend.save
       render json: @client_circle_of_friend, status: :created, location: @client_circle_of_friend

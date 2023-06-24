@@ -51,4 +51,12 @@ class Client < ApplicationRecord
     has_many :client_note, class_name: "ClientNote",
                                          foreign_key: "client_id",
                                          dependent: :destroy
+                                         
+    has_many :client_dwelling, class_name: "ClientDwelling",
+                                         foreign_key: "client_id",
+                                         dependent: :destroy
+                                         
+    has_many :client_circle_of_friend, class_name: "ClientCircleOfFriend",
+                                         foreign_key: "client_id",
+                                         dependent: :destroy
 end

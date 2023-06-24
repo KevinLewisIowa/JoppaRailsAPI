@@ -93,6 +93,13 @@ class ClientsController < ApplicationController
     render json: @items
   end
   
+  # GET /getFriendsForClient/clientId={id}
+  def getFriendsForClient
+    @friends = ClientCircleOfFriend.where("client_id = ?", params[:clientId])
+    
+    render json: @friends
+  end
+  
   # GET /getClientReferrals?clientId={id}
   def getClientReferrals
     @client_referrals = ClientReferral.where('client_id = ?', params[:clientId])
