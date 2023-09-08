@@ -27,16 +27,22 @@ class ClientsController < ApplicationController
   
   # GET /clientLikes?clientId={id}
   def getClientLikes
-    @likes = ClientLike.find_by(client_id: params[:clientId])
+    likes = []
+    ClientLike.find_by(client_id: params[:clientId]).find_each do |like|
+      likes.push(like)
+    end
+    @likes = likes
     
     render json: @likes
   end
   
   def getNewClients
     twoWeeksAgo = Date.today - 14
-    
-    @clients = Client.where('created_at > ?', twoWeeksAgo)
-    
+    clients = []
+    Client.where('created_at > ?', twoWeeksAgo).find_each do |client|
+      clients.push(client)
+    end
+    @clients = clients
     render json: @clients
   end
   
@@ -53,30 +59,43 @@ class ClientsController < ApplicationController
   
   # GET /getClientDislikes?clientId={id}
   def getClientDislikes
-    @dislikes = ClientDislike.find_by(client_id: params[:clientId])
+    client_dislikes = []
+    ClientDislike.find_by(client_id: params[:clientId]).find_each do |dislike|
+      client_dislikes.push(dislike)
+    end
+    @dislikes = client_dislikes
     
     render json: @dislikes
   end
   
   # GET /getClientGoals?clientId={id}
   def getClientGoals
-    @goals = GoalsAndNextStep.find_by(client_id: params[:clientId])
+    client_goals = []
+    GoalsAndNextStep.find_by(client_id: params[:clientId]).find_each do |goal|
+      client_goals.push(goal)
+    end
+    @goals = client_goals
     
     render json: @dislikes
   end
   
   # GET /getClientsByBirthMonth?monthInt={id}
   def getClientsByBirthMonth
-    @clients = Client.where("EXTRACT(MONTH FROM birth_date) = ?", params[:monthInt])
+    clients = []
+    Client.where("EXTRACT(MONTH FROM birth_date) = ?", params[:monthInt]).find_each do |client|
+      clients.push(client)
+    end
+    @clients = clients
     
     render json: @clients
   end
   
   # GET /getClientPrayerRequests?clientId={id}
   def getClientPrayerRequests
+    
     @requests = PrayerRequestAndNeed.find_by(client_id: params[:clientId])
     
-    render json: @dislikes
+    render json: @requests
   end
   
   # GET /getClientRequestedItem?clientId={id}
