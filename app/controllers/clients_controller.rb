@@ -143,7 +143,11 @@ class ClientsController < ApplicationController
   
   # GET /getHousehold?householdId={id}
   def getHousehold
-    @householdClients = Client.where("household_id = ?", params[:householdId])
+    clients = []
+    Client.where("household_id = ?", params[:householdId]).find_each do |client|
+      clients.push(client)
+    end
+    @householdClients = clients
     
     render json: @householdClients
   end
