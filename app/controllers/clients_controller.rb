@@ -92,37 +92,52 @@ class ClientsController < ApplicationController
   
   # GET /getClientPrayerRequests?clientId={id}
   def getClientPrayerRequests
-    
-    @requests = PrayerRequestAndNeed.find_by(client_id: params[:clientId])
-    
+    requests = []
+    PrayerRequestAndNeed.find_by(client_id: params[:clientId]).find_each do |request|
+      requests.push(request)
+    end
+    @requests = requests
     render json: @requests
   end
   
   # GET /getClientRequestedItem?clientId={id}
   def getClientRequestedItem
-    @items = RequestedItem.where("client_id = ?", params[:clientId])
+    items = []
+    RequestedItem.where("client_id = ?", params[:clientId]).find_each do |item|
+      items.push(item)
+    end
+    @items = items
     
     render json: @items
   end
   
   # GET /getClientPets?clientId={id}
   def getClientPets
-    @items = ClientPet.where("client_id = ?", params[:clientId])
-    
-    render json: @items
+    pets = []
+    ClientPet.where("client_id = ?", params[:clientId]).find_each do |pet|
+      pets.push(pet)
+    end
+    @pets = pets
+    render json: @pets
   end
   
   # GET /getFriendsForClient/clientId={id}
   def getFriendsForClient
-    @friends = ClientCircleOfFriend.where("client_id = ?", params[:clientId])
-    
+    friends = []
+    ClientCircleOfFriend.where("client_id = ?", params[:clientId]).find_each do |friend|
+      friends.push(friend)
+    end
+    @friends = friends
     render json: @friends
   end
   
   # GET /getClientReferrals?clientId={id}
   def getClientReferrals
-    @client_referrals = ClientReferral.where('client_id = ?', params[:clientId])
-    
+    referrals = []
+    ClientReferral.where('client_id = ?', params[:clientId]).find_each do |referral|
+      referrals.push(referral)
+    end
+    @client_referrals = referrals
     render json: @client_referrals
   end
   
@@ -152,21 +167,26 @@ class ClientsController < ApplicationController
   def getClientsByName
     @clientName = params[:name];
     client_list = [];
-    @clientList = [];
     if @clientName == 'ALLCLIENTS'
       Client.joins('LEFT JOIN location_camps as lc on lc.id = current_camp_id LEFT JOIN routes r ON lc.route_id = r.id LEFT JOIN client_pets cp ON cp.client_id = clients.id').order('r.name', :status).select('clients.id, clients.phone, clients.birth_date, clients.first_name, clients.preferred_name, clients.last_name, concat(clients.first_name, \' \', clients.last_name) as full_name, clients.status, clients.last_interaction_date, clients.household_id, clients.household_relationship_type, clients.is_veteran, clients.is_aftercare, clients.gender, clients.first_time_homeless, clients.date_became_homeless, clients.homeless_reason, clients.due_to_covid, clients.current_camp_id, clients.boot_size, clients.shoe_size, clients.dwelling, clients.admin_notes, clients.joppa_apartment_number, array_to_string(array_agg(pet_type), \', \') as "Pets", r.name as route_name, lc.id as camp_id, lc.name as camp_name, clients.created_at, clients.race, clients.ethnicity').group('clients.id, r.name, lc.id, lc.name').find_each do |client|
         client_list.push(client)
       end
-      @clientList = client_list
     else
-      @clientList = Client.joins('LEFT JOIN location_camps as lc on lc.id = current_camp_id LEFT JOIN routes r ON lc.route_id = r.id LEFT JOIN client_pets cp ON cp.client_id = clients.id').where('preferred_name ILIKE ? or first_name ILIKE ? or last_name ILIKE ? or concat(first_name, \' \', last_name) ILIKE ?', '%' + @clientName + '%', '%' + @clientName + '%', '%' + @clientName + '%', '%' + @clientName + '%').order('r.name', :status).select('clients.id, clients.phone, clients.birth_date, clients.first_name, clients.preferred_name, clients.last_name, concat(clients.first_name, \' \', clients.last_name) as full_name, clients.status, clients.last_interaction_date, clients.household_id, clients.household_relationship_type, clients.is_veteran, clients.is_aftercare, clients.gender, clients.first_time_homeless, clients.date_became_homeless, clients.homeless_reason, clients.due_to_covid, clients.current_camp_id, clients.boot_size, clients.shoe_size, clients.dwelling, clients.admin_notes, clients.joppa_apartment_number, array_to_string(array_agg(pet_type), \', \') as "Pets", r.name as route_name, lc.id as camp_id, lc.name as camp_name, clients.created_at, clients.race, clients.ethnicity, (concat(first_name,concat(' ' last_name)))').group('clients.id, r.name, lc.id, lc.name')
+      Client.joins('LEFT JOIN location_camps as lc on lc.id = current_camp_id LEFT JOIN routes r ON lc.route_id = r.id LEFT JOIN client_pets cp ON cp.client_id = clients.id').where('preferred_name ILIKE ? or first_name ILIKE ? or last_name ILIKE ? or concat(first_name, \' \', last_name) ILIKE ?', '%' + @clientName + '%', '%' + @clientName + '%', '%' + @clientName + '%', '%' + @clientName + '%').order('r.name', :status).select('clients.id, clients.phone, clients.birth_date, clients.first_name, clients.preferred_name, clients.last_name, concat(clients.first_name, \' \', clients.last_name) as full_name, clients.status, clients.last_interaction_date, clients.household_id, clients.household_relationship_type, clients.is_veteran, clients.is_aftercare, clients.gender, clients.first_time_homeless, clients.date_became_homeless, clients.homeless_reason, clients.due_to_covid, clients.current_camp_id, clients.boot_size, clients.shoe_size, clients.dwelling, clients.admin_notes, clients.joppa_apartment_number, array_to_string(array_agg(pet_type), \', \') as "Pets", r.name as route_name, lc.id as camp_id, lc.name as camp_name, clients.created_at, clients.race, clients.ethnicity, (concat(first_name,concat(' ' last_name)))').group('clients.id, r.name, lc.id, lc.name').find_each do |client|
+        client_list.push(client)
+      end
     end
+    @clientList = client_list
     
     render json: @clientList
   end
   
   def getClientsNewToCamps
-    @clients = Client.where('current_camp_id <> previous_camp_id AND previous_camp_id <> 0 AND current_camp_id <> 0')
+    new_clients = []
+    Client.where('current_camp_id <> previous_camp_id AND previous_camp_id <> 0 AND current_camp_id <> 0').find_each do |client|
+      new_clients.push(client)
+    end
+    @clients = new_clients
     
     render json: @clients
   end
