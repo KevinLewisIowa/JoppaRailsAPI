@@ -42,15 +42,16 @@ class ClientTankInteractionsController < ApplicationController
   def updateTankInteraction
     @interaction = ClientTankInteraction.find(params[:interactionId])
     @interaction.status_id = params[:statusId].to_i
+    @interaction.updated_at = DateTime.current
     @interaction.save
     
     render json: @interaction
   end
   
   def getTanksNotReturnedForClient
-    nowDate = DateTime.now
-    startingDate = nowDate << 6
-    tanks = ClientTankInteraction.where('client_id = ? AND created_at > ? AND status_id IN (?)', params[:clientId], startingDate, [3,4,5,6,7])
+    nowDate = DateTime.current
+    startingDate = nowDate.days_ago(30)
+    tanks = ClientTankInteraction.where('client_id = ? AND updated_at > ? AND status_id IN (?)', params[:clientId], startingDate, [3,4,5,6,7])
     
     render json: tanks
   end

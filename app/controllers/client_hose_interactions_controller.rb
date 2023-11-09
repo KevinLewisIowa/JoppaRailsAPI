@@ -41,6 +41,7 @@ class ClientHoseInteractionsController < ApplicationController
   def updateHoseInteraction
     @interaction = ClientHoseInteraction.find(params[:interactionId])
     @interaction.heater_status_id = params[:statusId].to_i
+    @interaction.updated_at = DateTime.current
     @interaction.save
     
     render json: @interaction
@@ -53,9 +54,9 @@ class ClientHoseInteractionsController < ApplicationController
   end
   
   def getHosesNotReturnedForClient
-    nowDate = DateTime.now
-    startingDate = nowDate << 6
-    hoses = ClientHoseInteraction.where('client_id = ? AND created_at > ? AND heater_status_id IN (?)', params[:clientId], startingDate, [3,4,5,6,7])
+    nowDate = DateTime.current
+    startingDate = nowDate.days_ago(30)
+    hoses = ClientHoseInteraction.where('client_id = ? AND updated_at > ? AND heater_status_id IN (?)', params[:clientId], startingDate, [3,4,5,6,7])
     
     render json: hoses
   end
