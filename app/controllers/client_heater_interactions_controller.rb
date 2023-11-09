@@ -36,7 +36,7 @@ class ClientHeaterInteractionsController < ApplicationController
   def getHeatersNotReturnedForClient
     nowDate = DateTime.now
     startingDate = nowDate << 6
-    heaters = ClientHeaterInteraction.where('client_id = ? AND created_at > ? AND status_id IN (?)', params[:clientId], startingDate, [4,5,6,7,8])
+    heaters = ClientHeaterInteraction.where('client_id = ? AND created_at > ? AND status_id IN (?)', params[:clientId], startingDate, [3,4,5,6,7])
     
     render json: heaters
   end

@@ -50,7 +50,7 @@ class ClientTankInteractionsController < ApplicationController
   def getTanksNotReturnedForClient
     nowDate = DateTime.now
     startingDate = nowDate << 6
-    tanks = ClientTankInteraction.where('client_id = ? AND created_at > ? AND status_id IN (?)', params[:clientId], startingDate, [4,5,6,7,8])
+    tanks = ClientTankInteraction.where('client_id = ? AND created_at > ? AND status_id IN (?)', params[:clientId], startingDate, [3,4,5,6,7])
     
     render json: tanks
   end

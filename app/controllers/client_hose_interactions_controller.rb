@@ -55,7 +55,7 @@ class ClientHoseInteractionsController < ApplicationController
   def getHosesNotReturnedForClient
     nowDate = DateTime.now
     startingDate = nowDate << 6
-    hoses = ClientHoseInteraction.where('client_id = ? AND created_at > ? AND heater_status_id IN (?)', params[:clientId], startingDate, [4,5,6,7,8])
+    hoses = ClientHoseInteraction.where('client_id = ? AND created_at > ? AND heater_status_id IN (?)', params[:clientId], startingDate, [3,4,5,6,7])
     
     render json: hoses
   end
