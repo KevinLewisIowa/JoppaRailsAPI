@@ -56,7 +56,12 @@ class LocationCampsController < ApplicationController
     if passwordAndToken.api_token != apiToken
       return render json: {message: 'invalid-token'}
     end
-    @camps = LocationCamp.where('route_id = ? AND is_active = ?', params[:routeId], true);
+    
+    camps = []
+    LocationCamp.where('route_id = ? AND is_active = ?', params[:routeId], true).find_each do |camp|
+      camps.push(camp)
+    end
+    @camps = camps
     
     render json: @camps
   end
@@ -68,7 +73,13 @@ class LocationCampsController < ApplicationController
     if passwordAndToken.api_token != apiToken
       return render json: {message: 'invalid-token'}
     end
-    @clientCount = Client.joins('JOIN location_camps lc ON clients.current_camp_id = lc.id').where('lc.route_id = ? AND status = ? AND lc.is_active = ?', params[:routeId], 'Active', true).count;
+    
+    clients = []
+    
+    Client.joins('JOIN location_camps lc ON clients.current_camp_id = lc.id').where('lc.route_id = ? AND status = ? AND lc.is_active = ?', params[:routeId], 'Active', true).find_each do |client|
+      clients.push(client)
+    end
+    @clientCount = clients.count
     
     render json: @clientCount
   end
@@ -80,7 +91,11 @@ class LocationCampsController < ApplicationController
     if passwordAndToken.api_token != apiToken
       return render json: {message: 'invalid-token'}
     end
-    @clients = Client.where('current_camp_id = ? AND status = ?', params[:locationCampId], 'Active').order(first_name: :asc);
+    clients = [];
+    Client.where('current_camp_id = ? AND status = ?', params[:locationCampId], 'Active').order(first_name: :asc).find_each do |client|
+      clients.push(client)
+    end
+    @clients = clients
     
     render json: @clients
   end
@@ -104,7 +119,11 @@ class LocationCampsController < ApplicationController
     #if passwordAndToken.api_token != apiToken
     #  return render json: {message: 'invalid-token'}
     #end
-    @location_camps = LocationCamp.joins('LEFT JOIN routes r ON location_camps.route_id = r.id').select('location_camps.id, location_camps.name as camp_name, location_camps.location_id, location_camps.is_active, location_camps.route_id, location_camps.position, location_camps.notes, location_camps.longitude, location_camps.latitude, location_camps.parking_longitude, location_camps.parking_latitude, location_camps.expected_arrival_time, location_camps.admin_notes, location_camps.remain_on_route, r.name as route_name')
+    location_camps = []
+    LocationCamp.joins('LEFT JOIN routes r ON location_camps.route_id = r.id').select('location_camps.id, location_camps.name as camp_name, location_camps.location_id, location_camps.is_active, location_camps.route_id, location_camps.position, location_camps.notes, location_camps.longitude, location_camps.latitude, location_camps.parking_longitude, location_camps.parking_latitude, location_camps.expected_arrival_time, location_camps.admin_notes, location_camps.remain_on_route, r.name as route_name').find_each do |camp|
+      location_camps.push(camp)
+    end
+    @location_camps = location_camps
     
     render json: @location_camps
   end
