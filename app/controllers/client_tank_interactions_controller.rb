@@ -61,11 +61,11 @@ class ClientTankInteractionsController < ApplicationController
     @clientId = params[:clientId];
     tank_list = [];
     if @clientId == 'ALLCLIENTS'
-      ClientTankInteraction.joins('JOIN clients as c on c.id = client_id').select('c.id, client_tank_interactions.status_id, client_tank_interactions.created_at').where('created_at BETWEEN ? AND ?', params[:fromDate], params[:toDate]).find_each do |tank|
+      ClientTankInteraction.joins('JOIN clients as c on c.id = client_id').select('c.id, client_tank_interactions.status_id, client_tank_interactions.created_at').where('client_tank_interactions.created_at BETWEEN ? AND ?', params[:fromDate], params[:toDate]).find_each do |tank|
         tank_list.push(tank)
       end
     else
-      ClientTankInteraction.joins('JOIN clients as c on c.id = client_id').select('c.id, client_tank_interactions.status_id, client_tank_interactions.created_at').where('client_id = ? AND created_at BETWEEN ? AND ?', params[:clientId], params[:fromDate], params[:toDate]).find_each do |tank|
+      ClientTankInteraction.joins('JOIN clients as c on c.id = client_id').select('c.id, client_tank_interactions.status_id, client_tank_interactions.created_at').where('client_id = ? AND client_tank_interactions.created_at BETWEEN ? AND ?', params[:clientId], params[:fromDate], params[:toDate]).find_each do |tank|
         tank_list.push(tank)
       end
     end

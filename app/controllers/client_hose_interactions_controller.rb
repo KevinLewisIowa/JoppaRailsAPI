@@ -66,11 +66,11 @@ class ClientHoseInteractionsController < ApplicationController
     @clientId = params[:clientId];
     hose_list = [];
     if @clientId == 'ALLCLIENTS'
-      ClientHoseInteraction.joins('JOIN clients as c on c.id = client_id').select('c.id, client_hose_interactions.heater_status_id, client_hose_interactions.created_at').where('created_at BETWEEN ? AND ?', params[:fromDate], params[:toDate]).find_each do |hose|
+      ClientHoseInteraction.joins('JOIN clients as c on c.id = client_id').select('c.id, client_hose_interactions.heater_status_id, client_hose_interactions.created_at').where('client_hose_interactions.created_at BETWEEN ? AND ?', params[:fromDate], params[:toDate]).find_each do |hose|
         hose_list.push(hose)
       end
     else
-      ClientHoseInteraction.joins('JOIN clients as c on c.id = client_id').select('c.id, client_hose_interactions.heater_status_id, client_hose_interactions.created_at').where('client_id = ? AND created_at BETWEEN ? AND ?', params[:clientId], params[:fromDate], params[:toDate]).find_each do |hose|
+      ClientHoseInteraction.joins('JOIN clients as c on c.id = client_id').select('c.id, client_hose_interactions.heater_status_id, client_hose_interactions.created_at').where('client_id = ? AND client_hose_interactions.created_at BETWEEN ? AND ?', params[:clientId], params[:fromDate], params[:toDate]).find_each do |hose|
         hose_list.push(hose)
       end
     end
