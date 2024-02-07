@@ -21,6 +21,13 @@ class RouteInstancesController < ApplicationController
     render json: @route_instances
   end
   
+  # GET /getActiveRouteInstanceForRoute?routeId={routeId}
+  def getActiveRouteInstanceForRoute
+    @routeId = params[:routeId].to_i
+    @route_instance = RouteInstance.where('end_time IS NULL AND route_id = ?', @routeId)
+    render json: @route_instance
+  end
+  
   # GET /getRouteSummaryInfoForRoute?routeInstanceId={route_instance_id}
   def getRouteSummaryInfoForRoute
     @routeInstanceId = params[:routeInstanceId].to_i
