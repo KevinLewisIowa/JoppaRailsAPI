@@ -7,6 +7,14 @@ class RouteInstancesController < ApplicationController
 
     render json: @route_instances
   end
+  
+  def to_b(string)
+    case string
+    when /^(true|t|yes|y|1)$/i then true
+    when /^(false|f|no|n|0)$/i then false
+    else raise "Cannot convert to boolean: #{string}"
+    end
+  end
 
   # GET /route_instances/1
   def show
@@ -21,10 +29,11 @@ class RouteInstancesController < ApplicationController
     render json: @route_instances
   end
   
-  # GET /getActiveRouteInstanceForRoute?routeId={routeId}
+  # GET /getActiveRouteInstanceForRoute?routeId={routeId}&heatRoute={heatRoute}
   def getActiveRouteInstanceForRoute
     @routeId = params[:routeId].to_i
-    @route_instance = RouteInstance.where('end_time IS NULL AND route_id = ?', @routeId)
+    @heatRoute = to_b(params[:heatRoute])
+    @route_instance = RouteInstance.where('end_time IS NULL AND route_id = ? AND heat_route = ?', @routeId, @heatRoute)
     render json: @route_instance
   end
   
