@@ -2,5 +2,8 @@
   "dependencies": {
     "heroku": "^7.66.4",
     "heroku-cli": "^7.0.9"
+  },
+  "engines": {
+    "node": "20.9.0"
   }
 }
