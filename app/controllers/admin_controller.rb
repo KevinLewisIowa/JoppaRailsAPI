@@ -23,9 +23,9 @@ class AdminController < ApplicationController
   # GET /getAdminRouteUndeliveredItems 
   def getAdminRouteUndeliveredItems
     undelivered_items_list = [];
-    Client.joins('INNER JOIN requested_items AS ri ON clients.id = ri.client_id')
-    .joins('INNER JOIN location_camps AS lc ON clients.current_camp_id = lc.id')
-    .joins('INNER JOIN routes AS r ON lc.route_id = r.id')
+    Client.joins('JOIN requested_items AS ri ON clients.id = ri.client_id')
+    .joins('JOIN location_camps AS lc ON clients.current_camp_id = lc.id')
+    .joins('JOIN routes AS r ON lc.route_id = r.id')
     .select("r.name, clients.first_name, clients.preferred_name, clients.last_name, ri.id, ri.client_id, ri.item_description, ri.date_requested, ri.fulfilled, ri.created_at").where("ri.has_received = ?", false)
     .group("r.name, clients.first_name, clients.preferred_name, clients.last_name, ri.id, ri.client_id, ri.item_description, ri.date_requested, ri.created_at, ri.fulfilled")
     .order("r.name, clients.last_name, clients.first_name").find_each do |item|
