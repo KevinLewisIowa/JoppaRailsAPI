@@ -2,7 +2,6 @@ class AdminController < ApplicationController
   
   # GET /getAdminSumNumberMeals 
   def getAdminRouteNumberMeals
-    route_meals_list = [];
     @routeMeals = ClientInteraction.joins('JOIN location_camps as lc on lc.id = location_camp_id')
     .joins('JOIN clients as c on c.id = client_id')
     .joins('JOIN routes as r on r.id = lc.route_id')
@@ -12,48 +11,33 @@ class AdminController < ApplicationController
         (SELECT MAX(created_at) from client_interactions 
         where client_id = c.id and location_camp_id = lc.id) AND 
         r.is_active = ? AND lc.is_active = ?', true, true, true)
-    .group('r.name,client_interactions.id').find_each do |meal|
-      route_meals_list.push(meal)
-    end
-    @routeMeals = route_meals_list;
+    .group('r.name')
     
     render json: @routeMeals 
   end
   
   # GET /getAdminRouteUndeliveredItems 
   def getAdminRouteUndeliveredItems
-    undelivered_items_list = [];
-    Client.joins('JOIN requested_items AS ri ON clients.id = ri.client_id')
+    @routeUndeliveredItems = Client.joins('JOIN requested_items AS ri ON clients.id = ri.client_id')
     .joins('JOIN location_camps AS lc ON clients.current_camp_id = lc.id')
     .joins('JOIN routes AS r ON lc.route_id = r.id')
     .select("r.name, clients.first_name, clients.preferred_name, clients.last_name, ri.id, ri.client_id, ri.item_description, ri.date_requested, ri.fulfilled, ri.created_at").where("ri.has_received = ?", false)
     .group("r.name, clients.first_name, clients.preferred_name, clients.last_name, ri.id, ri.client_id, ri.item_description, ri.date_requested, ri.created_at, ri.fulfilled")
-    .order("r.name, clients.last_name, clients.first_name").find_each do |item|
-      undelivered_items_list.push(item)
-    end
-    @routeUndeliveredItems = undelivered_items_list
+    .order("r.name, clients.last_name, clients.first_name")
     
     render json: @routeUndeliveredItems
   end
   
   # GET /getAdminRouteUnfulfilledGoalsNextSteps
   def getAdminRouteUnfulfilledGoalsNextSteps
-    unfulfilled_goals = [];
-    ClientInteraction.joins({client: :goals_and_next_steps}, {location_camp: :route}).select("routes.name, clients.first_name, clients.preferred_name, clients.last_name, goals_and_next_steps.description").where("goals_and_next_steps.is_completed = ?", false).group("routes.name, clients.first_name, clients.preferred_name, clients.last_name, goals_and_next_steps.description").find_each do |goal|
-      unfulfilled_goals.push(goal)
-    end
-    @routeUnfulfilledGoalsNextSteps = unfulfilled_goals
+    @routeUnfulfilledGoalsNextSteps = ClientInteraction.joins({client: :goals_and_next_steps}, {location_camp: :route}).select("routes.name, clients.first_name, clients.preferred_name, clients.last_name, goals_and_next_steps.description").where("goals_and_next_steps.is_completed = ?", false).group("routes.name, clients.first_name, clients.preferred_name, client_interactions.id, clients.last_name, goals_and_next_steps.description")
     
     render json: @routeUnfulfilledGoalsNextSteps
   end
   
   # GET /getAdminRouteUnfulfilledPrayerRequestsNeeds
   def getAdminRouteUnfulfilledPrayerRequestsNeeds
-    unfulfilled_needs = [];
-    ClientInteraction.joins({client: :prayer_request_and_needs}, {location_camp: :route}).select("routes.name, clients.first_name, clients.preferred_name, clients.last_name, prayer_request_and_needs.detail").where("prayer_request_and_needs.is_completed = ?", false).group("routes.name, clients.first_name, clients.preferred_name, clients.last_name, prayer_request_and_needs.detail").find_each do |prayer|
-      unfulfilled_needs.push(prayer)
-    end
-    @routeUnfulfilledPrayerRequestsNeeds = unfulfilled_needs;
+    @routeUnfulfilledPrayerRequestsNeeds = ClientInteraction.joins({client: :prayer_request_and_needs}, {location_camp: :route}).select("routes.name, clients.first_name, clients.preferred_name, clients.last_name, prayer_request_and_needs.detail").where("prayer_request_and_needs.is_completed = ?", false).group("routes.name, clients.first_name, clients.preferred_name, clients.last_name, client_interactions.id, prayer_request_and_needs.detail")
     
     render json: @routeUnfulfilledPrayerRequestsNeeds
   end
