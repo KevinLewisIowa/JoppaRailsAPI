@@ -51,8 +51,7 @@ class AdminController < ApplicationController
       @lostHeaters = Heater.where(heater_status_id: 5).count
       @destroyedHeaters = Heater.where(heater_status_id: 6).count
       @stolenHeaters = Heater.where(heater_status_id: 4).count
-      
-      @heaterList = Heater.joins('INNER JOIN clients as cl on cl.id = current_client_id').where(heater_status_id:2).select('heaters.serial_number, cl.first_name, cl.preferred_name, cl.last_name').find_each do |heater|
+      @heaterList = Heater.joins('INNER JOIN clients as cl on cl.id = current_client_id').where(heater_status_id:2).select('heaters.serial_number, cl.first_name, cl.preferred_name, cl.last_name')
         
       render json: { tanksOut: @tanksOut, hosesOut: @hosesOut, heatersOut: @heatersOut, brokenHeaters: @brokenHeaters, lostHeaters: @lostHeaters, destroyedHeaters: @destroyedHeaters, stolenHeaters: @stolenHeaters, heaterList: @heaterList}
   end
