@@ -3,16 +3,16 @@ class AdminController < ApplicationController
   # GET /getAdminSumNumberMeals 
   def getAdminRouteNumberMeals
     route_meals_list = [];
-    @routeMeals = ClientInteraction.joins('INNER JOIN location_camps as lc on lc.id = location_camp_id')
-                        .joins('INNER JOIN clients as c on c.id = client_id')
-                        .joins('INNER JOIN routes as r on r.id = lc.route_id')
-                        .select('r.name, sum(c.number_meals) as totalNumberMeals')
-                        .where('client_interactions.still_lives_here = ? AND 
-                            client_interactions.created_at = 
-                            (SELECT MAX(created_at) from client_interactions 
-                            where client_id = c.id and location_camp_id = lc.id) AND 
-                            r.is_active = ? AND lc.is_active = ?', true, true, true)
-                        .group('r.name').find_each do |meal|
+    @routeMeals = ClientInteraction.joins('JOIN location_camps as lc on lc.id = location_camp_id')
+    .joins('JOIN clients as c on c.id = client_id')
+    .joins('JOIN routes as r on r.id = lc.route_id')
+    .select('r.name, sum(c.number_meals) as totalNumberMeals')
+    .where('client_interactions.still_lives_here = ? AND 
+        client_interactions.created_at = 
+        (SELECT MAX(created_at) from client_interactions 
+        where client_id = c.id and location_camp_id = lc.id) AND 
+        r.is_active = ? AND lc.is_active = ?', true, true, true)
+    .group('r.name,client_interactions.id').find_each do |meal|
       route_meals_list.push(meal)
     end
     @routeMeals = route_meals_list;
