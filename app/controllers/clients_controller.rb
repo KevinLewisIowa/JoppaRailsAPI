@@ -186,11 +186,7 @@ class ClientsController < ApplicationController
   end
   
   def getClientsNewToCamps
-    new_clients = []
-    Client.where('current_camp_id <> previous_camp_id AND previous_camp_id <> 0 AND current_camp_id <> 0').find_each do |client|
-      new_clients.push(client)
-    end
-    @clients = new_clients
+    @clients = Client.where('current_camp_id <> previous_camp_id AND previous_camp_id <> 0 AND current_camp_id <> 0')
     
     render json: @clients
   end

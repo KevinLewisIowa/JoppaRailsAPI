@@ -2,13 +2,11 @@ class AdminController < ApplicationController
   
   # GET /getAdminRouteNumberMeals 
   def getAdminRouteNumberMeals
-    @routeMeals = ClientInteraction.joins('JOIN location_camps as lc on lc.id = location_camp_id')
-    .joins('JOIN clients as c on c.id = client_id')
+    @routeMeals = Client.joins('JOIN location_camps as lc on lc.id = current_camp_id')
     .joins('JOIN routes as r on r.id = lc.route_id')
     .select('r.name, sum(c.number_meals) as totalNumberMeals')
-    .where('client_interactions.still_lives_here = ? AND 
-        c.current_camp_id IS NOT NULL AND c.current_camp_id > 0 AND c.current_camp_id <> 449 AND
-        r.is_active = ? AND lc.is_active = ?', true, true, true)
+    .where('c.current_camp_id IS NOT NULL AND c.current_camp_id > 0 AND c.current_camp_id <> 449 AND
+        r.is_active = ? AND lc.is_active = ?', true, true)
     .group('r.name')
     
     render json: @routeMeals 
