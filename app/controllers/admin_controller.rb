@@ -1,15 +1,13 @@
 class AdminController < ApplicationController
   
-  # GET /getAdminSumNumberMeals 
+  # GET /getAdminRouteNumberMeals 
   def getAdminRouteNumberMeals
     @routeMeals = ClientInteraction.joins('JOIN location_camps as lc on lc.id = location_camp_id')
     .joins('JOIN clients as c on c.id = client_id')
     .joins('JOIN routes as r on r.id = lc.route_id')
     .select('r.name, sum(c.number_meals) as totalNumberMeals')
     .where('client_interactions.still_lives_here = ? AND 
-        client_interactions.created_at = 
-        (SELECT MAX(created_at) from client_interactions 
-        where client_id = c.id and location_camp_id = lc.id) AND 
+        c.current_camp_id IS NOT NULL AND 
         r.is_active = ? AND lc.is_active = ?', true, true, true)
     .group('r.name')
     
