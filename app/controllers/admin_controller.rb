@@ -4,8 +4,8 @@ class AdminController < ApplicationController
   def getAdminRouteNumberMeals
     @routeMeals = Client.joins('JOIN location_camps as lc on lc.id = current_camp_id')
     .joins('JOIN routes as r on r.id = lc.route_id')
-    .select('r.name, sum(c.number_meals) as totalNumberMeals')
-    .where('c.current_camp_id IS NOT NULL AND c.current_camp_id > 0 AND c.current_camp_id <> 449 AND
+    .select('r.name, sum(clients.number_meals) as totalNumberMeals')
+    .where('clients.current_camp_id IS NOT NULL AND clients.current_camp_id > 0 AND clients.current_camp_id <> 449 AND
         r.is_active = ? AND lc.is_active = ?', true, true)
     .group('r.name')
     
