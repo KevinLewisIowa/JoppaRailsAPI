@@ -67,11 +67,7 @@ class AdminController < ApplicationController
   
   # GET /getFirstTimeHomelessnessReport
   def getFirstTimeHomelessnessReport
-      first_time_homeless = [];
-      Client.select('first_name, preferred_name, last_name, birth_date, phone, first_time_homeless, date_became_homeless, homeless_reason').find_each do |client|
-        first_time_homeless.push(client)
-      end
-      @homelessnessInfo = first_time_homeless
+      @homelessnessInfo = Client.select('first_name, preferred_name, last_name, birth_date, phone, first_time_homeless, date_became_homeless, homeless_reason')
       
       render json: @homelessnessInfo
   end
