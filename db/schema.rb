@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_20_041926) do
+ActiveRecord::Schema.define(version: 2024_04_26_022120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2023_11_20_041926) do
     t.boolean "first_time_homeless"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "where_sleep_last_night"
   end
 
   create_table "client_heater_interactions", id: :serial, force: :cascade do |t|
@@ -182,6 +183,8 @@ ActiveRecord::Schema.define(version: 2023_11_20_041926) do
     t.string "ethnicity"
     t.decimal "latitude"
     t.decimal "longitude"
+    t.boolean "diagnosed_mental_physical_disability"
+    t.string "highest_level_education"
     t.index ["first_name", "last_name"], name: "index_clients_on_first_name_and_last_name", unique: true
   end
 
