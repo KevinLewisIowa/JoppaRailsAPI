@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_26_025636) do
+ActiveRecord::Schema.define(version: 2024_05_01_230135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,6 +187,8 @@ ActiveRecord::Schema.define(version: 2024_04_26_025636) do
     t.string "highest_level_education"
     t.string "city_state_before_homelessness"
     t.string "what_brought_to_des_moines"
+    t.string "city_before_homelessness"
+    t.string "state_before_homelessness"
     t.index ["first_name", "last_name"], name: "index_clients_on_first_name_and_last_name", unique: true
   end
 
