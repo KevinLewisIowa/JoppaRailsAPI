@@ -1,0 +1,2 @@
+class ClientNextOfKin < ApplicationRecord
+end

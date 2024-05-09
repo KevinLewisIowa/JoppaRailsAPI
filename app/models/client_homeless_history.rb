@@ -1,0 +1,2 @@
+class ClientHomelessHistory < ApplicationRecord
+end

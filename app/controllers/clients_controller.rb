@@ -121,6 +121,26 @@ class ClientsController < ApplicationController
     render json: @pets
   end
   
+  # GET /getClientIncomes?clientId={id}
+  def getClientIncomes
+    incomes = []
+    ClientIncome.where("client_id = ?", params[:clientId]).find_each do |income|
+      incomes.push(income)
+    end
+    @incomes = incomes
+    render json: @incomes
+  end
+  
+  # GET /getClientNextOfKins?clientId={id}
+  def getClientNextOfKins
+    next_of_kins = []
+    ClientNextOfKin.where("client_id = ?", params[:clientId]).find_each do |next_of_kin|
+      next_of_kins.push(next_of_kin)
+    end
+    @next_of_kins = next_of_kins
+    render json: @next_of_kins
+  end
+  
   # GET /getFriendsForClient/clientId={id}
   def getFriendsForClient
     friends = []

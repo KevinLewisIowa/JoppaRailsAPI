@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_01_230135) do
+ActiveRecord::Schema.define(version: 2024_05_03_020217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,11 +69,30 @@ ActiveRecord::Schema.define(version: 2024_05_01_230135) do
     t.integer "status_id"
   end
 
+  create_table "client_homeless_histories", force: :cascade do |t|
+    t.integer "client_id"
+    t.boolean "first_time_homeless"
+    t.date "date_became_homeless"
+    t.string "reason_for_homelessness"
+    t.string "note"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "client_hose_interactions", id: :serial, force: :cascade do |t|
     t.integer "client_id"
     t.integer "heater_status_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "client_incomes", force: :cascade do |t|
+    t.integer "client_id"
+    t.boolean "has_income"
+    t.integer "monthly_money"
+    t.string "what_income_from"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "client_interactions", id: :serial, force: :cascade do |t|
@@ -93,6 +112,18 @@ ActiveRecord::Schema.define(version: 2024_05_01_230135) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "client_next_of_kins", force: :cascade do |t|
+    t.integer "client_id"
+    t.string "name"
+    t.string "relation_to_client"
+    t.string "phone_number"
+    t.string "street_address"
+    t.string "email"
+    t.string "note"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "client_notes", id: :serial, force: :cascade do |t|

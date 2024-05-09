@@ -1,0 +1,2 @@
+class ClientIncome < ApplicationRecord
+end

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :client_next_of_kins
+  resources :client_incomes
+  resources :client_homeless_histories
   resources :client_circle_of_friends
   resources :client_dwellings
   resources :location_camp_notes
