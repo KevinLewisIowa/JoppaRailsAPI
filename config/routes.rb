@@ -92,6 +92,8 @@ Rails.application.routes.draw do
   get       'getNewClients'               => 'clients#getNewClients'
   get       'getClientsNewToCamps'        => 'clients#getClientsNewToCamps'
   get       'getClientBatches'            => 'clients#getClientBatches'
+  get       'getClientIncomes'            => 'clients#getClientIncomes'
+  get       'getClientNextOfKins'            => 'clients#getClientNextOfKins'
   get       'updateHeaterInteraction'     => 'client_heater_interactions#updateHeaterInteraction'
   get       'attemptLogin'                => 'pass_tokens#attemptLogin'
   get       'setNewPassword'              => 'pass_tokens#setNewPassword'
