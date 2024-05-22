@@ -63,6 +63,6 @@ class ClientDwellingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_dwelling_params
-      params.require(:client_dwelling).permit(:client_id, :date_became_homeless, :dwelling, :notes, :homeless_reason, :first_time_homeless, :where_sleep_last_night)
+      params.require(:client_dwelling).permit(:client_id, :date_moved, :dwelling, :notes, :where_sleep_last_night)
     end
 end
