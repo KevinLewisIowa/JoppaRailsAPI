@@ -37,6 +37,23 @@ class ClientHomelessHistoriesController < ApplicationController
   def destroy
     @client_homeless_history.destroy
   end
+  
+  # GET /getDwellingsForClient?clientId={id}
+  def getDwellingHistoriesForClient
+    @dwellings = ClientHomelessHistory.where(:client_id => params[:clientId])
+    
+    render json: @dwellings
+  end
+  
+  # GET /getDwellingsForClients?clientList={comma-separated list of client ids}
+  def getDwellingHistoriesForClients
+    @list_of_clients = params[:clientList]
+    @array_of_client_ids = @list_of_clients.split(',').map(&:to_i)
+      
+    @dwellings = ClientHomelessHistory.where('client_id IN (?)', @array_of_client_ids)
+    
+    render json: @dwellings
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
