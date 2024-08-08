@@ -87,6 +87,6 @@ class ClientTankInteractionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def client_tank_interaction_params
-      params.require(:client_tank_interaction).permit(:client_id, :status_id)
+      params.require(:client_tank_interaction).permit(:client_id, :status_id, :updated_at)
     end
 end

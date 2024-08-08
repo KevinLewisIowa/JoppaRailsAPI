@@ -70,6 +70,6 @@ class ClientHeaterInteractionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def client_heater_interaction_params
-      params.require(:client_heater_interaction).permit(:client_id, :heater_id)
+      params.require(:client_heater_interaction).permit(:client_id, :heater_id, :updated_at)
     end
 end

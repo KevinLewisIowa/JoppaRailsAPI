@@ -87,6 +87,6 @@ class ClientHoseInteractionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def client_hose_interaction_params
-      params.require(:client_hose_interaction).permit(:client_id, :heater_status_id)
+      params.require(:client_hose_interaction).permit(:client_id, :heater_status_id, :updated_at)
     end
 end
