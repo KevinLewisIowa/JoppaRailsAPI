@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :route_instances
   resources :heater_statuses
   resources :client_tank_interactions
-  resources :client_header_interactions
+  resources :client_heater_interactions
   resources :tanks
   resources :heater_types
   resources :heaters
