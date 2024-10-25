@@ -189,6 +189,7 @@ class ClientsController < ApplicationController
   
   # GET /getClientsByName?name={name}
   def getClientsByName
+    #Add comment for heroku stack upgrade
     @clientName = params[:name];
     client_list = [];
     if @clientName == 'ALLCLIENTS'
