@@ -30,7 +30,7 @@ class ClientInteractionsController < ApplicationController
   
   # GET /clientAttendanceHistory?clientId={clientId}&fromDate={fromDate}&toDate={toDate}
   def clientAttendanceHistory
-    @seen_and_serviced_report = ClientInteraction.where('client_interactions.client_id = ? AND client_interactions.serviced_date BETWEEN ? AND ?', params[:clientId], params[:fromDate], Date.parse(params[:toDate]).next_day(1)).select('client_interactions.id, client_interactions.created_at, client_interactions.was_seen, client_interactions.serviced, client_interactions.at_homeless_resource_center, client_interactions.location_camp_id, client_interactions.serviced_date').order('client_interactions.serviced_date')
+    @seen_and_serviced_report = ClientInteraction.joins('JOIN location_camps lc ON client_interactions.location_camp_id = lc.id JOIN routes r ON lc.route_id = r.id').where('client_interactions.client_id = ? AND client_interactions.serviced_date BETWEEN ? AND ?', params[:clientId], params[:fromDate], Date.parse(params[:toDate]).next_day(1)).select('client_interactions.id, client_interactions.created_at, client_interactions.was_seen, client_interactions.serviced, client_interactions.at_homeless_resource_center, client_interactions.location_camp_id, client_interactions.serviced_date, lc.name AS camp_name, r.name').order('client_interactions.serviced_date')
     
     render json: @seen_and_serviced_report
   end
