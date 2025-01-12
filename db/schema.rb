@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_09_08_020655) do
+ActiveRecord::Schema.define(version: 2025_01_12_035050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,6 +221,7 @@ ActiveRecord::Schema.define(version: 2024_09_08_020655) do
     t.string "what_brought_to_des_moines"
     t.string "city_before_homelessness"
     t.string "state_before_homelessness"
+    t.string "email"
     t.index ["first_name", "last_name", "birth_date"], name: "index_clients_on_first_name_and_last_name_and_birth_date", unique: true
   end
 
