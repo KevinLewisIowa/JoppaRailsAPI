@@ -16,21 +16,21 @@ class ClientInteractionsController < ApplicationController
   # GET /getClientAttendanceForRoute?routeId={route_id}
   def getClientAttendanceForRoute
     @dateOfRouteInstance = RouteInstance.where('route_id = ? AND end_time IS NULL', params[:routeId]).order('route_instances.start_time DESC').limit(1).select('route_instances.start_time')
-    @attendanceForRoute = ClientInteraction.joins('JOIN location_camps lc ON client_interactions.location_camp_id = lc.id JOIN routes r ON lc.route_id = r.id').where('r.id = ? AND client_interactions.created_at > (?)', params[:routeId].to_i, @dateOfRouteInstance).select('client_interactions.id, client_interactions.client_id, client_interactions.created_at, client_interactions.was_seen, client_interactions.serviced, client_interactions.at_homeless_resource_center, client_interactions.location_camp_id, client_interactions.serviced_date')
+    @attendanceForRoute = ClientInteraction.joins('JOIN location_camps lc ON client_interactions.location_camp_id = lc.id JOIN routes r ON lc.route_id = r.id').where('r.id = ? AND client_interactions.created_at > (?)', params[:routeId].to_i, @dateOfRouteInstance).select('client_interactions.*')
     render json: @attendanceForRoute
   end
   
   # GET /seen_and_serviced_report?fromDate={fromDate}&toDate={toDate}
   def seen_and_serviced_report
     #attendance_records = [];
-    @seen_and_serviced_report = ClientInteraction.joins('LEFT JOIN clients c ON client_interactions.client_id = c.id LEFT JOIN location_camps lc ON client_interactions.location_camp_id = lc.id LEFT JOIN routes r ON lc.route_id = r.id').where('client_interactions.serviced_date BETWEEN ? AND ?', params[:fromDate], Date.parse(params[:toDate]).next_day(1)).select('r.name, client_interactions.client_id, c.first_name, c.preferred_name, c.last_name, client_interactions.created_at, client_interactions.was_seen, client_interactions.serviced, client_interactions.at_homeless_resource_center, client_interactions.location_camp_id, lc.name AS camp_name, client_interactions.serviced_date').order('r.id, client_interactions.serviced_date')
+    @seen_and_serviced_report = ClientInteraction.joins('LEFT JOIN clients c ON client_interactions.client_id = c.id LEFT JOIN location_camps lc ON client_interactions.location_camp_id = lc.id LEFT JOIN routes r ON lc.route_id = r.id').where('client_interactions.serviced_date BETWEEN ? AND ?', params[:fromDate], Date.parse(params[:toDate]).next_day(1)).select('r.name, client_interactions.*, c.first_name, c.preferred_name, c.last_name, lc.name AS camp_name').order('r.id, client_interactions.serviced_date')
       
     render json: @seen_and_serviced_report
   end
   
   # GET /clientAttendanceHistory?clientId={clientId}&fromDate={fromDate}&toDate={toDate}
   def clientAttendanceHistory
-    @seen_and_serviced_report = ClientInteraction.joins('JOIN location_camps lc ON client_interactions.location_camp_id = lc.id JOIN routes r ON lc.route_id = r.id').where('client_interactions.client_id = ? AND client_interactions.serviced_date BETWEEN ? AND ?', params[:clientId], params[:fromDate], Date.parse(params[:toDate]).next_day(1)).select('client_interactions.id, client_interactions.created_at, client_interactions.was_seen, client_interactions.serviced, client_interactions.at_homeless_resource_center, client_interactions.location_camp_id, client_interactions.serviced_date, lc.name AS camp_name, r.name').order('client_interactions.serviced_date')
+    @seen_and_serviced_report = ClientInteraction.joins('JOIN location_camps lc ON client_interactions.location_camp_id = lc.id JOIN routes r ON lc.route_id = r.id').where('client_interactions.client_id = ? AND client_interactions.serviced_date BETWEEN ? AND ?', params[:clientId], params[:fromDate], Date.parse(params[:toDate]).next_day(1)).select('client_interactions.*, lc.name AS camp_name, r.name').order('client_interactions.serviced_date')
     
     render json: @seen_and_serviced_report
   end
