@@ -195,9 +195,9 @@ class ClientsController < ApplicationController
     if @clientName == 'ALLCLIENTS'
       #Client.joins('LEFT JOIN location_camps as lc on lc.id = current_camp_id LEFT JOIN routes r ON lc.route_id = r.id LEFT JOIN client_pets cp ON cp.client_id = clients.id').order('r.name', :status).select('clients.*, concat(clients.first_name, \' \', clients.last_name) as full_name, array_to_string(array_agg(pet_type), \', \') as "Pets", r.name as route_name, lc.id as camp_id, lc.name as camp_name').group('clients.id, r.name, lc.id, lc.name').find_each do |client|
       client_list = []
-      Client.joins('JOIN location_camps as lc on lc.id = current_camp_id')
-            .joins('JOIN routes r ON lc.route_id = r.id')
-            .joins('JOIN client_pets cp ON cp.client_id = clients.id')
+      Client.joins('LEFT JOIN location_camps as lc on lc.id = current_camp_id')
+            .joins('LEFT JOIN routes r ON lc.route_id = r.id')
+            .joins('LEFT JOIN client_pets cp ON cp.client_id = clients.id')
             .order('r.name', :status)
             .select('clients.id, clients.phone, clients.birth_date, clients.first_name, clients.preferred_name, clients.last_name, concat(clients.first_name, \' \', clients.last_name) as full_name, clients.status, clients.latitude, clients.longitude, clients.highest_level_education, clients.what_brought_to_des_moines, clients.city_before_homelessness, clients.state_before_homelessness, clients.diagnosed_mental_physical_disability, clients.last_interaction_date, clients.household_id, clients.household_relationship_type, clients.is_veteran, clients.is_aftercare, clients.gender, clients.current_camp_id, clients.boot_size, clients.shoe_size, clients.admin_notes, clients.joppa_apartment_number, array_to_string(array_agg(pet_type), \', \') as "Pets", r.name as route_name, lc.id as camp_id, lc.name as camp_name, clients.created_at, clients.race, clients.ethnicity, clients.email')
             .group('clients.id, r.name, lc.id, lc.name')
@@ -219,9 +219,9 @@ class ClientsController < ApplicationController
       #  client_list.push(client)
       #end
       client_list = []
-      Client.joins('JOIN location_camps as lc on lc.id = current_camp_id')
-            .joins('JOIN routes r ON lc.route_id = r.id')
-            .joins('JOIN client_pets cp ON cp.client_id = clients.id')
+      Client.joins('LEFT JOIN location_camps as lc on lc.id = current_camp_id')
+            .joins('LEFT JOIN routes r ON lc.route_id = r.id')
+            .joins('LEFT JOIN client_pets cp ON cp.client_id = clients.id')
             .where('preferred_name ILIKE ? or first_name ILIKE ? or last_name ILIKE ? or concat(first_name, \' \', last_name) ILIKE ?', "%#{@clientName}%", "%#{@clientName}%", "%#{@clientName}%", "%#{@clientName}%")
             .order('r.name', :status)
             .select('clients.id, clients.phone, clients.birth_date, clients.first_name, clients.preferred_name, clients.last_name, concat(clients.first_name, \' \', clients.last_name) as full_name, clients.status, clients.latitude, clients.longitude, clients.highest_level_education, clients.what_brought_to_des_moines, clients.city_before_homelessness, clients.state_before_homelessness, clients.diagnosed_mental_physical_disability, clients.last_interaction_date, clients.household_id, clients.household_relationship_type, clients.is_veteran, clients.is_aftercare, clients.gender, clients.current_camp_id, clients.boot_size, clients.shoe_size, clients.admin_notes, clients.joppa_apartment_number, array_to_string(array_agg(pet_type), \', \') as "Pets", r.name as route_name, lc.id as camp_id, lc.name as camp_name, clients.created_at, clients.race, clients.ethnicity, clients.email')
