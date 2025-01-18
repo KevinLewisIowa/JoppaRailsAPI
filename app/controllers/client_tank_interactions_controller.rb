@@ -60,7 +60,7 @@ class ClientTankInteractionsController < ApplicationController
   def getTankListing
     @tanks = ClientTankInteraction.joins(:client)
                          .joins('JOIN heater_statuses hs ON hs.id = client_tank_interactions.status_id')
-                         .select('client_tank_interactions.*, hs.*, clients.first_name, clients.last_name, clients.preferred_name')
+                         .select('client_tank_interactions.*, hs.status_name, clients.first_name, clients.last_name, clients.preferred_name')
                          
     
     render json: @tanks
