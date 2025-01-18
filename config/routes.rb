@@ -63,6 +63,8 @@ Rails.application.routes.draw do
   get       'getHeaterTypes' => 'heater_types#getHeaterTypes'
   get       'getHeaterStatuses' => 'heater_statuses#getHeaterStatuses'
   get       'getHeaterListing' => 'heaters#getHeaterListing'
+  get       'getTankListing' => 'client_tank_interactions#getTankListing'
+  get       'getHoseListing' => 'client_hose_interactions#getHoseListing'
   get       'seen_and_serviced_report' => 'client_interactions#seen_and_serviced_report'
   get       'clientAttendanceHistory' => 'client_interactions#clientAttendanceHistory'
   get       'getClientAttendanceForRoute' => 'client_interactions#getClientAttendanceForRoute'

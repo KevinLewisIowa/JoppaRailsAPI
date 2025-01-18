@@ -56,6 +56,16 @@ class ClientTankInteractionsController < ApplicationController
     render json: tanks
   end
   
+  # GET /getTankListing
+  def getTankListing
+    @tanks = ClientTankInteraction.joins(:client)
+                         .joins('JOIN heater_statuses hs ON hs.id = client_tank_interactions.status_id')
+                         .select('client_tank_interactions.*, hs.*, clients.first_name, clients.last_name, clients.preferred_name')
+                         
+    
+    render json: @tanks
+  end
+  
   # GET /getTanksForClient?clientId={clientId}&fromDate={fromDate}&toDate={toDate}
   def getTanksForClient
     @clientId = params[:clientId];

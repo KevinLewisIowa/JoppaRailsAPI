@@ -47,6 +47,15 @@ class ClientHoseInteractionsController < ApplicationController
     render json: @interaction
   end
   
+  # GET /getHoseListing
+  def getHoseListing
+    @hoses = ClientHoseInteraction.joins(:client)
+                         .joins('JOIN heater_statuses hs ON hs.id = client_hose_interactions.heater_status_id')
+                         .select('client_hose_interactions.*, hs.*, clients.first_name, clients.last_name, clients.preferred_name');
+    
+    render json: @hoses
+  end
+  
   def getHosesLoanedToClient
     @interactions = ClientHoseInteraction.where('heater_status_id = ? AND client_id = ?', 2, params[:clientId])
     
