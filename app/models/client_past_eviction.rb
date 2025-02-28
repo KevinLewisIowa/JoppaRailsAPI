@@ -1,0 +1,2 @@
+class ClientPastEviction < ApplicationRecord
+end

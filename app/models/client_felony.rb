@@ -1,0 +1,2 @@
+class ClientFelony < ApplicationRecord
+end

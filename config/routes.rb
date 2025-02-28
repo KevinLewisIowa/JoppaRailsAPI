@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :client_skills
+  resources :client_felonies
+  resources :client_debts
+  resources :client_past_evictions
+  resources :client_steps
   resources :client_health_insurances
   resources :client_next_of_kins
   resources :client_incomes
@@ -27,6 +32,11 @@ Rails.application.routes.draw do
   get       'getRouteCampsLongLat' => 'location_camps#getRouteCampsLongLat'
   get       'getClientLikes'      => 'clients#getClientLikes'
   get       'getClientHealthInsurance'      => 'client_health_insurances#getClientHealthInsurance'
+  get       'getClientFelonies'      => 'client_felonies#getClientFelonies'
+  get       'getClientDebt'      => 'client_debts#getClientDebt'
+  get       'getPastEvictions'      => 'client_past_evictions#getPastEvictions'
+  get       'getClientSkills'      => 'client_skills#getClientSkills'
+  get       'getClientSteps'      => 'client_steps#getClientSteps'
   get       'getClientDislikes'   => 'clients#getClientDislikes'
   get       'getClientGoals'      => 'clients#getClientGoals'
   get       'getClientPrayerRequests' => 'clients#getClientPrayerRequests'

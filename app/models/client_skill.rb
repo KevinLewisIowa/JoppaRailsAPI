@@ -1,0 +1,2 @@
+class ClientSkill < ApplicationRecord
+end

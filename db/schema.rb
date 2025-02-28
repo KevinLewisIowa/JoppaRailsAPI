@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_02_28_030010) do
+ActiveRecord::Schema.define(version: 2025_02_28_031048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(version: 2025_02_28_030010) do
     t.integer "client_id"
   end
 
+  create_table "client_debts", force: :cascade do |t|
+    t.integer "client_id"
+    t.string "debt_type"
+    t.string "amount"
+    t.string "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "client_dislikes", id: :serial, force: :cascade do |t|
     t.integer "client_id"
     t.string "description"
@@ -60,6 +69,15 @@ ActiveRecord::Schema.define(version: 2025_02_28_030010) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "where_sleep_last_night"
     t.date "date_moved"
+  end
+
+  create_table "client_felonies", force: :cascade do |t|
+    t.integer "client_id"
+    t.string "felony_type"
+    t.string "year_occurred"
+    t.string "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "client_health_insurances", force: :cascade do |t|
@@ -144,6 +162,15 @@ ActiveRecord::Schema.define(version: 2025_02_28_030010) do
     t.string "source"
   end
 
+  create_table "client_past_evictions", force: :cascade do |t|
+    t.integer "client_id"
+    t.string "eviction_type"
+    t.string "year_occurred"
+    t.string "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "client_pets", id: :serial, force: :cascade do |t|
     t.string "pet_type"
     t.integer "quantity"
@@ -160,6 +187,23 @@ ActiveRecord::Schema.define(version: 2025_02_28_030010) do
     t.integer "client_id"
     t.string "referral_type"
     t.integer "quantity"
+    t.string "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "client_skills", force: :cascade do |t|
+    t.integer "client_id"
+    t.string "skill"
+    t.string "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "client_steps", force: :cascade do |t|
+    t.integer "client_id"
+    t.string "step_type"
+    t.datetime "date_completed"
     t.string "notes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

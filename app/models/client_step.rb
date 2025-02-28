@@ -1,0 +1,2 @@
+class ClientStep < ApplicationRecord
+end
