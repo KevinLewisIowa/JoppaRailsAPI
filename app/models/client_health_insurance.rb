@@ -1,0 +1,2 @@
+class ClientHealthInsurance < ApplicationRecord
+end

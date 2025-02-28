@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :client_health_insurances
   resources :client_next_of_kins
   resources :client_incomes
   resources :client_homeless_histories
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
   resources :client_notes
   get       'getRouteCampsLongLat' => 'location_camps#getRouteCampsLongLat'
   get       'getClientLikes'      => 'clients#getClientLikes'
+  get       'getClientHealthInsurance'      => 'client_health_insurances#getClientHealthInsurance'
   get       'getClientDislikes'   => 'clients#getClientDislikes'
   get       'getClientGoals'      => 'clients#getClientGoals'
   get       'getClientPrayerRequests' => 'clients#getClientPrayerRequests'
