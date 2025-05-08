@@ -38,7 +38,7 @@ class PrayerRequestAndNeedsController < ApplicationController
     @prayer_request_and_need.destroy
   end
   
-  # GET /locationsForRoute?routeId={id}
+  # GET /locationsForRoute?clientId={id}
   def prayerRequestsForClient
     @prayers = PrayerRequestAndNeed.where(:client_id => params[:clientId]) #maybe LocationCamp.where('route_id = ?', params[:routeId])
     
