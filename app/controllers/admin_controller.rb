@@ -33,7 +33,7 @@ class AdminController < ApplicationController
   
   # GET /getAdminRouteUnfulfilledPrayerRequestsNeeds
   def getAdminRouteUnfulfilledPrayerRequestsNeeds
-    @routeUnfulfilledPrayerRequestsNeeds = PrayerRequestAndNeed.joins('JOIN clients ON clients.id = prayer_request_and_needs.client_id').select("clients.first_name, clients.preferred_name, clients.last_name, prayer_request_and_needs.detail").where("prayer_request_and_needs.is_completed != ?", true).group("clients.first_name, clients.preferred_name, clients.last_name, prayer_request_and_needs.detail")
+    @routeUnfulfilledPrayerRequestsNeeds = PrayerRequestAndNeed.joins('JOIN clients ON clients.id = prayer_request_and_needs.client_id').select("clients.first_name, clients.preferred_name, clients.last_name, prayer_request_and_needs.detail").group("clients.first_name, clients.preferred_name, clients.last_name, prayer_request_and_needs.detail")
     
     render json: @routeUnfulfilledPrayerRequestsNeeds
   end
