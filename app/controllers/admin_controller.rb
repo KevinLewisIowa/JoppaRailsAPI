@@ -31,11 +31,25 @@ class AdminController < ApplicationController
     render json: @routeUnfulfilledGoalsNextSteps
   end
   
-  # GET /getAdminRouteUnfulfilledPrayerRequestsNeeds
+  # GET /getAdminRouteUnfulfilledPrayerRequestsNeeds?filterDate={date|
   def getAdminRouteUnfulfilledPrayerRequestsNeeds
-    @routeUnfulfilledPrayerRequestsNeeds = PrayerRequestAndNeed.joins('JOIN clients ON clients.id = prayer_request_and_needs.client_id').select("clients.first_name, clients.preferred_name, clients.last_name, prayer_request_and_needs.detail, prayer_request_and_needs.created_at").group("clients.first_name, clients.preferred_name, clients.last_name, prayer_request_and_needs.detail, prayer_request_and_needs.created_at")
+    filter_date = params[:filterDate]
+    date = Date.parse(filter_date)
     
-    render json: @routeUnfulfilledPrayerRequestsNeeds
+    # Fetch prayer requests
+    prayer_requests = PrayerRequestAndNeed.joins(:client)
+                                          .where('prayer_request_and_needs.created_at >= ?', date)
+                                          .select('clients.first_name, clients.preferred_name, clients.last_name, prayer_request_and_needs.detail AS request_or_note, prayer_request_and_needs.created_at')
+
+    # Fetch client notes
+    client_notes = ClientNote.joins(:client)
+                             .where('client_notes.created_at >= ?', date)
+                             .select('clients.first_name, clients.preferred_name, clients.last_name, client_notes.note AS request_or_note, client_notes.created_at')
+
+    # Combine and sort by created_at
+    @results = (prayer_requests + client_notes).sort_by(&:created_at)
+
+    render json: @results
   end
   
   # GET /getAdminInventoryReport
