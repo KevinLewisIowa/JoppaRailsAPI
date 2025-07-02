@@ -1,0 +1,2 @@
+class ClientCaseworker < ApplicationRecord
+end

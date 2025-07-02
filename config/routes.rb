@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :client_caseworkers
   resources :client_skills
   resources :client_felonies
   resources :client_debts
@@ -119,6 +120,7 @@ Rails.application.routes.draw do
   get       'getDwellingsForClients'     => 'client_dwellings#getDwellingsForClients'
   get       'getDwellingHistoriesForClient'       => 'client_homeless_histories#getDwellingHistoriesForClient'
   get       'getDwellingHistoriesForClients'     => 'client_homeless_histories#getDwellingHistoriesForClients'
+  get       'getClientCaseworkers'    => 'client_caseworkers#getClientCaseworkers'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates
