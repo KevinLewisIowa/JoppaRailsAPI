@@ -53,6 +53,6 @@ class ClientCaseworkersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_caseworker_params
-      params.require(:client_caseworker).permit(:organization, :name, :phone, :email, :notes)
+      params.require(:client_caseworker).permit(:organization, :name, :phone, :email, :notes, :client_id)
     end
 end
