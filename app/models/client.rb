@@ -1,5 +1,5 @@
 class Client < ApplicationRecord
-    validates :first_name, uniqueness: { scope: :last_name, :middle_name, :birth_date }
+    validates :first_name, uniqueness: { scope: [:last_name, :middle_name, :birth_date] }
     
     has_many :client_interactions, class_name: "ClientInteraction",
                                     foreign_key: "client_id",
