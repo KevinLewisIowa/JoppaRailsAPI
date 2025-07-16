@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_07_02_031501) do
+ActiveRecord::Schema.define(version: 2025_07_16_005856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -285,7 +285,8 @@ ActiveRecord::Schema.define(version: 2025_07_02_031501) do
     t.string "city_before_homelessness"
     t.string "state_before_homelessness"
     t.string "email"
-    t.index ["first_name", "last_name", "birth_date"], name: "index_clients_on_first_name_and_last_name_and_birth_date", unique: true
+    t.string "middle_name"
+    t.index ["first_name", "middle_name", "last_name", "birth_date"], name: "first_middle_last_birthday_index"
   end
 
   create_table "goals_and_next_steps", id: :serial, force: :cascade do |t|
