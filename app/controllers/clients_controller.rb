@@ -255,6 +255,6 @@ class ClientsController < ApplicationController
                               :previous_camp_id, :birth_date, :is_aftercare, :shoe_size, :boot_size, :number_meals, :phone, :joppa_apartment_number, :status, :gender,
                               :last_interaction_date, :admin_notes, :number_tanks, :number_hoses, :household_id, :first_time_homeless, :date_became_homeless, :homeless_reason, :due_to_covid,
                               :household_relationship_type, :client_picture, :race, :ethnicity, :latitude, :longitude, :diagnosed_mental_physical_disability, :highest_level_education,
-                              :city_before_homelessness, :state_before_homelessness, :what_brought_to_des_moines, :email, :middle_name)
+                              :city_before_homelessness, :state_before_homelessness, :what_brought_to_des_moines, :email, :middle_name, :needs_translation, :translation_language)
     end
 end

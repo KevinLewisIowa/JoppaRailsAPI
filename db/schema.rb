@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_07_16_005856) do
+ActiveRecord::Schema.define(version: 2025_08_06_013000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -286,6 +286,8 @@ ActiveRecord::Schema.define(version: 2025_07_16_005856) do
     t.string "state_before_homelessness"
     t.string "email"
     t.string "middle_name"
+    t.boolean "needs_translation"
+    t.string "translation_language"
     t.index ["first_name", "middle_name", "last_name", "birth_date"], name: "first_middle_last_birthday_index"
   end
 
