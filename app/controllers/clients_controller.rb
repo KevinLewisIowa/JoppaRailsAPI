@@ -218,6 +218,7 @@ class ClientsController < ApplicationController
       #.find_each(batch_size:500) do |client|
       #  client_list.push(client)
       #end
+      
       client_list = []
       Client.joins('LEFT JOIN location_camps as lc on lc.id = current_camp_id')
             .joins('LEFT JOIN routes r ON lc.route_id = r.id')
