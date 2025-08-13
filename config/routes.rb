@@ -121,7 +121,7 @@ Rails.application.routes.draw do
   get       'getDwellingHistoriesForClient'       => 'client_homeless_histories#getDwellingHistoriesForClient'
   get       'getDwellingHistoriesForClients'     => 'client_homeless_histories#getDwellingHistoriesForClients'
   get       'getClientCaseworkers'    => 'client_caseworkers#getClientCaseworkers'
-  get       '/hasPinnedOrWarningNote', to: 'client_notes#hasPinnedOrWarningNote'
+  get       'hasPinnedOrWarningNote'  => 'client_notes#hasPinnedOrWarningNote'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates

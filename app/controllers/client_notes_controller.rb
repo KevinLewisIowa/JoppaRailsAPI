@@ -23,7 +23,7 @@ class ClientNotesController < ApplicationController
   # GET /hasPinnedOrWarningNote?clientId={client_id}
   def hasPinnedOrWarningNote
     has_note = ClientNote.where(client_id: params[:clientId])
-                         .where(note_source: ['PINNED NOTE', 'WARNING'])
+                         .where(source: ['PINNED NOTE', 'WARNING'])
                          .exists?
   
     render json: { hasPinnedOrWarningNote: has_note }
