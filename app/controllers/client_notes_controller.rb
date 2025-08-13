@@ -20,6 +20,15 @@ class ClientNotesController < ApplicationController
     render json: @client_notes_on_route
   end
   
+  # GET /hasPinnedOrWarningNote?clientId={client_id}
+  def hasPinnedOrWarningNote
+    has_note = ClientNote.where(client_id: params[:clientId])
+                         .where(note_source: ['PINNED NOTE', 'WARNING'])
+                         .exists?
+  
+    render json: { hasPinnedOrWarningNote: has_note }
+  end
+  
   # GET /getClientNotesForRoute?clientId={client_id}
   def getClientNotesForClient
     @client_notes_on_client = ClientNote.where('client_id = ?', params[:clientId])
