@@ -53,6 +53,6 @@ class ClientHealthInsurancesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_health_insurance_params
-      params.require(:client_health_insurance).permit(:client_id, :has_health_insurance, :company)
+      params.require(:client_health_insurance).permit(:client_id, :has_health_insurance, :company, :note)
     end
 end
