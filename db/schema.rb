@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_08_29_020609) do
+ActiveRecord::Schema.define(version: 2025_09_01_192209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "authorized_mail_accesses", force: :cascade do |t|
+    t.bigint "mailbox_id", null: false
+    t.string "authorized_name"
+    t.string "relation_to_client"
+    t.date "date_authorized"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["mailbox_id"], name: "index_authorized_mail_accesses_on_mailbox_id"
+  end
 
   create_table "camping_equipment_given_dates", id: :serial, force: :cascade do |t|
     t.integer "client_id"
@@ -151,6 +161,15 @@ ActiveRecord::Schema.define(version: 2025_08_29_020609) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "client_mailboxes", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.string "mailbox_number"
+    t.string "verification_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_client_mailboxes_on_client_id"
   end
 
   create_table "client_next_of_kins", force: :cascade do |t|
@@ -465,4 +484,6 @@ ActiveRecord::Schema.define(version: 2025_08_29_020609) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "authorized_mail_accesses", "client_mailboxes", column: "mailbox_id"
+  add_foreign_key "client_mailboxes", "clients"
 end

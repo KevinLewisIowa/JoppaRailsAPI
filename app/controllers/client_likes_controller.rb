@@ -38,7 +38,7 @@ class ClientLikesController < ApplicationController
     @client_like.destroy
   end
   
-  # GET /locationsForRoute?routeId={id}
+  # GET /likesForClient?clientId={id}
   def likesForClient
     @likes = ClientLike.where(:client_id => params[:clientId]) #maybe LocationCamp.where('route_id = ?', params[:routeId])
     

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :authorized_mail_accesses
+  resources :client_mailboxes
   resources :client_caseworkers
   resources :client_skills
   resources :client_felonies

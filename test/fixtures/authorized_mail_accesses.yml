@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mailbox_id: 1
+  authorized_name: MyString
+  relation_to_client: MyString
+  date_authorized: 2025-09-01
+
+two:
+  mailbox_id: 1
+  authorized_name: MyString
+  relation_to_client: MyString
+  date_authorized: 2025-09-01
