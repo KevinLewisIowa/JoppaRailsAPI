@@ -124,6 +124,8 @@ Rails.application.routes.draw do
   get       'getDwellingHistoriesForClients'     => 'client_homeless_histories#getDwellingHistoriesForClients'
   get       'getClientCaseworkers'    => 'client_caseworkers#getClientCaseworkers'
   get       'hasPinnedOrWarningNote'  => 'client_notes#hasPinnedOrWarningNote'
+  get       'getMailboxForClient' => 'client_mailboxes#getMailboxForClient'
+  get       'getAuthorizedMailAccessors' => 'authorized_mail_accesses#getAuthorizedMailAccessors'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates
