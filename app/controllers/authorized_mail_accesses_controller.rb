@@ -35,13 +35,10 @@ class AuthorizedMailAccessesController < ApplicationController
   
   # GET /getAuthorizedMailAccessors?mailboxId={id}
   def getAuthorizedMailAccessors
-    mailbox = ClientMailbox.find(params[:mailbox_id])
-    
-    if mailbox
-      render json: mailbox.authorized_mail_accesses
-    else
-      render json: { error: 'Mailbox not found' }, status: :not_found
-    end
+    mailbox_id = params[:mailboxId]
+    # Now use mailbox_id in your logic, e.g.:
+    @accessors = AuthorizedMailAccess.where(mailbox_id: mailbox_id)
+    render json: @accessors
   end
 
   # DELETE /authorized_mail_accesses/1
