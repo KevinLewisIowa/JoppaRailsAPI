@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :client_barriers
   resources :authorized_mail_accesses
   resources :client_mailboxes
   resources :client_caseworkers
@@ -126,6 +127,7 @@ Rails.application.routes.draw do
   get       'hasPinnedOrWarningNote'  => 'client_notes#hasPinnedOrWarningNote'
   get       'getMailboxForClient' => 'client_mailboxes#getMailboxForClient'
   get       'getAuthorizedMailAccessors' => 'authorized_mail_accesses#getAuthorizedMailAccessors'
+  get       'getClientBarriers' => 'client_barriers#getClientBarriers'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates

@@ -60,6 +60,10 @@ class Client < ApplicationRecord
                                          foreign_key: :client_id,
                                          dependent: :destroy
                                          
+    has_many :client_barrier, class_name: "ClientBarrier",
+                                         foreign_key: :client_id,
+                                         dependent: :destroy
+                                         
     has_one :client_mailbox, foreign_key: :client_id, dependent: :destroy
     
 end
