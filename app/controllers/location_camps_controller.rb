@@ -120,7 +120,7 @@ class LocationCampsController < ApplicationController
     #  return render json: {message: 'invalid-token'}
     #end
     location_camps = []
-    LocationCamp.joins('LEFT JOIN routes r ON location_camps.route_id = r.id').select('location_camps.id, location_camps.name as camp_name, location_camps.location_id, location_camps.is_active, location_camps.route_id, location_camps.position, location_camps.notes, location_camps.longitude, location_camps.latitude, location_camps.parking_longitude, location_camps.parking_latitude, location_camps.expected_arrival_time, location_camps.admin_notes, location_camps.remain_on_route, r.name as route_name').find_each do |camp|
+    LocationCamp.joins('LEFT JOIN routes r ON location_camps.route_id = r.id').select('location_camps.id, location_camps.name as camp_name, location_camps.location_id, location_camps.is_active, location_camps.route_id, location_camps.position, location_camps.notes, location_camps.longitude, location_camps.latitude, location_camps.parking_longitude, location_camps.parking_latitude, location_camps.expected_arrival_time, location_camps.admin_notes, location_camps.remain_on_route, r.name as route_name, location_camps.heat_route_only').find_each do |camp|
       location_camps.push(camp)
     end
     @location_camps = location_camps
@@ -136,6 +136,6 @@ class LocationCampsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def location_camp_params
-      params.require(:location_camp).permit(:route_id, :location_id, :name, :position, :notes, :longitude, :latitude, :is_active, :expected_arrival_time, :admin_notes, :parking_latitude, :parking_longitude, :remain_on_route)
+      params.require(:location_camp).permit(:route_id, :location_id, :name, :position, :notes, :longitude, :latitude, :is_active, :expected_arrival_time, :admin_notes, :parking_latitude, :parking_longitude, :remain_on_route, :heat_route_only)
     end
 end

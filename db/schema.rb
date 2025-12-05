@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_11_12_031253) do
+ActiveRecord::Schema.define(version: 2025_12_05_014726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -380,6 +380,7 @@ ActiveRecord::Schema.define(version: 2025_11_12_031253) do
     t.decimal "parking_latitude"
     t.decimal "parking_longitude"
     t.boolean "remain_on_route"
+    t.boolean "heat_route_only"
   end
 
   create_table "locations", id: :serial, force: :cascade do |t|

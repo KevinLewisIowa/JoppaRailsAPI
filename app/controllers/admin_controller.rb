@@ -84,7 +84,7 @@ class AdminController < ApplicationController
       render json: @homelessnessInfo
   end
   
-  # GET /removeDuplicateClient?duplicateClientId&activeClientId
+  # GET /removeDuplicateClient?duplicateClientId={dup_id}&activeClientId={actClientId}
   def removeDuplicateClient
       # retrieve params
       @duplicateClientId = params[:duplicateClientId].to_i
