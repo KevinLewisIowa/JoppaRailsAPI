@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_12_05_014726) do
+ActiveRecord::Schema.define(version: 2026_03_07_201930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,7 @@ ActiveRecord::Schema.define(version: 2025_12_05_014726) do
     t.string "what_income_from"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "notes"
   end
 
   create_table "client_interactions", id: :serial, force: :cascade do |t|
@@ -177,6 +178,7 @@ ActiveRecord::Schema.define(version: 2025_12_05_014726) do
     t.string "verification_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "notes"
     t.index ["client_id"], name: "index_client_mailboxes_on_client_id"
   end
 
@@ -227,6 +229,13 @@ ActiveRecord::Schema.define(version: 2025_12_05_014726) do
     t.string "referral_type"
     t.integer "quantity"
     t.string "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "client_release_acknowledgements", force: :cascade do |t|
+    t.integer "client_id"
+    t.datetime "date_acknowledged"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

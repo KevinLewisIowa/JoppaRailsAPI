@@ -1,0 +1,2 @@
+class ClientReleaseAcknowledgement < ApplicationRecord
+end

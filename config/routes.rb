@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :client_release_acknowledgements
   resources :client_barriers
   resources :authorized_mail_accesses
   resources :client_mailboxes
@@ -128,6 +129,7 @@ Rails.application.routes.draw do
   get       'getMailboxForClient' => 'client_mailboxes#getMailboxForClient'
   get       'getAuthorizedMailAccessors' => 'authorized_mail_accesses#getAuthorizedMailAccessors'
   get       'getClientBarriers' => 'client_barriers#getClientBarriers'
+  get       'getClientReleaseAcknowledgements' => 'client_release_acknowledgements#getClientReleaseAcknowledgements'
   resources :admin
   resources :volunteers
   resources :camping_equipment_given_dates

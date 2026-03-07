@@ -57,6 +57,6 @@ class ClientMailboxesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_mailbox_params
-      params.require(:client_mailbox).permit(:client_id, :mailbox_number, :verification_type)
+      params.require(:client_mailbox).permit(:client_id, :mailbox_number, :verification_type, :notes)
     end
 end
