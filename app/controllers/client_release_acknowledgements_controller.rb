@@ -53,6 +53,6 @@ class ClientReleaseAcknowledgementsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_release_acknowledgement_params
-      params.require(:client_release_acknowledgement).permit(:client_id, :date_acknowledged)
+      params.require(:client_release_acknowledgement).permit(:client_id, :date_acknowledged, :notes)
     end
 end
