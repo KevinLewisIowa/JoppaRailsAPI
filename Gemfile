@@ -17,6 +17,8 @@ gem 'bcrypt', '~> 3.1.16'
 
 gem 'rack-cors', :require => 'rack/cors'
 
+gem 'whenever', :require => false
+
 # gem 'rails-api' # maybe look this up later
 
 # Use Capistrano for deployment
