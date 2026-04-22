@@ -1,22 +1,24 @@
 namespace :clients do
-  desc "Mark clients as inactive if past the inactivity limit"
+  desc "Mark clients inactive if they haven't had activity in 90+ days"
   task mark_inactive: :environment do
-    inactivity_limit = 90 # days
-    today = Date.today
+    puts "Starting client inactivity check - #{Time.now}"
 
-    Client.where(status: 'Active').find_each do |client|
-      last_interaction = client.last_interaction_date
-      days_inactive = (today - last_interaction.to_date).to_i
+    clients = Client.where(status: 'Active')
+                    .where.not(last_interaction_date: nil)
 
-      if days_inactive > inactivity_limit
-        client.update(
-          status: 'Inactive',
-          current_camp_id: 0
-        )
-        Rails.logger.info "Marked #{client.first_name} #{client.last_name} as Inactive"
+    count = 0
+    clients.each do |client|
+      next if client.last_interaction_date.nil?  # safety guard
+      
+      days_inactive = (Date.today - client.last_interaction_date.to_date).to_i
+
+      if days_inactive > 90
+        client.update(status: 'Inactive', current_camp_id: 0)
+        count += 1
+        puts "Marked inactive: #{client.first_name} #{client.last_name} (#{days_inactive} days)"
       end
     end
 
-    Rails.logger.info "Inactivity update task completed"
+    puts "Complete - #{count} clients marked inactive - #{Time.now}"
   end
 end
