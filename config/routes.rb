@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   get       'getClientHealthConcerns' => 'health_concerns#getClientHealthConcerns'
   get       'getClientRequestedItem' => 'clients#getClientRequestedItem'
   get       'getClientPets' => 'clients#getClientPets'
+  get       'getRoutePetCounts' => 'client_pets#getRoutePetCounts'
   get       'getFriendsForClient' => 'clients#getFriendsForClient'
   get       'getHousehold' => 'clients#getHousehold'
   get       'getClientReferrals' => 'clients#getClientReferrals'
