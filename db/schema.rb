@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_04_22_024106) do
+ActiveRecord::Schema.define(version: 2026_05_20_000000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -326,6 +326,9 @@ ActiveRecord::Schema.define(version: 2026_04_22_024106) do
     t.string "middle_name"
     t.boolean "needs_translation"
     t.string "translation_language"
+    t.string "hometown"
+    t.string "city_grew_up_in"
+    t.string "family_currently_lives_in"
     t.index ["first_name", "middle_name", "last_name", "birth_date"], name: "first_middle_last_birthday_index"
     t.index ["last_interaction_date"], name: "index_clients_on_last_interaction_date"
     t.index ["status"], name: "index_clients_on_status"
