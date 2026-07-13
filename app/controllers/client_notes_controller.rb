@@ -3,7 +3,14 @@ class ClientNotesController < ApplicationController
 
   # GET /client_notes
   def index
-    @client_notes = ClientNote.all
+    @client_notes = filtered_client_notes
+
+    render json: @client_notes
+  end
+
+  # GET /getClientNotesByDateRange?startDate=...&endDate=...&clientId=...
+  def getClientNotesByDateRange
+    @client_notes = filtered_client_notes
 
     render json: @client_notes
   end
@@ -72,6 +79,35 @@ class ClientNotesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_client_note
       @client_note = ClientNote.find(params[:id])
+    end
+
+    def filtered_client_notes
+      relation = ClientNote.all
+
+      start_date = parse_date_param(params[:startDate] || params[:start_date])
+      end_date = parse_date_param(params[:endDate] || params[:end_date])
+
+      if start_date && end_date && start_date > end_date
+        return relation.none
+      end
+
+      relation = relation.where('created_at >= ?', start_date.beginning_of_day) if start_date
+      relation = relation.where('created_at <= ?', end_date.end_of_day) if end_date
+
+      client_id_filter = params[:clientId] || params[:client_id]
+      unless client_id_filter.blank? || client_id_filter.to_s.casecmp('AllClients').zero?
+        relation = relation.where(client_id: client_id_filter)
+      end
+
+      relation.order(created_at: :desc)
+    end
+
+    def parse_date_param(value)
+      return if value.blank?
+
+      Time.zone.parse(value.to_s)
+    rescue ArgumentError
+      nil
     end
 
     # Only allow a trusted parameter "white list" through.

@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   get       'getClientsByName'    => 'clients#getClientsByName'
   get       'getClientNotesForRoute'  => 'client_notes#getClientNotesForRoute'
   get       'getClientNotesForClient'  => 'client_notes#getClientNotesForClient'
+  get       'getClientNotesByDateRange'  => 'client_notes#getClientNotesByDateRange'
   get       'getNotesForRouteInstance'  => 'client_notes#getNotesForRouteInstance'
   get       'getRouteSummaryInfoForRoute'  => 'route_instances#getRouteSummaryInfoForRoute'
   get       'getRouteInstancesForDate'  => 'route_instances#getRouteInstancesForDate'
