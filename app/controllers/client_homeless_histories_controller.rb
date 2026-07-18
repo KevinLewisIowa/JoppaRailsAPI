@@ -3,7 +3,7 @@ class ClientHomelessHistoriesController < ApplicationController
 
   # GET /client_homeless_histories
   def index
-    @client_homeless_histories = ClientHomelessHistory.all
+    @client_homeless_histories = filtered_client_homeless_histories
 
     render json: @client_homeless_histories
   end
@@ -59,6 +59,35 @@ class ClientHomelessHistoriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_client_homeless_history
       @client_homeless_history = ClientHomelessHistory.find(params[:id])
+    end
+
+    def filtered_client_homeless_histories
+      relation = ClientHomelessHistory.all
+
+      start_date = parse_date_param(params[:fromDate] || params[:from_date])
+      end_date = parse_date_param(params[:toDate] || params[:to_date])
+
+      if start_date && end_date && start_date > end_date
+        return relation.none
+      end
+
+      relation = relation.where('date_became_homeless >= ?', start_date) if start_date
+      relation = relation.where('date_became_homeless <= ?', end_date) if end_date
+
+      client_id_filter = params[:clientId] || params[:client_id]
+      unless client_id_filter.blank? || client_id_filter.to_s.casecmp('ALLCLIENTS').zero?
+        relation = relation.where(client_id: client_id_filter)
+      end
+
+      relation.order(date_became_homeless: :desc, created_at: :desc)
+    end
+
+    def parse_date_param(value)
+      return if value.blank?
+
+      Date.parse(value.to_s)
+    rescue ArgumentError
+      nil
     end
 
     # Only allow a list of trusted parameters through.
