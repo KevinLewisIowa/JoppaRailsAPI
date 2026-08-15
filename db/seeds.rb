@@ -149,3 +149,23 @@ prayerRequests.each do |prayer|
 end
 
 PassToken.create!({admin_password: 'J0ppa321', regular_password: 'regularPassword', api_token: 'firstTokenSeeded'})
+
+# Seed initial test admin (super_admin)
+test_super_admin_password = Admin.new.generate_temp_password
+super_admin = Admin.create!(
+  email: 'super_admin@joppa.local',
+  password: test_super_admin_password,
+  password_confirmation: test_super_admin_password,
+  first_name: 'Super',
+  last_name: 'Admin',
+  role: 'super_admin',
+  requires_password_change: true
+)
+
+puts "\n=========================================="
+puts "SUPER ADMIN CREATED FOR TESTING"
+puts "=========================================="
+puts "Email: super_admin@joppa.local"
+puts "Temporary Password: #{test_super_admin_password}"
+puts "Action: Admin must change password on first login"
+puts "=========================================="
