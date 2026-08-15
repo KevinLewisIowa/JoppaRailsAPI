@@ -30,9 +30,17 @@ namespace :heaters do
       next unless apply
 
       Heater.transaction do
-        # Record an interaction for audit/history if there is a client
+        # Record an interaction for audit/history if there is a client and it exists.
         if heater.current_client_id.present?
-          ClientHeaterInteraction.create!(client_id: heater.current_client_id, heater_id: heater.id, status_id: target_status.id)
+          if Client.exists?(heater.current_client_id)
+            begin
+              ClientHeaterInteraction.create!(client_id: heater.current_client_id, heater_id: heater.id, status_id: target_status.id)
+            rescue ActiveRecord::RecordInvalid => e
+              puts "  Warning: failed to create ClientHeaterInteraction for client #{heater.current_client_id}: #{e.message}"
+            end
+          else
+            puts "  Warning: skipping interaction creation — client #{heater.current_client_id} not found"
+          end
         end
 
         heater.update!(heater_status_id: target_status.id, status_reason: reason, current_client_id: nil)
