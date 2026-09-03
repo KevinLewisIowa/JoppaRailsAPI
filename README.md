@@ -1,121 +1,227 @@
-# README
+# Joppa Rails API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This repository is the Rails API for the Joppa application.
 
-Things you may want to cover:
+The project is intended to run in a standard local Linux development environment, using WSL2 on Windows when needed. It is not tied to AWS Cloud9, and Cloud9 should not be used as the long-term development platform.
 
-* Ruby version
-* rvm get stable
-* bundle update #bundler
+## Requirements
 
-* System dependencies
-* 
-* Installing yarn to grab and install dependencies in VS Code as listed in package.json file
-* npm install yarn -g
-* yarn --ignore-engines
-* yarn devStart
-*
-* Installing postgresql and configuring for environment
-* https://dailyscrawl.com/how-to-install-postgresql-on-amazon-linux-2/
-* sudo amazon-linux-extras install postgresql13
+- Ruby 3.1.2
+- Rails 6.1.4.7
+- PostgreSQL 14+
+- Node 18.10.0 for the Angular frontend if you are running the full app locally
+- Git
 
-* https://medium.com/@floodfx/setting-up-postgres-on-cloud9-ide-720e5b879154
-* -edit postgresql.conf and pg_hba.conf files
-* -set up users
+## Recommended developer setup
 
-* Configuration
+Use WSL2 with Ubuntu 22.04 on Windows. This is the most reliable setup for Ruby and Postgres on a Windows machine.
 
-* Database creation
-* 
-* LOCALLY NEED TO DO THIS TO START UP THE DB TO RUN MIGRATIONS
-* sudo service postgresql start
-* sudo -u postgres createuser -s ec2-user
-* sudo -u postgres createdb ec2-user
-* rails db:create // only needs run once, maybe already done?
-* rails db:environment:set RAILS_ENV=development
-* rails db:setup                            // create tables and seed data
+### 1) Install system dependencies
 
-* rails generate migration MigrationName    // create migration file to modify database schema
-* rails db:migrate                           // apply migration changes to schema.rb
-* 
-* THIS NEXT COMMAND IS FOR GENERATING A DB TABLE, NEW ROUTES FOR THIS CONTROLLER, AND CRUD ENDPOINTS
-* rails generate scaffold [TableName] [ListOfProperties:type] (ie username:string email:string age:integer weight:decimal is_active:boolean) --not including id column
-* 
-* Database initialization
-* rails db:seed                             // add seed data from seeds.rb
-*
-* How to run the test suite
-*  
-* Using new terminal:
-* NEXT COMMAND STARTS UP THE LOCAL SERVER TO TEST THE ENDPOINTS, AND THEN A COMMAND TO POST.
-* TO TEST A GET, DO SAME TYPE OF COMMAND EXCEPT REMOVE -d '{OBJECT}' PART
-* rails routes                              // this command will display all of the routes your controller has to see if you made them right
-* rake routes                               // this command will display all of the routes your controller has to see if you made them right
-* rails server -b $IP -p $PORT  // fires up server with designated IP and Port, of which $IP and $PORT are valid; use new terminal so that server can run in that terminal
-* Command to test API call with data post:
-* curl -H "Content-Type:application/json; charset=utf-8" -d '{ "user" : { "username" : "testusername", "email" : "email@gmail.com", "password" : "password", "session_token" : "aslerkjaslelrkser" } }' [preview URL]/[API method]
-* Command to test API GET call (without data):
-* curl -H "Content-Type:application/json; charset=utf-8" [Preview URL]/[API call]
-* EXAMPLE:
-* curl -H "Content-Type:application/json; charset=utf-8" GET http://127.0.0.1:8080/getClientsByBirthMonth?monthInt=7
-* 
-* Through Cloud9 screen:
-* Preview, which will bring up browser window that you can test API in
+```bash
+sudo apt update
+sudo apt install -y build-essential curl git libssl-dev libyaml-dev libreadline-dev zlib1g-dev libpq-dev postgresql postgresql-contrib
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+### 2) Install rbenv and Ruby 3.1.2
 
-* Deployment instructions
+```bash
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+source ~/.bashrc
 
-* ...
-* 
+rbenv install 3.1.2
+rbenv global 3.1.2
+ruby -v
+```
 
-*HEROKU STUFF
-* git add .
-* git commit -m "the message"
-* git push heroku master
-* heroku run rails db:migrate
-* heroku pg:reset                   // reset pg database
-* git remote rm heroku
-* heroku login -i or maybe heroku login -interactive or heroku login --i (if using MFA, need to use authorization token)
-* git remote add heroku [Swap out prod or test endpoint here] 
-* git remote add testheroku git@heroku.com:joppa-api-test.git
-* git remote add heroku git@heroku.com:joppa-api-prod.git
-* or https://git.heroku.com/joppa-ui-test.git
-* git remote -v
-* heroku psql --app {app_name}      way to log in to database to run SQL commands
-* 
-* IF IT COMPLAINS ABOUT VERSION NOT HIGH ENOUGH FOR CLIENT
-* nvm install 8.3
-* nvm use 8.3
-* npm install -g heroku
-* 
-* 
-* to restart the database fresh, do heroku run rails db:migrate:reset
+The project is pinned to Ruby 3.1.2 in the Gemfile and should be run with that version.
 
-* to test in the terminal, then open new terminal window and make curl commands from users_controller.rb
-* rails server -b $IP -p $PORT
-* 
+### 3) Install Bundler
 
-* ISSUE WITH MULTIPLE HEROKU REPOS
-* heroku pg:reset --app joppa-api-test
-* above line specifies which app to run this command on
-* GIT COMMANDS
-* 
-* git branch                        // gets list of existing branches
-* git checkout myBranch             // if branch already made
-* git checkout -b newBranchName     // creates a new branch with this name based on the current code you see
-* git diff                          // shows uncommitted changes from current branch
-* git add .                         // adds all of your changes
-* git commit -m "the message"       // gets your changes ready to push
-* git push origin newBranchName     // pushes your changes to this new branch on git
-* git checkout master               // checkout master
-* git pull origin master            // pull latest from master
-* git merge [branchName]            // merge test into this locally
-* git push origin master            // push this merge to the git master
+```bash
+gem install bundler
+bundle -v
+```
 
-* git push heroku master            // pushes this current code to heroku master (deploys it)
-* 
+## PostgreSQL setup
 
-*database upgrade instructions:
-* https://stackoverflow.com/questions/51211921/upgrade-hobby-dev-to-hobby-basic-on-heroku
+Start PostgreSQL:
+
+```bash
+sudo service postgresql start
+```
+
+Create the local database user and databases:
+
+```bash
+sudo -u postgres psql
+```
+
+Then run:
+
+```sql
+CREATE USER joppa WITH PASSWORD 'joppa';
+ALTER USER joppa WITH SUPERUSER;
+CREATE DATABASE workspace_development OWNER joppa;
+CREATE DATABASE workspace_test OWNER joppa;
+\q
+```
+
+## Local app configuration
+
+The app uses PostgreSQL with explicit credentials for development and test. Make sure the config file matches the following settings:
+
+```yaml
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  template: template0
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: workspace_development
+  username: joppa
+  password: joppa
+  host: localhost
+
+test:
+  <<: *default
+  database: workspace_test
+  username: joppa
+  password: joppa
+  host: localhost
+
+production:
+  <<: *default
+  database: workspace_production
+  username: workspace
+  password: <%= ENV['WORKSPACE_DATABASE_PASSWORD'] %>
+```
+
+If PostgreSQL is configured with peer authentication for local Unix socket connections, Rails may fail unless you use `host: localhost` and password authentication. This is the most reliable local setup for development.
+
+## Install app dependencies
+
+From the project root:
+
+```bash
+cd ~/JoppaRailsAPI
+bundle install
+```
+
+Set up the database:
+
+```bash
+rails db:setup
+```
+
+If needed:
+
+```bash
+rails db:create
+rails db:migrate
+rails db:seed
+```
+
+## Run the Rails API locally
+
+```bash
+rails server -b 0.0.0.0 -p 3000
+```
+
+The API will be available at:
+
+```text
+http://localhost:3000
+```
+
+## Angular frontend local testing
+
+The Angular frontend expects the API at the local Rails server when developing locally.
+
+In the frontend app, update the development environment to:
+
+```ts
+export const environment = {
+  production: false,
+  api_url: 'http://localhost:3000/'
+};
+```
+
+Then start the UI locally:
+
+```bash
+cd ~/JoppaTest
+npm install
+npm run devStart
+```
+
+This typically starts the Angular app on:
+
+```text
+http://localhost:4200
+```
+
+## Heroku setup
+
+The project historically used Heroku for both test and production deploys.
+
+Install the Heroku CLI in WSL if you need to manage Heroku deployments or run migrations:
+
+```bash
+curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+heroku --version
+heroku login
+```
+
+Add the remotes:
+
+```bash
+git remote add testheroku https://git.heroku.com/joppa-api-test.git
+git remote add heroku https://git.heroku.com/joppa-api-prod.git
+```
+
+Check remotes:
+
+```bash
+git remote -v
+```
+
+Deploy to test:
+
+```bash
+git push testheroku main
+```
+
+Deploy to production:
+
+```bash
+git push heroku main
+```
+
+Run migrations:
+
+```bash
+heroku run rails db:migrate --app joppa-api-test
+heroku run rails db:migrate --app joppa-api-prod
+```
+
+## Useful commands
+
+```bash
+rails routes
+rails console
+bundle install
+spring stop
+```
+
+## Notes
+
+- Cloud9 is deprecated and should not be used for ongoing development.
+- WSL2 + Ubuntu is the preferred local setup for this project.
+- The app should be developed against the Ruby version pinned in the Gemfile, not necessarily the latest Ruby version available.
+- The Heroku CLI is useful when managing deploys, migrations, and remote app config, but local development should still happen in WSL with a local Rails API and local PostgreSQL.
