@@ -56,7 +56,7 @@ class ClientPetsController < ApplicationController
     route_pets
       .select('location_camps.id AS camp_id, client_pets.pet_type, SUM(COALESCE(client_pets.quantity, 1)) AS total_quantity')
       .group('location_camps.id, client_pets.pet_type')
-      .find_each do |record|
+      .each do |record|
         camp_id = record.camp_id
         pet_key = normalize_pet_type_key(record.pet_type)
         per_camp[camp_id] ||= {}
