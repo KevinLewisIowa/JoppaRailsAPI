@@ -8,7 +8,7 @@ class Admin < ApplicationRecord
   validates :password_digest, presence: true, on: :create
   validates :password, presence: true, length: { minimum: 8 }, if: :password_required?
   validates :password, format: {
-    with: /\A(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+=\-\[\]{};':"\\|,.<>\/?])[A-Za-z\d!@#$%^&*()_+=\-\[\]{};':"\\|,.<>\/?]{8,}\z/,
+    with: /\A(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+=\-\[\]{};':"\\|,.<>\/?])[A-Za-z\d !@#$%^&*()_+=\-\[\]{};':"\\|,.<>\/?]{8,}\z/,
     message: "must contain at least one uppercase letter, one number, and one special character"
   }, if: :password_required?
 
