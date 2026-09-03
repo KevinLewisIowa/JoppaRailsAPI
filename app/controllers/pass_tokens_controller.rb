@@ -28,16 +28,7 @@ class PassTokensController < ApplicationController
       theToken = @passwords.api_token
       return render json: { admin: true, volunteer: false, token: theToken }
     end
-    if (@passwords.regular_password == attemptedPassword)
-      if (@passwords.updated_at.to_date != Date.current)
-        newToken = ('a'..'z').to_a.shuffle[0,8].join
-        @passwords.api_token = newToken
-        @passwords.save
-      end
-      theToken = @passwords.api_token
-      return render json: {admin: false, volunteer: false, token: theToken }
-    end
-    if (@passwords.volunteer_password == attemptedPassword)
+    if (@passwords.regular_password == attemptedPassword || @passwords.volunteer_password == attemptedPassword)
       if (@passwords.updated_at.to_date != Date.current)
         newToken = ('a'..'z').to_a.shuffle[0,8].join
         @passwords.api_token = newToken
