@@ -53,12 +53,17 @@ class RequestedItemsController < ApplicationController
   
   #GET /getItemsByClientAndDate?clientId={client_id}&fromDate={from_Date}&toDate={to_date}
   def getItemsByClientAndDate
+    begin
+      end_date = Date.parse(params[:toDate].to_s).next_day(1)
+    rescue ArgumentError
+      return render json: { message: 'Invalid toDate' }, status: :unprocessable_entity
+    end
     @client_id = params[:clientId]
     @items = [];
     if @client_id == 'ALLCLIENTS'
-      @items = RequestedItem.where('date_requested BETWEEN ? AND ?', params[:fromDate], Date.parse(params[:toDate]).next_day(1))
+      @items = RequestedItem.where('date_requested BETWEEN ? AND ?', params[:fromDate], end_date)
     else
-      @items = RequestedItem.where('client_id = ? AND date_requested BETWEEN ? AND ?', params[:clientId], params[:fromDate], Date.parse(params[:toDate]).next_day(1))
+      @items = RequestedItem.where('client_id = ? AND date_requested BETWEEN ? AND ?', params[:clientId], params[:fromDate], end_date)
     end
       
     render json: @items

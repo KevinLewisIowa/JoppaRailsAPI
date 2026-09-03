@@ -34,7 +34,11 @@ class AdminController < ApplicationController
   # GET /getAdminRouteUnfulfilledPrayerRequestsNeeds?filterDate={date|
   def getAdminRouteUnfulfilledPrayerRequestsNeeds
     filter_date = params[:filterDate]
-    date = Date.parse(filter_date)
+    begin
+      date = Date.parse(filter_date.to_s)
+    rescue ArgumentError
+      return render json: { message: 'Invalid filterDate' }, status: :unprocessable_entity
+    end
     #test deploy comment
     
     # Fetch prayer requests
@@ -69,8 +73,12 @@ class AdminController < ApplicationController
   
   # GET /getOverallAttendanceReport?startDate&endDate
   def getOverallAttendanceReport
-      @startDate = Date.strptime(params[:startDate], '%m/%d/%y');
-      @endDate = Date.strptime(params[:endDate], '%m/%d/%y') + 1;
+      begin
+        @startDate = Date.parse(params[:startDate].to_s)
+        @endDate = Date.parse(params[:endDate].to_s) + 1
+      rescue ArgumentError
+        return render json: { message: 'Invalid attendance date' }, status: :unprocessable_entity
+      end
       
       @servicedIndividual = ClientInteraction.where('serviced = ?', true).where('client_interactions.created_at > ?', @startDate).where('client_interactions.created_at <= ?',@endDate).count
       @householdsServiced = ClientInteraction.joins('LEFT JOIN clients as c on c.id = client_id').where('serviced = ?', true).where('client_interactions.created_at > ?', @startDate).where('client_interactions.created_at <= ?',@endDate).select('DISTINCT c.household_id').count

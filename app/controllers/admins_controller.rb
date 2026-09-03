@@ -14,6 +14,11 @@ class AdminsController < ApplicationController
     render json: admin_json(@admin), status: :ok
   end
 
+  # GET /admin_profile
+  def profile
+    render json: admin_json(current_admin), status: :ok
+  end
+
   # POST /admins
   def create
     temp_password = Admin.new.generate_temp_password
