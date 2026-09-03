@@ -1,5 +1,4 @@
 class AdminsController < ApplicationController
-  skip_before_action :verify_authenticity_token
   before_action :authenticate_admin!
   before_action :authorize_super_admin!, except: [:show, :update_own_profile]
   before_action :set_admin, only: [:show, :update, :destroy, :reset_password]
