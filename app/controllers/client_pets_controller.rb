@@ -45,7 +45,8 @@ class ClientPetsController < ApplicationController
       return render json: { message: 'invalid-token' }
     end
 
-    route_pets = ClientPet.joins(client: :location_camp)
+    route_pets = ClientPet.joins('INNER JOIN clients ON clients.id = client_pets.client_id')
+                .joins('INNER JOIN location_camps ON location_camps.id = clients.current_camp_id')
                           .where('location_camps.route_id = ? AND clients.status = ? AND location_camps.is_active = ?', params[:routeId], 'Active', true)
 
     totals = route_pets.group(:pet_type).sum(:quantity)
