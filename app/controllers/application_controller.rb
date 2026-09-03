@@ -10,15 +10,21 @@ class ApplicationController < ActionController::API
     return render_unauthorized("No token provided") if token.blank?
 
     admin_token = AdminToken.find_by(token: token)
-    return render_unauthorized("Invalid token") if admin_token.blank?
+    if admin_token.present?
+      if admin_token.expired?
+        admin_token.destroy
+        return render_unauthorized("Token expired", "token-expired")
+      end
 
-    if admin_token.expired?
-      admin_token.destroy
-      return render_unauthorized("Token expired", "token-expired")
+      @current_admin = admin_token.admin
+      return render_unauthorized("Admin not found or inactive") unless @current_admin&.active?
+      return
     end
 
-    @current_admin = admin_token.admin
-    return render_unauthorized("Admin not found or inactive") unless @current_admin&.active?
+    # Legacy volunteer and admin logins share the PassToken API token.
+    return if PassToken.exists?(api_token: token)
+
+    render_unauthorized("Invalid token")
   end
 
   def authorize_super_admin!
