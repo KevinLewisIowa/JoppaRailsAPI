@@ -4,6 +4,55 @@ This repository is the Rails API for the Joppa application.
 
 The project is intended to run in a standard local Linux development environment, using WSL2 on Windows when needed. It is not tied to AWS Cloud9, and Cloud9 should not be used as the long-term development platform.
 
+## Quick start
+
+If you are setting up this project for the first time on a Windows machine, the simplest path is:
+
+```bash
+# in Ubuntu/WSL
+sudo apt update
+sudo apt install -y build-essential curl git libssl-dev libyaml-dev libreadline-dev zlib1g-dev libpq-dev postgresql postgresql-contrib
+
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+source ~/.bashrc
+
+rbenv install 3.1.2
+rbenv global 3.1.2
+
+gem install bundler
+
+sudo service postgresql start
+sudo -u postgres psql
+```
+
+Then inside PostgreSQL:
+
+```sql
+CREATE USER joppa WITH PASSWORD 'joppa';
+ALTER USER joppa WITH SUPERUSER;
+CREATE DATABASE workspace_development OWNER joppa;
+CREATE DATABASE workspace_test OWNER joppa;
+\q
+```
+
+Then in the app directory:
+
+```bash
+cd ~/JoppaRailsAPI
+bundle install
+rails db:setup
+rails server -b 0.0.0.0 -p 3000
+```
+
+The API should start successfully on:
+
+```text
+http://localhost:3000
+```
+
 ## Requirements
 
 - Ruby 3.1.2
