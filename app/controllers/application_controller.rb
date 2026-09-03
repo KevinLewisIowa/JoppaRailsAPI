@@ -26,7 +26,8 @@ class ApplicationController < ActionController::API
   end
 
   def skip_admin_auth?
-    action_name.in?(['create']) && controller_name == 'admin_logins'
+    (controller_name == 'admin_logins' && action_name == 'create') ||
+      (controller_name == 'pass_tokens' && action_name == 'attemptLogin')
   end
 
   private
