@@ -1,5 +1,5 @@
 class AdminLoginsController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  # no explicit CSRF skip needed for API login endpoint
   before_action :set_admin, only: [:create]
 
   # POST /admin_login

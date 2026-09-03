@@ -39,17 +39,19 @@ class Admin < ApplicationRecord
 
   def generate_temp_password
     require 'securerandom'
-    # Generate a 12-character password with uppercase, lowercase, number, and special char
+    # Generate a 12-character password with uppercase, lowercase, number, and special char.
     chars_lower = ('a'..'z').to_a
     chars_upper = ('A'..'Z').to_a
     chars_digit = ('0'..'9').to_a
     chars_special = ['!', '@', '#', '$', '%', '^', '&', '*']
+
+    base62 = chars_lower + chars_upper + chars_digit
     
     password = [
       chars_upper.sample,
       chars_digit.sample,
       chars_special.sample,
-      *SecureRandom.random_bytes(9).bytes.map { |b| (b % 62).to_s(62) }
+      *Array.new(9) { base62[SecureRandom.random_number(base62.length)] }
     ].shuffle.join
     
     password

@@ -18,7 +18,7 @@ class AdminToken < ApplicationRecord
     expires_at <= Time.current
   end
 
-  def valid?
-    !expired?
+  def valid?(context = nil)
+    super(context) && !expired?
   end
 end
