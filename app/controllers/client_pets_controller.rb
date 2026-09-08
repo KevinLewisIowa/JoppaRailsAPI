@@ -39,23 +39,18 @@ class ClientPetsController < ApplicationController
 
   # GET /getRoutePetCounts?routeId={route_id}
   def getRoutePetCounts
-    apiToken = request.headers['Authorization']
-    passwordAndToken = PassToken.find(1)
-    if passwordAndToken.api_token != apiToken
-      return render json: { message: 'invalid-token' }
-    end
-
-    route_pets = ClientPet.joins(client: :location_camp)
+    route_pets = ClientPet.joins('INNER JOIN clients ON clients.id = client_pets.client_id')
+                .joins('INNER JOIN location_camps ON location_camps.id = clients.current_camp_id')
                           .where('location_camps.route_id = ? AND clients.status = ? AND location_camps.is_active = ?', params[:routeId], 'Active', true)
 
-    totals = route_pets.group(:pet_type).sum(:quantity)
+    totals = route_pets.group(:pet_type).sum('COALESCE(client_pets.quantity, 1)')
     totals = totals.transform_keys { |pet_type| normalize_pet_type_key(pet_type) }
 
     per_camp = {}
     route_pets
       .select('location_camps.id AS camp_id, client_pets.pet_type, SUM(COALESCE(client_pets.quantity, 1)) AS total_quantity')
       .group('location_camps.id, client_pets.pet_type')
-      .find_each do |record|
+      .each do |record|
         camp_id = record.camp_id
         pet_key = normalize_pet_type_key(record.pet_type)
         per_camp[camp_id] ||= {}

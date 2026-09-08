@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  # Admin authentication routes
+  post 'admin_login' => 'admin_logins#create'
+  resources :admins, only: [:index, :show, :create, :update, :destroy]
+  post 'admins/:id/reset_password' => 'admins#reset_password'
+  get 'admin_profile' => 'admins#profile'
+  patch 'admin_profile/change_password' => 'admins#change_password'
+
   resources :client_release_acknowledgements
   resources :client_barriers
   resources :authorized_mail_accesses
@@ -144,7 +151,5 @@ Rails.application.routes.draw do
   resources :clients
   resources :routes
   resources :users
-  resources :route_instances
-  resources :client_tents
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

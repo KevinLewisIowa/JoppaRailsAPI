@@ -25,14 +25,23 @@ class RouteInstancesController < ApplicationController
   def getRouteInstancesForDate
     @date = params[:date]
     @routeId = params[:routeId].to_i
-    @route_instances = RouteInstance.where('start_time >= ? AND start_time < ? AND route_id = ?', @date, Date.parse(@date) + 1, @routeId.to_i)
+    begin
+      date = Date.parse(@date.to_s)
+    rescue ArgumentError, TypeError
+      return render json: { message: 'Invalid date' }, status: :unprocessable_entity
+    end
+    @route_instances = RouteInstance.where('start_time >= ? AND start_time < ? AND route_id = ?', @date, date + 1, @routeId.to_i)
     render json: @route_instances
   end
   
   # GET /getActiveRouteInstanceForRoute?routeId={routeId}&heatRoute={heatRoute}
   def getActiveRouteInstanceForRoute
     @routeId = params[:routeId].to_i
-    @heatRoute = to_b(params[:heatRoute])
+    begin
+      @heatRoute = to_b(params[:heatRoute])
+    rescue RuntimeError
+      return render json: { message: 'Invalid heatRoute' }, status: :unprocessable_entity
+    end
     @route_instance = RouteInstance.where('end_time IS NULL AND route_id = ? AND heat_route = ?', @routeId, @heatRoute)
     render json: @route_instance
   end

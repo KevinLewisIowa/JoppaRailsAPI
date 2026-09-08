@@ -28,7 +28,7 @@ class ClientsController < ApplicationController
   # GET /clientLikes?clientId={id}
   def getClientLikes
     likes = []
-    ClientLike.find_by(client_id: params[:clientId]).find_each do |like|
+    ClientLike.where(client_id: params[:clientId]).find_each do |like|
       likes.push(like)
     end
     @likes = likes
@@ -60,7 +60,7 @@ class ClientsController < ApplicationController
   # GET /getClientDislikes?clientId={id}
   def getClientDislikes
     client_dislikes = []
-    ClientDislike.find_by(client_id: params[:clientId]).find_each do |dislike|
+    ClientDislike.where(client_id: params[:clientId]).find_each do |dislike|
       client_dislikes.push(dislike)
     end
     @dislikes = client_dislikes
@@ -71,12 +71,12 @@ class ClientsController < ApplicationController
   # GET /getClientGoals?clientId={id}
   def getClientGoals
     client_goals = []
-    GoalsAndNextStep.find_by(client_id: params[:clientId]).find_each do |goal|
+    GoalsAndNextStep.where(client_id: params[:clientId]).find_each do |goal|
       client_goals.push(goal)
     end
     @goals = client_goals
     
-    render json: @dislikes
+    render json: @goals
   end
   
   # GET /getClientsByBirthMonth?monthInt={id}
@@ -93,7 +93,7 @@ class ClientsController < ApplicationController
   # GET /getClientPrayerRequests?clientId={id}
   def getClientPrayerRequests
     requests = []
-    PrayerRequestAndNeed.find_by(client_id: params[:clientId]).find_each do |request|
+    PrayerRequestAndNeed.where(client_id: params[:clientId]).find_each do |request|
       requests.push(request)
     end
     @requests = requests

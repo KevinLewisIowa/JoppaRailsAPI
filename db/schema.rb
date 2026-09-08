@@ -10,10 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_05_20_000000) do
+ActiveRecord::Schema.define(version: 2026_08_14_000003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admin_audit_logs", force: :cascade do |t|
+    t.bigint "admin_id", null: false
+    t.integer "action", null: false
+    t.string "ip_address"
+    t.string "user_agent"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_id", "created_at"], name: "index_admin_audit_logs_on_admin_id_and_created_at"
+    t.index ["admin_id"], name: "index_admin_audit_logs_on_admin_id"
+  end
+
+  create_table "admin_tokens", force: :cascade do |t|
+    t.bigint "admin_id", null: false
+    t.string "token", null: false
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_id"], name: "index_admin_tokens_on_admin_id"
+    t.index ["expires_at"], name: "index_admin_tokens_on_expires_at"
+    t.index ["token"], name: "index_admin_tokens_on_token", unique: true
+  end
+
+  create_table "admins", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.integer "role", default: 0, null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.boolean "requires_password_change", default: true
+    t.datetime "last_login_at"
+    t.string "last_login_ip"
+    t.boolean "active", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_admins_on_email", unique: true
+  end
 
   create_table "authorized_mail_accesses", force: :cascade do |t|
     t.bigint "mailbox_id", null: false
@@ -508,6 +545,8 @@ ActiveRecord::Schema.define(version: 2026_05_20_000000) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "admin_audit_logs", "admins"
+  add_foreign_key "admin_tokens", "admins"
   add_foreign_key "authorized_mail_accesses", "client_mailboxes", column: "mailbox_id"
   add_foreign_key "client_mailboxes", "clients"
 end

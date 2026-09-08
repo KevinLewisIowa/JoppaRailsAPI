@@ -51,12 +51,6 @@ class LocationCampsController < ApplicationController
   
   # GET /campsForRoute?routeId={route_id}
   def getCampsForRoute
-    apiToken = request.headers['Authorization']
-    passwordAndToken = PassToken.find(1)
-    if passwordAndToken.api_token != apiToken
-      return render json: {message: 'invalid-token'}
-    end
-    
     camps = []
     LocationCamp.where('route_id = ? AND is_active = ?', params[:routeId], true).find_each do |camp|
       camps.push(camp)
@@ -68,12 +62,6 @@ class LocationCampsController < ApplicationController
   
   # GET /clientCountForRoute?routeId={route_id}
   def getClientCountForRoute
-    apiToken = request.headers['Authorization']
-    passwordAndToken = PassToken.find(1)
-    if passwordAndToken.api_token != apiToken
-      return render json: {message: 'invalid-token'}
-    end
-    
     clients = []
     
     Client.joins('JOIN location_camps lc ON clients.current_camp_id = lc.id').where('lc.route_id = ? AND status = ? AND lc.is_active = ?', params[:routeId], 'Active', true).find_each do |client|
@@ -86,11 +74,6 @@ class LocationCampsController < ApplicationController
   
   # GET /clientsForCamp?locationCampId={location_camp_id}
   def getClientsForCamp
-    apiToken = request.headers['Authorization']
-    passwordAndToken = PassToken.find(1)
-    if passwordAndToken.api_token != apiToken
-      return render json: {message: 'invalid-token'}
-    end
     clients = [];
     Client.where('current_camp_id = ? AND status = ?', params[:locationCampId], 'Active').order(first_name: :asc).find_each do |client|
       clients.push(client)
@@ -102,11 +85,6 @@ class LocationCampsController < ApplicationController
   
   # /getRouteCampsLongLat?routeId={id}
   def getRouteCampsLongLat
-    apiToken = request.headers['Authorization']
-    passwordAndToken = PassToken.find(1)
-    if passwordAndToken.api_token != apiToken
-      return render json: {message: 'invalid-token'}
-    end
     @routeCampsLongLat = LocationCamp.where('route_id = ? AND is_active = ?', params[:routeId], true).select("location_camps.name, location_camps.longitude, location_camps.latitude")
     
     render json: @routeCampsLongLat

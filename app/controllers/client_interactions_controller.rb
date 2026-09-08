@@ -22,15 +22,25 @@ class ClientInteractionsController < ApplicationController
   
   # GET /seen_and_serviced_report?fromDate={fromDate}&toDate={toDate}
   def seen_and_serviced_report
+    begin
+      end_date = Date.parse(params[:toDate].to_s).next_day(1)
+    rescue ArgumentError
+      return render json: { message: 'Invalid toDate' }, status: :unprocessable_entity
+    end
     #attendance_records = [];
-    @seen_and_serviced_report = ClientInteraction.joins('LEFT JOIN clients c ON client_interactions.client_id = c.id LEFT JOIN location_camps lc ON client_interactions.location_camp_id = lc.id LEFT JOIN routes r ON lc.route_id = r.id').where('client_interactions.serviced_date BETWEEN ? AND ?', params[:fromDate], Date.parse(params[:toDate]).next_day(1)).select('r.name, client_interactions.*, c.first_name, c.preferred_name, c.last_name, lc.name AS camp_name').order('r.id, client_interactions.serviced_date')
+    @seen_and_serviced_report = ClientInteraction.joins('LEFT JOIN clients c ON client_interactions.client_id = c.id LEFT JOIN location_camps lc ON client_interactions.location_camp_id = lc.id LEFT JOIN routes r ON lc.route_id = r.id').where('client_interactions.serviced_date BETWEEN ? AND ?', params[:fromDate], end_date).select('r.name, client_interactions.*, c.first_name, c.preferred_name, c.last_name, lc.name AS camp_name').order('r.id, client_interactions.serviced_date')
       
     render json: @seen_and_serviced_report
   end
   
   # GET /clientAttendanceHistory?clientId={clientId}&fromDate={fromDate}&toDate={toDate}
   def clientAttendanceHistory
-    @seen_and_serviced_report = ClientInteraction.joins('JOIN location_camps lc ON client_interactions.location_camp_id = lc.id JOIN routes r ON lc.route_id = r.id').where('client_interactions.client_id = ? AND client_interactions.serviced_date BETWEEN ? AND ?', params[:clientId], params[:fromDate], Date.parse(params[:toDate]).next_day(1)).select('client_interactions.*, lc.name AS camp_name, r.name').order('client_interactions.serviced_date')
+    begin
+      end_date = Date.parse(params[:toDate].to_s).next_day(1)
+    rescue ArgumentError
+      return render json: { message: 'Invalid toDate' }, status: :unprocessable_entity
+    end
+    @seen_and_serviced_report = ClientInteraction.joins('JOIN location_camps lc ON client_interactions.location_camp_id = lc.id JOIN routes r ON lc.route_id = r.id').where('client_interactions.client_id = ? AND client_interactions.serviced_date BETWEEN ? AND ?', params[:clientId], params[:fromDate], end_date).select('client_interactions.*, lc.name AS camp_name, r.name').order('client_interactions.serviced_date')
     
     render json: @seen_and_serviced_report
   end

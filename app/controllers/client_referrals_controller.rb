@@ -26,7 +26,12 @@ class ClientReferralsController < ApplicationController
   
   # GET /client_referrals_report?fromDate={fromDate}&toDate={toDate}
   def client_referrals_report
-    @client_referrals_report = ClientReferral.joins('LEFT JOIN clients c ON client_referrals.client_id = c.id').where('client_referrals.created_at BETWEEN ? AND ?', params[:fromDate], Date.parse(params[:toDate]).next_day(1)).select('client_referrals.client_id, c.first_name, c.preferred_name, c.last_name, client_referrals.created_at, client_referrals.referral_type, client_referrals.quantity, client_referrals.notes').order('client_referrals.created_at')
+    begin
+      end_date = Date.parse(params[:toDate].to_s).next_day(1)
+    rescue ArgumentError
+      return render json: { message: 'Invalid toDate' }, status: :unprocessable_entity
+    end
+    @client_referrals_report = ClientReferral.joins('LEFT JOIN clients c ON client_referrals.client_id = c.id').where('client_referrals.created_at BETWEEN ? AND ?', params[:fromDate], end_date).select('client_referrals.client_id, c.first_name, c.preferred_name, c.last_name, client_referrals.created_at, client_referrals.referral_type, client_referrals.quantity, client_referrals.notes').order('client_referrals.created_at')
     
     render json: @client_referrals_report
   end

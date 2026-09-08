@@ -40,11 +40,6 @@ class LocationCampNotesController < ApplicationController
   
   # GET /getCampNotes?location_camp_id={id}
   def getCampNotes
-    apiToken = request.headers['Authorization']
-    passwordAndToken = PassToken.find(1)
-    if passwordAndToken.api_token != apiToken
-      return render json: {message: 'invalid-token'}
-    end
     @campnotes = LocationCampNote.where('location_camp_id = ?', params[:locationCampId]);
     
     render json: @campnotes
