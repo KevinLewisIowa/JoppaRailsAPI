@@ -7,7 +7,7 @@ namespace :clients do
                     .where.not(last_interaction_date: nil)
 
     count = 0
-    clients.each do |client|
+    clients.find_each(batch_size: 500) do |client|
       next if client.last_interaction_date.nil?  # safety guard
       
       days_inactive = (Date.today - client.last_interaction_date.to_date).to_i
