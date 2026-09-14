@@ -53,8 +53,10 @@ class ClientInteractionsController < ApplicationController
     if @client_interaction.save
       if @client_interaction.still_lives_here == true
         @client = Client.find(@client_interaction.client_id)
-        @client.current_camp_id = @client_interaction.location_camp_id
-        @client.save
+        if !@client_interaction.at_homeless_resource_center || @client.current_camp_id.blank? || @client.current_camp_id == 0
+          @client.current_camp_id = @client_interaction.location_camp_id
+          @client.save
+        end
       end
       render json: @client_interaction, status: :created, location: @client_interaction
     else
