@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
   before_action :authenticate_admin!
-  before_action :authorize_super_admin!, except: [:show, :update_own_profile]
+  before_action :authorize_super_admin!, except: [:show, :update_own_profile, :change_password]
   before_action :set_admin, only: [:show, :update, :destroy, :reset_password]
 
   # GET /admins
