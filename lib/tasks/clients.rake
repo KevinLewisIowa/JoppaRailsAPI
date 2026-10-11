@@ -4,7 +4,7 @@ namespace :clients do
     Rails.logger.info "Starting client inactivity check - #{Time.now}"
 
     cutoff_date = 90.days.ago
-    count = Client.where(status: 'Active')
+    count = Client.where(status: 'Active', is_aftercare: [false, nil])
                   .where('last_interaction_date < ?', cutoff_date)
                   .update_all(status: 'Inactive', current_camp_id: 0)
 
