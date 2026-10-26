@@ -31,6 +31,10 @@ class ApplicationController < ActionController::API
     return render_unauthorized("Only super admins can perform this action") unless current_admin&.super_admin?
   end
 
+  def authorize_admin!
+    return render_unauthorized("Only admins can perform this action") unless current_admin.present?
+  end
+
   def skip_admin_auth?
     (controller_name == 'admin_logins' && action_name == 'create') ||
       (controller_name == 'pass_tokens' && action_name == 'attemptLogin')

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :client_next_of_kins
   resources :client_incomes
   resources :client_homeless_histories
+  resources :client_disability_and_disorders
   resources :client_circle_of_friends
   resources :client_dwellings
   resources :location_camp_notes
@@ -53,6 +54,7 @@ Rails.application.routes.draw do
   get       'getClientGoals'      => 'clients#getClientGoals'
   get       'getClientPrayerRequests' => 'clients#getClientPrayerRequests'
   get       'getClientHealthConcerns' => 'health_concerns#getClientHealthConcerns'
+  get       'getClientDisabilityAndDisorders' => 'client_disability_and_disorders#getClientDisabilityAndDisorders'
   get       'getClientRequestedItem' => 'clients#getClientRequestedItem'
   get       'getClientPets' => 'clients#getClientPets'
   get       'getRoutePetCounts' => 'client_pets#getRoutePetCounts'
