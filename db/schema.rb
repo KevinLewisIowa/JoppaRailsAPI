@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_08_14_000003) do
+ActiveRecord::Schema.define(version: 2026_10_25_000001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,20 @@ ActiveRecord::Schema.define(version: 2026_08_14_000003) do
     t.string "notes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "client_disability_and_disorders", force: :cascade do |t|
+    t.integer "client_id", null: false
+    t.string "category", null: false
+    t.string "diagnosis_status"
+    t.string "type_name"
+    t.integer "year_diagnosed"
+    t.string "clinically_diagnosed"
+    t.text "note"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category"], name: "index_client_disability_and_disorders_on_category"
+    t.index ["client_id"], name: "index_client_disability_and_disorders_on_client_id"
   end
 
   create_table "client_dislikes", id: :serial, force: :cascade do |t|
