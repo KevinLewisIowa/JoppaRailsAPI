@@ -64,6 +64,10 @@ class Client < ApplicationRecord
                                          foreign_key: :client_id,
                                          dependent: :destroy
 
+    has_many :client_vital_records, class_name: "ClientVitalRecord",
+                                    foreign_key: :client_id,
+                                    dependent: :destroy
+
     has_many :client_disability_and_disorders, class_name: "ClientDisabilityAndDisorder",
                                               foreign_key: :client_id,
                                               dependent: :destroy

@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   patch 'admin_profile/change_password' => 'admins#change_password'
 
   resources :client_release_acknowledgements
+  resources :client_vital_records, only: [:create, :update]
+  get 'getClientVitalRecords' => 'client_vital_records#getClientVitalRecords'
+  patch 'client_vital_records/:id/retrieve' => 'client_vital_records#retrieve'
   resources :client_barriers
   resources :authorized_mail_accesses
   resources :client_mailboxes
