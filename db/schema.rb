@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_10_25_000001) do
+ActiveRecord::Schema.define(version: 2026_10_26_000000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -330,6 +330,18 @@ ActiveRecord::Schema.define(version: 2026_10_25_000001) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "client_vital_records", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.string "document_type", null: false
+    t.text "notes"
+    t.date "entered_on", null: false
+    t.boolean "signed_agreement", default: false, null: false
+    t.date "retrieved_on"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_client_vital_records_on_client_id"
+  end
+
   create_table "clients", id: :serial, force: :cascade do |t|
     t.string "preferred_name"
     t.boolean "is_veteran"
@@ -563,4 +575,5 @@ ActiveRecord::Schema.define(version: 2026_10_25_000001) do
   add_foreign_key "admin_tokens", "admins"
   add_foreign_key "authorized_mail_accesses", "client_mailboxes", column: "mailbox_id"
   add_foreign_key "client_mailboxes", "clients"
+  add_foreign_key "client_vital_records", "clients"
 end
