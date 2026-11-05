@@ -237,6 +237,75 @@ class ClientsController < ApplicationController
     
     render json: @clientList
   end
+
+  # GET /getPaginatedClients?page=1&page_size=50&query=
+  def getPaginatedClients
+    page = [params[:page].to_i, 1].max
+    requested_page_size = params[:page_size].to_i
+    page_size = (1..100).cover?(requested_page_size) ? requested_page_size : 50
+    query = params[:query].to_s.strip
+
+    clients = Client.joins('LEFT JOIN location_camps lc ON lc.id = clients.current_camp_id')
+                    .joins('LEFT JOIN routes r ON r.id = lc.route_id')
+
+    unless query.blank?
+      search_term = "%#{query}%"
+      clients = clients.where(
+        "concat_ws(' ', clients.first_name, clients.middle_name, clients.last_name) ILIKE :term " \
+        "OR concat_ws(' ', clients.preferred_name, clients.last_name) ILIKE :term " \
+        "OR COALESCE(clients.phone, '') ILIKE :term " \
+        "OR COALESCE(clients.birth_date::text, '') ILIKE :term " \
+        "OR COALESCE(clients.status, '') ILIKE :term " \
+        "OR COALESCE(clients.last_interaction_date::text, '') ILIKE :term " \
+        "OR COALESCE(lc.name, '') ILIKE :term " \
+        "OR COALESCE(r.name, '') ILIKE :term",
+        term: search_term
+      )
+    end
+
+    total = clients.distinct.count('clients.id')
+    sort_columns = {
+      'id' => 'clients.id',
+      'first_name' => 'clients.first_name',
+      'middle_name' => 'clients.middle_name',
+      'last_name' => 'clients.last_name',
+      'preferred_name' => 'clients.preferred_name',
+      'phone' => 'clients.phone',
+      'birth_date' => 'clients.birth_date',
+      'route_name' => 'r.name',
+      'camp_name' => 'lc.name',
+      'status' => 'clients.status',
+      'household_id' => 'clients.household_id',
+      'updated_at' => 'clients.last_interaction_date'
+    }
+    sort_column = sort_columns.fetch(params[:sort_by], 'clients.last_interaction_date')
+    sort_direction = params[:sort_direction] == 'asc' ? 'ASC' : 'DESC'
+    attention_note = <<~SQL.squish
+      (
+        BTRIM(COALESCE(clients.admin_notes, '')) <> '' OR EXISTS (
+          SELECT 1 FROM client_notes
+          WHERE client_notes.client_id = clients.id
+            AND client_notes.source IN ('PINNED NOTE', 'WARNING', 'RESOURCE CENTER ALERT')
+        )
+      ) AS has_attention_note
+    SQL
+
+    client_page = clients
+                   .select(
+                     "clients.id, " \
+                     "(COALESCE(clients.client_picture, '') <> '') AS has_picture, " \
+                     "clients.phone, clients.birth_date, clients.first_name, clients.middle_name, " \
+                     "clients.preferred_name, clients.last_name, clients.status, " \
+                     "clients.last_interaction_date, clients.household_id, clients.admin_notes, " \
+                     "clients.race, clients.ethnicity, lc.name AS camp_name, r.name AS route_name, " \
+                     "#{attention_note}"
+                   )
+                   .order(Arel.sql("#{sort_column} #{sort_direction} NULLS LAST, clients.id ASC"))
+                   .limit(page_size)
+                   .offset((page - 1) * page_size)
+
+    render json: { clients: client_page, total: total }
+  end
   
   def getClientsNewToCamps
     @clients = Client.where('current_camp_id <> previous_camp_id AND previous_camp_id <> 0 AND current_camp_id <> 0')

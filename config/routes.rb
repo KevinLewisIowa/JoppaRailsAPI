@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   get       'getClientsForCamp'  =>  'location_camps#getClientsForCamp'
   get       'getClientCountForRoute'  =>  'location_camps#getClientCountForRoute'
   get       'getClientsByName'    => 'clients#getClientsByName'
+  get       'getPaginatedClients' => 'clients#getPaginatedClients'
   get       'getClientNotesForRoute'  => 'client_notes#getClientNotesForRoute'
   get       'getClientNotesForClient'  => 'client_notes#getClientNotesForClient'
   get       'getClientNotesByDateRange'  => 'client_notes#getClientNotesByDateRange'
