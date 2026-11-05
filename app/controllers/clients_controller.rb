@@ -298,7 +298,10 @@ class ClientsController < ApplicationController
                      "clients.preferred_name, clients.last_name, clients.status, " \
                      "clients.last_interaction_date, clients.household_id, clients.admin_notes, " \
                      "clients.race, clients.ethnicity, lc.name AS camp_name, r.name AS route_name, " \
-                     "#{attention_note}"
+                     "#{attention_note}, " \
+                     "(EXISTS (SELECT 1 FROM heaters WHERE heaters.current_client_id = clients.id AND heaters.heater_status_id = 2) " \
+                     "OR EXISTS (SELECT 1 FROM client_tank_interactions WHERE client_tank_interactions.client_id = clients.id AND client_tank_interactions.status_id = 2) " \
+                     "OR EXISTS (SELECT 1 FROM client_hose_interactions WHERE client_hose_interactions.client_id = clients.id AND client_hose_interactions.heater_status_id = 2)) AS has_heating_equipment"
                    )
                    .order(Arel.sql("#{sort_column} #{sort_direction} NULLS LAST, clients.id ASC"))
                    .limit(page_size)
