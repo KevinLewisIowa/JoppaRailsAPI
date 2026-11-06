@@ -82,6 +82,30 @@ class LocationCampsController < ApplicationController
     
     render json: @clients
   end
+
+  # GET /getClientsForCampSummary?locationCampId={location_camp_id}
+  def getClientsForCampSummary
+    client_columns = (Client.column_names - ['client_picture']).map { |column| "clients.#{column}" }
+    clients = Client.where(current_camp_id: params[:locationCampId], status: 'Active')
+                    .select(
+                      *client_columns,
+                      "(COALESCE(clients.client_picture, '') <> '') AS has_picture, " \
+                      '(SELECT client_dwellings.dwelling FROM client_dwellings ' \
+                      'WHERE client_dwellings.client_id = clients.id ' \
+                      'ORDER BY client_dwellings.created_at DESC, client_dwellings.id DESC LIMIT 1) AS dwelling, ' \
+                      "(BTRIM(COALESCE(clients.admin_notes, '')) <> '' OR EXISTS (" \
+                      "SELECT 1 FROM client_notes WHERE client_notes.client_id = clients.id " \
+                      "AND client_notes.source IN ('PINNED NOTE', 'WARNING', 'RESOURCE CENTER ALERT'))) AS has_attention_note, " \
+                      '(EXISTS (SELECT 1 FROM heaters WHERE heaters.current_client_id = clients.id AND heaters.heater_status_id = 2) ' \
+                      'OR EXISTS (SELECT 1 FROM client_tank_interactions WHERE client_tank_interactions.client_id = clients.id AND client_tank_interactions.status_id = 2) ' \
+                      'OR EXISTS (SELECT 1 FROM client_hose_interactions WHERE client_hose_interactions.client_id = clients.id AND client_hose_interactions.heater_status_id = 2)) AS has_heating_equipment, ' \
+                      '(EXISTS (SELECT 1 FROM requested_items WHERE requested_items.client_id = clients.id ' \
+                      'AND requested_items.fulfilled = TRUE AND requested_items.has_received = FALSE)) AS has_fulfilled_items'
+                    )
+                    .order(first_name: :asc, last_name: :asc, id: :asc)
+
+    render json: clients
+  end
   
   # /getRouteCampsLongLat?routeId={id}
   def getRouteCampsLongLat
@@ -104,6 +128,65 @@ class LocationCampsController < ApplicationController
     @location_camps = location_camps
     
     render json: @location_camps
+  end
+
+  # GET /getPaginatedCampListing?page=1&page_size=50&query=
+  def getPaginatedCampListing
+    page = [params[:page].to_i, 1].max
+    requested_page_size = params[:page_size].to_i
+    page_size = (1..100).cover?(requested_page_size) ? requested_page_size : 50
+    query = params[:query].to_s.strip
+
+    camps = LocationCamp.joins('LEFT JOIN routes r ON location_camps.route_id = r.id')
+    unless query.blank?
+      camps = camps.where(
+        "concat_ws(' ', location_camps.name, r.name, location_camps.notes) ILIKE :term",
+        term: "%#{query}%"
+      )
+    end
+
+    total = camps.distinct.count('location_camps.id')
+    sort_columns = {
+      'camp_name' => 'location_camps.name',
+      'route_name' => 'r.name',
+      'position' => 'location_camps.position',
+      'is_active' => 'location_camps.is_active',
+      'remain_on_route' => 'location_camps.remain_on_route'
+    }
+    sort_column = sort_columns.fetch(params[:sort_by], 'location_camps.name')
+    sort_direction = params[:sort_direction] == 'desc' ? 'DESC' : 'ASC'
+
+    camp_page = camps
+                .select(
+                  'location_camps.id, location_camps.name AS camp_name, location_camps.location_id, ' \
+                  'location_camps.is_active, location_camps.route_id, location_camps.position, ' \
+                  'location_camps.notes, location_camps.longitude, location_camps.latitude, ' \
+                  'location_camps.parking_longitude, location_camps.parking_latitude, ' \
+                  'location_camps.expected_arrival_time, location_camps.admin_notes, ' \
+                  'location_camps.remain_on_route, r.name AS route_name, location_camps.heat_route_only'
+                )
+                .order(Arel.sql("#{sort_column} #{sort_direction} NULLS LAST, location_camps.id ASC"))
+                .limit(page_size)
+                .offset((page - 1) * page_size)
+
+    render json: { camps: camp_page, total: total }
+  end
+
+  # GET /getRouteListing
+  def getRouteListing
+    routes = Route.where(is_active: true)
+                  .select(
+                    'routes.*, ' \
+                    '(SELECT COUNT(*) FROM location_camps WHERE location_camps.route_id = routes.id ' \
+                    'AND location_camps.is_active = TRUE) AS number_stops, ' \
+                    '(SELECT COUNT(*) FROM clients ' \
+                    'INNER JOIN location_camps ON clients.current_camp_id = location_camps.id ' \
+                    'WHERE location_camps.route_id = routes.id AND clients.status = \'Active\' ' \
+                    'AND location_camps.is_active = TRUE) AS number_clients'
+                  )
+                  .order(:name)
+
+    render json: routes
   end
 
   private
