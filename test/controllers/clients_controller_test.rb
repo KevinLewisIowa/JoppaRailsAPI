@@ -28,6 +28,15 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_response 200
   end
 
+  test "should ignore legacy dwelling updates" do
+    @client.update!(dwelling: 'Legacy dwelling')
+
+    patch client_url(@client), params: { client: { dwelling: 'New value that should be ignored' } }, as: :json
+
+    assert_response :success
+    assert_equal 'Legacy dwelling', @client.reload.dwelling
+  end
+
   test "should destroy client" do
     assert_difference('Client.count', -1) do
       delete client_url(@client), as: :json

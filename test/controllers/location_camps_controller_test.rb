@@ -46,12 +46,19 @@ class LocationCampsControllerTest < ActionDispatch::IntegrationTest
 
   test "should return camp clients with summary fields" do
     client = clients(:one)
-    client.update!(first_name: 'CampSummaryTest', status: 'Active', current_camp_id: @location_camp.id)
+    client.update!(
+      first_name: 'CampSummaryTest',
+      status: 'Active',
+      current_camp_id: @location_camp.id,
+      dwelling: 'Legacy dwelling'
+    )
+    ClientDwelling.create!(client_id: client.id, dwelling: 'Tent')
 
     get '/getClientsForCampSummary', params: { locationCampId: @location_camp.id }, as: :json
 
     assert_response :success
     result = JSON.parse(response.body).find { |item| item['id'] == client.id }
+    assert_equal 'Tent', result['current_dwelling']
     assert_equal false, result['has_picture']
     assert_equal false, result['has_attention_note']
     assert_equal false, result['has_heating_equipment']

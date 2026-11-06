@@ -85,14 +85,14 @@ class LocationCampsController < ApplicationController
 
   # GET /getClientsForCampSummary?locationCampId={location_camp_id}
   def getClientsForCampSummary
-    client_columns = (Client.column_names - ['client_picture']).map { |column| "clients.#{column}" }
+    client_columns = (Client.column_names - ['client_picture', 'dwelling']).map { |column| "clients.#{column}" }
     clients = Client.where(current_camp_id: params[:locationCampId], status: 'Active')
                     .select(
                       *client_columns,
                       "(COALESCE(clients.client_picture, '') <> '') AS has_picture, " \
                       '(SELECT client_dwellings.dwelling FROM client_dwellings ' \
                       'WHERE client_dwellings.client_id = clients.id ' \
-                      'ORDER BY client_dwellings.created_at DESC, client_dwellings.id DESC LIMIT 1) AS dwelling, ' \
+                      'ORDER BY client_dwellings.created_at DESC, client_dwellings.id DESC LIMIT 1) AS current_dwelling, ' \
                       "(BTRIM(COALESCE(clients.admin_notes, '')) <> '' OR EXISTS (" \
                       "SELECT 1 FROM client_notes WHERE client_notes.client_id = clients.id " \
                       "AND client_notes.source IN ('PINNED NOTE', 'WARNING', 'RESOURCE CENTER ALERT'))) AS has_attention_note, " \
