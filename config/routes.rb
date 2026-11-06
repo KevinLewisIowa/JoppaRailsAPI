@@ -83,6 +83,8 @@ Rails.application.routes.draw do
   get       'getCampListing' => 'location_camps#getCampListing'
   get       'getPaginatedCampListing' => 'location_camps#getPaginatedCampListing'
   get       'getRouteListing' => 'location_camps#getRouteListing'
+  get       'getRouteOverviewSummary' => 'location_camps#getRouteOverviewSummary'
+  post      'addPetFoodRequestedItems' => 'client_pets#addPetFoodRequestedItems'
   get       'prayerRequestsForClient' => 'prayer_request_and_needs#prayerRequestsForClient'
   get       'likesForClient'        =>  'client_likes#likesForClient'
   get       'dislikesForClient'     =>  'client_dislikes#dislikesForClient'

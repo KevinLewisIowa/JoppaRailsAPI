@@ -189,6 +189,45 @@ class LocationCampsController < ApplicationController
     render json: routes
   end
 
+  # GET /getRouteOverviewSummary?routeId={route_id}&heatRoute=true
+  def getRouteOverviewSummary
+    route = Route.find(params[:routeId])
+    heat_route = ActiveModel::Type::Boolean.new.cast(params[:heatRoute])
+    client_count_condition = "clients.current_camp_id = location_camps.id AND clients.status = 'Active'"
+    if heat_route
+      latest_dwelling = '(SELECT client_dwellings.dwelling FROM client_dwellings ' \
+                        'WHERE client_dwellings.client_id = clients.id ' \
+                        'ORDER BY client_dwellings.created_at DESC, client_dwellings.id DESC LIMIT 1)'
+      client_count_condition += " AND #{latest_dwelling} IN ('Tent', 'Garage', 'Shack', 'Camper', 'Broken Down Van')"
+    end
+
+    camps = LocationCamp.where(route_id: route.id, is_active: true)
+                        .select(
+                          'location_camps.id, location_camps.route_id, location_camps.name, ' \
+                          'location_camps.position, location_camps.heat_route_only, ' \
+                          "(SELECT COUNT(*) FROM clients WHERE #{client_count_condition}) AS number_clients_at_camp"
+                        )
+
+    pet_counts = ClientPet.joins('INNER JOIN clients ON clients.id = client_pets.client_id')
+                          .joins('INNER JOIN location_camps ON location_camps.id = clients.current_camp_id')
+                          .where(
+                            location_camps: { route_id: route.id, is_active: true },
+                            clients: { status: 'Active' }
+                          )
+                          .group('client_pets.pet_type')
+                          .sum('COALESCE(client_pets.quantity, 1)')
+                          .each_with_object(Hash.new(0)) do |(pet_type, quantity), totals|
+      key = pet_type.blank? ? 'unknown' : pet_type.to_s.strip.downcase.pluralize
+      totals[key] += quantity
+    end
+
+    render json: {
+      route: route,
+      camps: camps,
+      pet_counts: { totals: pet_counts }
+    }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_location_camp

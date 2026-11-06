@@ -63,6 +63,32 @@ class ClientPetsController < ApplicationController
     }
   end
 
+  # POST /addPetFoodRequestedItems
+  def addPetFoodRequestedItems
+    requested_pets = ClientPet.joins(:client)
+                              .where(food_requested: true, clients: { status: 'Active' })
+                              .where('clients.current_camp_id > 0 AND clients.current_camp_id NOT IN (?)', [449, 704])
+                              .distinct
+                              .pluck(:client_id, :pet_type)
+
+    requested_date = Date.current
+    requested_at = Time.current
+    requested_item_rows = requested_pets.map do |client_id, pet_type|
+      {
+        client_id: client_id,
+        date_requested: requested_date,
+        fulfilled: false,
+        has_received: false,
+        item_description: "#{pet_type} Food",
+        created_at: requested_at,
+        updated_at: requested_at
+      }
+    end
+    RequestedItem.insert_all!(requested_item_rows) if requested_item_rows.any?
+
+    render json: { created_count: requested_item_rows.length }
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
