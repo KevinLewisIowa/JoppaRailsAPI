@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :update, :destroy]
+  before_action :authorize_admin!, only: [:updateInactiveClients]
 
   # GET /clients
   def index
@@ -314,6 +315,26 @@ class ClientsController < ApplicationController
     @clients = Client.where('current_camp_id <> previous_camp_id AND previous_camp_id <> 0 AND current_camp_id <> 0')
     
     render json: @clients
+  end
+
+  # POST /updateInactiveClients?inactivityLimit=90
+  def updateInactiveClients
+    inactivity_limit = params.fetch(:inactivityLimit, 90).to_i
+    unless (1..3650).cover?(inactivity_limit)
+      return render json: { message: 'inactivityLimit must be between 1 and 3650' }, status: :unprocessable_entity
+    end
+
+    cutoff = Time.current - inactivity_limit.days
+    inactive_clients = Client.where(status: 'Active')
+                             .where('(is_aftercare IS NULL OR is_aftercare = FALSE)')
+                             .where('last_interaction_date IS NULL OR last_interaction_date < ?', cutoff)
+    updated_count = inactive_clients.update_all(
+      status: 'Inactive',
+      current_camp_id: 0,
+      updated_at: Time.current
+    )
+
+    render json: { updated_count: updated_count }
   end
 
   private
