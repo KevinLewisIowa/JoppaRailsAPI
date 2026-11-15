@@ -4,6 +4,8 @@
 
 `GET /getClientVitalRecords?clientId=<id>` currently accepts either a valid admin token or a legacy shared `PassToken`. Create, update, and retrieve actions remain admin-only. This is a temporary compatibility measure for the dashboard.
 
+`GET /getClientVitalRecordsByDate` is an admin-only all-client report endpoint. It requires `fromDate` and `toDate` in `YYYY-MM-DD` format, filters by `entered_on`, and returns cursor-paginated results (100 records by default, maximum 500). Pass both `afterEnteredOn` and `afterId` from `nextCursor` to retrieve the next page. It does not calculate a total count or load the full matching set into memory.
+
 The shared-token read path is broader than dashboard-specific access: anyone holding a valid shared token who knows a client ID can request that client's Vital Records. These records may include sensitive identity-document information. Do not treat the shared token as the long-term authorization design.
 
 `AdminToken` is issued by `POST /admin_login`, expires after seven days, and currently has no endpoint-level permission scopes. Reusing one administrator's token for all dashboard users would give the dashboard broad admin authority and make activity attributable to that one account rather than to the actual user.

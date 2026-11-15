@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :client_release_acknowledgements
   resources :client_vital_records, only: [:create, :update]
   get 'getClientVitalRecords' => 'client_vital_records#getClientVitalRecords'
+  get 'getClientVitalRecordsByDate' => 'client_vital_records#getClientVitalRecordsByDate'
   patch 'client_vital_records/:id/retrieve' => 'client_vital_records#retrieve'
   resources :client_barriers
   resources :authorized_mail_accesses

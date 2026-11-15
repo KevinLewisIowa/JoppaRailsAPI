@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_10_26_000000) do
+ActiveRecord::Schema.define(version: 2026_11_14_000000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -340,6 +340,7 @@ ActiveRecord::Schema.define(version: 2026_10_26_000000) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_client_vital_records_on_client_id"
+    t.index ["entered_on", "id"], name: "index_client_vital_records_on_entered_on_and_id"
   end
 
   create_table "clients", id: :serial, force: :cascade do |t|
