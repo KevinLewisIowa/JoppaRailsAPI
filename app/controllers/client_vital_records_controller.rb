@@ -1,5 +1,5 @@
 class ClientVitalRecordsController < ApplicationController
-  before_action :authorize_admin!
+  before_action :authorize_admin!, only: [:create, :update, :retrieve]
   before_action :set_client_vital_record, only: [:update, :retrieve]
 
   def create
