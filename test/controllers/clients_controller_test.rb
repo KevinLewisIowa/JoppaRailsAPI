@@ -37,7 +37,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'Legacy dwelling', @client.reload.dwelling
   end
 
-  test "should bulk deactivate clients past the inactivity limit and preserve aftercare clients" do
+  test "should bulk deactivate outreach clients past the 30-day inactivity limit and preserve aftercare clients" do
     admin = Admin.create!(
       email: 'inactive-updater-admin@example.com',
       password: 'Current1!Pass',
@@ -55,7 +55,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
       first_name: 'InactiveUpdaterTest',
       status: 'Active',
       is_aftercare: false,
-      last_interaction_date: 91.days.ago,
+      last_interaction_date: 31.days.ago,
       current_camp_id: 42
     )
     aftercare_client = clients(:two)
@@ -66,9 +66,17 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
       last_interaction_date: 120.days.ago,
       current_camp_id: 43
     )
+    resource_center_client = Client.create!(
+      first_name: 'ResourceCenterUpdaterTest',
+      last_name: 'Test',
+      status: 'Active',
+      is_aftercare: false,
+      last_interaction_date: 120.days.ago,
+      current_camp_id: 449
+    )
 
     post '/updateInactiveClients',
-      params: { inactivityLimit: 90 },
+      params: { inactivityLimit: 30 },
       headers: { 'Authorization' => token.token },
       as: :json
 
@@ -76,6 +84,50 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, JSON.parse(response.body)['updated_count']
     assert_equal 'Inactive', inactive_client.reload.status
     assert_equal 0, inactive_client.current_camp_id
+    assert_equal 'Active', aftercare_client.reload.status
+    assert_equal 43, aftercare_client.current_camp_id
+    assert_equal 'Active', resource_center_client.reload.status
+    assert_equal 449, resource_center_client.current_camp_id
+  end
+
+  test "should default the inactivity limit to 30 days for outreach clients" do
+    admin = Admin.create!(
+      email: 'inactive-updater-default-admin@example.com',
+      password: 'Current1!Pass',
+      password_confirmation: 'Current1!Pass',
+      role: :admin,
+      active: true
+    )
+    token = AdminToken.create!(
+      admin: admin,
+      token: SecureRandom.hex(16),
+      expires_at: 1.day.from_now
+    )
+    outreach_client = clients(:one)
+    outreach_client.update!(
+      first_name: 'DefaultInactiveUpdaterTest',
+      status: 'Active',
+      is_aftercare: nil,
+      last_interaction_date: 31.days.ago,
+      current_camp_id: 42
+    )
+    aftercare_client = clients(:two)
+    aftercare_client.update!(
+      first_name: 'DefaultAftercareUpdaterTest',
+      status: 'Active',
+      is_aftercare: true,
+      last_interaction_date: 31.days.ago,
+      current_camp_id: 43
+    )
+
+    post '/updateInactiveClients',
+      headers: { 'Authorization' => token.token },
+      as: :json
+
+    assert_response :success
+    assert_equal 1, JSON.parse(response.body)['updated_count']
+    assert_equal 'Inactive', outreach_client.reload.status
+    assert_equal 0, outreach_client.current_camp_id
     assert_equal 'Active', aftercare_client.reload.status
     assert_equal 43, aftercare_client.current_camp_id
   end

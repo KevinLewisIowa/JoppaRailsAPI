@@ -317,9 +317,9 @@ class ClientsController < ApplicationController
     render json: @clients
   end
 
-  # POST /updateInactiveClients?inactivityLimit=90
+  # POST /updateInactiveClients?inactivityLimit=30
   def updateInactiveClients
-    inactivity_limit = params.fetch(:inactivityLimit, 90).to_i
+    inactivity_limit = params.fetch(:inactivityLimit, 30).to_i
     unless (1..3650).cover?(inactivity_limit)
       return render json: { message: 'inactivityLimit must be between 1 and 3650' }, status: :unprocessable_entity
     end
@@ -327,6 +327,7 @@ class ClientsController < ApplicationController
     cutoff = Time.current - inactivity_limit.days
     inactive_clients = Client.where(status: 'Active')
                              .where('(is_aftercare IS NULL OR is_aftercare = FALSE)')
+                             .where('(current_camp_id IS NULL OR current_camp_id <> ?)', 449)
                              .where('last_interaction_date IS NULL OR last_interaction_date < ?', cutoff)
     updated_count = inactive_clients.update_all(
       status: 'Inactive',
