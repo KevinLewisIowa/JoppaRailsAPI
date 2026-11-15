@@ -20,4 +20,16 @@ class ClientDisabilityAndDisorderTest < ActiveSupport::TestCase
 
     assert record.valid?
   end
+
+  test 'persists an in-progress diagnosis with an unknown year' do
+    record = ClientDisabilityAndDisorder.create!(
+      client_id: 1,
+      category: 'physical_disability',
+      diagnosis_status: 'In Progress',
+      type_name: 'Arthritis',
+      year_diagnosed: 'Unknown'
+    )
+
+    assert_equal 'Unknown', record.reload.year_diagnosed
+  end
 end
