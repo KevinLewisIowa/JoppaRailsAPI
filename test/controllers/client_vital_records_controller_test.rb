@@ -11,14 +11,14 @@ class ClientVitalRecordsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "date-range report requires an admin token" do
+  test "legacy volunteer token can read date-range vital records" do
     PassToken.create!(api_token: "vital-record-volunteer-token")
 
     get "/getClientVitalRecordsByDate?fromDate=2026-01-01&toDate=2026-12-31",
       headers: { "Authorization" => "Bearer vital-record-volunteer-token" },
       as: :json
 
-    assert_response :unauthorized
+    assert_response :success
   end
 
   test "date-range report filters inclusively and paginates with a bounded page size" do

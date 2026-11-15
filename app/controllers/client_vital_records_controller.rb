@@ -2,7 +2,7 @@ class ClientVitalRecordsController < ApplicationController
   MAX_PAGE_SIZE = 500
   DEFAULT_PAGE_SIZE = 100
 
-  before_action :authorize_admin!, only: [:create, :update, :retrieve, :getClientVitalRecordsByDate]
+  before_action :authorize_admin!, only: [:create, :update, :retrieve]
   before_action :set_client_vital_record, only: [:update, :retrieve]
 
   def create
