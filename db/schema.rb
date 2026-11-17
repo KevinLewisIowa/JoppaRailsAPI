@@ -233,18 +233,6 @@ ActiveRecord::Schema.define(version: 2026_11_15_000000) do
     t.index ["client_id"], name: "index_client_mailboxes_on_client_id"
   end
 
-  create_table "client_rent_details", force: :cascade do |t|
-    t.bigint "client_id", null: false
-    t.decimal "rent_cost", precision: 10, scale: 2, null: false
-    t.boolean "utilities_included", default: true, null: false
-    t.decimal "utilities_cost", precision: 10, scale: 2
-    t.string "who_is_paying", null: false
-    t.text "note"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["client_id"], name: "index_client_rent_details_on_client_id", unique: true
-  end
-
   create_table "client_next_of_kins", force: :cascade do |t|
     t.integer "client_id"
     t.string "name"
@@ -302,6 +290,18 @@ ActiveRecord::Schema.define(version: 2026_11_15_000000) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "notes"
+  end
+
+  create_table "client_rent_details", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.decimal "rent_cost", precision: 10, scale: 2, null: false
+    t.boolean "utilities_included", default: true, null: false
+    t.decimal "utilities_cost", precision: 10, scale: 2
+    t.string "who_is_paying", null: false
+    t.text "note"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_client_rent_details_on_client_id", unique: true
   end
 
   create_table "client_skills", force: :cascade do |t|
