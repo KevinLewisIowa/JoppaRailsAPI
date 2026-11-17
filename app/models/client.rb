@@ -73,5 +73,6 @@ class Client < ApplicationRecord
                                               dependent: :destroy
                                           
     has_one :client_mailbox, foreign_key: :client_id, dependent: :destroy
+    has_one :client_rent_detail, foreign_key: :client_id, dependent: :destroy
     
 end

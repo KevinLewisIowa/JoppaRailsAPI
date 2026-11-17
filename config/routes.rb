@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :client_barriers
   resources :authorized_mail_accesses
   resources :client_mailboxes
+  resources :client_rent_details, only: [:create, :update]
   resources :client_caseworkers
   resources :client_skills
   resources :client_felonies
@@ -150,6 +151,7 @@ Rails.application.routes.draw do
   get       'getClientCaseworkers'    => 'client_caseworkers#getClientCaseworkers'
   get       'hasPinnedOrWarningNote'  => 'client_notes#hasPinnedOrWarningNote'
   get       'getMailboxForClient' => 'client_mailboxes#getMailboxForClient'
+  get       'getClientRentDetails' => 'client_rent_details#getClientRentDetails'
   get       'getAuthorizedMailAccessors' => 'authorized_mail_accesses#getAuthorizedMailAccessors'
   get       'getClientBarriers' => 'client_barriers#getClientBarriers'
   get       'getClientReleaseAcknowledgements' => 'client_release_acknowledgements#getClientReleaseAcknowledgements'

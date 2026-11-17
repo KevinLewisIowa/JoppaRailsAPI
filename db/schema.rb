@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_11_14_000001) do
+ActiveRecord::Schema.define(version: 2026_11_15_000000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -231,6 +231,18 @@ ActiveRecord::Schema.define(version: 2026_11_14_000001) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "notes"
     t.index ["client_id"], name: "index_client_mailboxes_on_client_id"
+  end
+
+  create_table "client_rent_details", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.decimal "rent_cost", precision: 10, scale: 2, null: false
+    t.boolean "utilities_included", default: true, null: false
+    t.decimal "utilities_cost", precision: 10, scale: 2
+    t.string "who_is_paying", null: false
+    t.text "note"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_client_rent_details_on_client_id", unique: true
   end
 
   create_table "client_next_of_kins", force: :cascade do |t|
@@ -576,5 +588,6 @@ ActiveRecord::Schema.define(version: 2026_11_14_000001) do
   add_foreign_key "admin_tokens", "admins"
   add_foreign_key "authorized_mail_accesses", "client_mailboxes", column: "mailbox_id"
   add_foreign_key "client_mailboxes", "clients"
+  add_foreign_key "client_rent_details", "clients"
   add_foreign_key "client_vital_records", "clients"
 end
